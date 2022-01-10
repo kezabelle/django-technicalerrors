@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex,noimageindex,nofollow,noarchive,nosnippet,nocache">
+    <title>{% if exception_type %}{{ exception_type }}{% else %}An error occurred{% endif %}</title>
+    <link href="/static/tailwind.css" rel="stylesheet" type="text/css" media="all"/>
+    <script type="application/javascript" src="/static/init.js" defer async></script>
+</head>
+<body class="overflow-y-scroll text-gray-500">
+{% if not is_email %}
+<div class="bg-red-700 text-white p-4 text-sm md:text-base  text-center">
+    <p>
+      You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
+      Django settings. When set to <code class="font-bold">False</code>, Django will
+      display a generic template for this status code.
+    </p>
+</div>
+{% endif %}
+<div class="container-fluid bg-red-400 p-10">
+    <div class="container mx-auto bg-white pt-0 rounded">
+        {% if request %}
+        <div class="py-4 px-6 border-b flex flex-row items-start justify-start">
+            <div class="inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-sm text-gray-500 bg-gray-200 rounded">{{ request.META.REQUEST_METHOD }}</div>
+            <div class="px-2 py-1 leading-none text-sm text-gray-500 truncate">{{ request_insecure_uri }}</div>
+        </div>
+        {% endif %}
+        <div class="px-6 py-6">
+            <h1 class="text-3xl text-red-400 font-semibold">{% if exception_type %}{{ exception_type }}{% else %}An error occurred{% endif %}</h1>
+
+            {% if unicode_hint %}
+            <h3 class="text-lg text-red-500 font-semibold">The string that could not be encoded/decoded was: <strong>{{ unicode_hint }}</strong></h3>
+            <h2 class="text-lg text-red-500 font-normal">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</h2>
+            {% elif template_does_not_exist and postmortem %}
+
+                <h2 class="text-lg text-red-400 font-normal">
+                    {% if exception_value %}
+                    Failed to load a template matching <strong>{{ exception_value|force_escape }}</strong>
+                    {% else %}
+                    Failed to load a template
+                    {% endif %}
+                </h2>
+
+            {% elif template_does_not_exist %}
+                <h2 class="text-lg text-red-400 font-normal">No templates were found because your 'TEMPLATES' setting is not configured.</h2>
+            {% else %}
+            <h2 class="text-lg text-red-400 font-normal">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</h2>
+            {% endif %}
+
+        </div>
+
+        <!--
+        {% if lastframe %}
+        <div class="px-10 py-4 bg-red-200">
+            <span class="fname">{{ lastframe.filename }}</span>, line {{ lastframe.lineno }}, in {{ lastframe.function }}
+        </div>
+        {% endif %}
+        -->
+
+        <div class="px-6 py-4 flex flex-row border-t w-full text-gray-500 text-sm">
+            <div class="pr-10">Django {{ django_version_info }}</div>
+            <div class="pr-10 flex-grow">Python {{ sys_version_info }}</div>
+            {% if user_str %}
+            <div class="pr-10 flex-grow-0 text-right">{{ user_str }}</div>
+            {% endif %}
+            <div class="flex-grow-0 text-right">{{ server_time|date:"r" }}</div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid bg-white lg:px-10">
+
+    <div class="container mx-auto py-4">
+
+
+        <ul class="flex flex-col md:flex-row justify-center">
+            {% if template_info or postmortem %}
+            <li data-target="#templates" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4 text-red-500 font-semibold border-b-red-400">
+                Template
+            </li>
+            {% endif %}
+            {% if frames %}
+            <li data-target="#traceback" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+                Traceback
+            </li>
+            {% endif %}
+            <li data-target="#get" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+                Query String
+            </li>
+            <li data-target="#post" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+                Form Data
+            </li>
+            <li data-target="#cookies" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+                Cookies
+            </li>
+            <li data-target="#request_environ" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+                Environment
+            </li>
+            <li data-target="#settings" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+                Settings
+            </li>
+        </ul>
+
+        {% if postmortem %}
+        <section id="templates" class="py-4">
+        <ol class="pt-4">
+        {% for entry in postmortem %}
+                    {% if entry.tried %}
+                        {% for attempt in entry.tried %}
+                        <li class="border-b px-6 py-2"><pre class="text-sm">{{ attempt.0.name }}</pre>
+                            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ entry.backend.name }}</span>
+                            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ attempt.0.loader_name }}</span>
+                            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ attempt.1 }}</span>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="border-b px-6 py-2">
+                            The <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ entry.backend.name }}</span>
+                            backend did not provide a list of tried templates.
+</li>
+                    {% endif %}
+        {% endfor %}
+        </ol>
+        </section>
+        {% endif %}
+
+        {% if frames %}
+        <section id="traceback" class="py-4 {% if template_info or postmortem %}hidden{% endif %}">
+            <ol class="">
+                {% for frame in frames %}
+                    {% ifchanged frame.exc_cause %}
+                    {% if frame.exc_cause %}
+                        <li><strong>
+                        {% if frame.exc_cause_explicit %}
+                            The above exception ({{ frame.exc_cause|force_escape }}) was the direct cause of the following exception:
+                          {% else %}
+                            During handling of {{ frame.exc_cause|force_escape }}, another exception occurred:
+                          {% endif %}
+                        </strong></li>
+                    {% endif %}
+                    {% endifchanged %}
+
+                    {% if frame.tb %}
+                        <li class="">
+                            <div class="flex flex-row py-2 px-6 items-center {% if frame.type == 'user' %}bg-gray-100 text-gray-700{% else %}bg-gray-50 text-gray-400{% endif %}">
+                                <span class="flex-grow truncate">line <code class="font-semibold">{{ frame.lineno }}</code> in <code>{{ frame.filename }}</code></span>
+                                <span class="flex-grow-0 pl-5"><code class="font-semibold">{{ frame.function }}</code></span>
+                            </div>
+                            <div class="{% if frame.type == 'user' %}{% else %}hidden{% endif %}">
+                            {% if frame.context_line %}
+                            {% for line in frame.pre_context %}
+                            {% if line %}<pre class="hidden bg-gray-50 text-gray-500 px-6 overflow-hidden text-ellipsis">{{ line }}</pre>{% endif %}
+                            {% endfor %}
+
+                            <pre class="bg-red-500 text-white px-6 overflow-hidden text-ellipsis">{{ frame.context_line }}</pre>
+
+                            {% if frame.vars %}
+                                <ul class="hidden bg-red-200 text-red-700 px-6 py-2">
+                                <li><strong>Local variables</strong></li>
+                                {% for var_name, var_value in frame.vars|dictsort:0 %}
+                                <li><pre class="truncate">{{ var_name }} = {{ var_value }}</pre></li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+
+                            {% for line in frame.post_context %}
+                            {% if line %}<pre class="hidden bg-gray-50 text-gray-500 px-6 overflow-hidden text-ellipsis">{{ line }}</pre>{% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </section>
+        {% endif %}
+
+
+
+        <section id="get" class="py-4 hidden">
+
+            <ul class="table table-auto w-full max-w-full">
+            {% for var_name, var_value in request_GET_items|dictsort:0 %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b py-2 px-6">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="table-cell border-b py-2 px-6">
+                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                </span>
+            </li>
+            {% empty %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>request.GET</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code>No data</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+        </section>
+        <section id="post" class="py-4 hidden">
+
+            <ul class="table table-auto w-full max-w-full">
+            {% for var_name, var_value in filtered_POST_items|dictsort:0 %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                </span>
+            </li>
+            {% empty %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>request.POST</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code>No data</code>
+                </span>
+            </li>
+            {% endfor %}
+            {% for var_name, var_value in request_FILES_items|dictsort:0 %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                </span>
+            </li>
+            {% empty %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>request.FILES</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code>No data</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+        </section>
+
+        {% if request_COOKIES_items %}
+        <section id="cookies" class="py-4 hidden">
+
+            <ul class="table table-auto w-full max-w-full">
+            {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+        </section>
+        {% endif %}
+
+        <section id="request_environ" class="py-4 hidden">
+
+            <ul class="table table-auto w-full max-w-full">
+            {% if sys_executable %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">Python Executable</span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code style="word-break: break-word">{{ sys_executable }}</code>
+                </span>
+            </li>
+            {% endif %}
+            {% if sys_path %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">Python Path</span>
+                <span class="table-cell border-b px-6 py-2">
+                    {% for path in sys_path %}
+                    <code class="flex" style="word-break: break-word">{{ path }}</code>
+                    {% endfor %}
+                </span>
+            </li>
+            {% endif %}
+            {% for var_name, var_value in request_meta.items|dictsort:0 %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+        </section>
+
+
+        <section id="settings" class="py-4 hidden">
+
+            <div class="flex flex-col lg:flex-row bg-gray-100 rounded">
+            <div class="w-full lg:w-1/2 py-4 px-6">
+                <h6 class="font-semibold">Installed Apps</h6>
+                <ol>
+                    {% for app in settings.INSTALLED_APPS %}
+                    <li><code>{{ app }}</code></li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="w-full lg:w-1/2  py-4 px-6 ">
+                <h6 class="font-semibold">Installed Middleware</h6>
+                <ol>
+                    {% for mw in settings.MIDDLEWARE %}
+                    <li><code>{{ mw }}</code></li>
+                    {% endfor %}
+                </ol>
+            </div>
+            </div>
+
+            <ul class="table table-auto w-full py-4 max-w-full">
+            {% for var_name, var_value in settings.items|dictsort:0 %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b py-2 px-6">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="table-cell border-b py-2 px-6">
+                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+        </section>
+    </div>
+</div>
+
+<div class="container-fluid bg-white">
+    <div>
+        {% if template_info %}
+        <div>
+        <h3>In template <code>{{ template_info.name }}</code>, error on line <strong class="text-red-500">{{ template_info.line }}</strong></h3>
+        <h4>{{ template_info.message }}</h4>
+
+        <ol class="list-decimal pl-5">
+        {% for source_line in template_info.source_lines %}
+            <li value="{{ source_line.0 }}">
+            {% if source_line.0 == template_info.line %}
+            <code>{{ source_line.1 }}</code>&nbsp;
+            {% endif %}
+            </li>
+        {% endfor %}
+        </ol>
+        </div>
+        {% endif %}
+
+        <div class="">
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

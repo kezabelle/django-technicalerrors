@@ -1,0 +1,167 @@
+import os
+import sys
+from datetime import datetime
+from tempfile import gettempdir
+
+import django
+from django.conf import settings
+from django.http import HttpResponse, Http404
+from django.urls import path, re_path
+from django.template.loader import select_template
+from django.template import Template
+
+try:
+    import jinja2
+except ModuleNotFoundError:
+    sys.stderr.write("`jinja2` is necessary for this demo project")
+    sys.exit(1)
+
+
+EXTRA_INSTALLED_APPS = ()
+EXTRA_MIDDLEWARE = ()
+
+USE_TECHNICALERRORS = os.environ.get("USE_TECHNICALERRORS", "1").lower() in {"1", "t", "true", "ok", "yes"}
+if USE_TECHNICALERRORS:
+    EXTRA_INSTALLED_APPS += ("technicalerrors",)
+
+try:
+    from livereloadish import watch_file
+    EXTRA_INSTALLED_APPS += ("livereloadish",)
+    EXTRA_MIDDLEWARE += ("livereloadish.middleware.LivereloadishMiddleware",)
+except ModuleNotFoundError:
+    pass
+
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+
+if not settings.configured:
+    settings.configure(
+        SECRET_KEY="??????????????????????????????????????????????????????????",
+        DEBUG=True,
+        INSTALLED_APPS=(
+            "django.contrib.staticfiles",
+        ) + EXTRA_INSTALLED_APPS,
+        ALLOWED_HOSTS=("*"),
+        ROOT_URLCONF=__name__,
+        MIDDLEWARE=() + EXTRA_MIDDLEWARE,
+        TEMPLATES=[
+            {
+                "BACKEND": "django.template.backends.django.DjangoTemplates",
+                "DIRS": (os.path.join(HERE, 'extra_templates'),),
+                "APP_DIRS": True,
+                "OPTIONS": {
+                    "context_processors": (
+                        "django.template.context_processors.request",
+                        "django.contrib.messages.context_processors.messages",
+                    ),
+                },
+            },
+            {
+                "BACKEND": "django.template.backends.jinja2.Jinja2",
+                "DIRS": [os.path.join(HERE, "extra_templates")],
+                "APP_DIRS": True,
+                "OPTIONS": {
+                    "environment": "jinja2.Environment",
+                    # Not recommended, but supported
+                    "context_processors": (
+                        "django.template.context_processors.request",
+                        "django.contrib.messages.context_processors.messages",
+                    ),
+                }
+            }
+        ],
+        STATIC_URL="/static/",
+        USE_I18N=True,
+        USE_TZ=True,
+        TIME_ZONE="UTC",
+    )
+    django.setup()
+
+def demo404(request) -> HttpResponse:
+    raise Http404("Custom message")
+
+
+def nested3():
+    filename = os.path.join(gettempdir(), 'a_long_path', 'that_probably', 'goes_off_screen', 'a_random_file_that_shouldnt_exist.mp3')
+    with open(filename, 'rb') as f:
+        return f.read()
+
+
+def nested2():
+    a = 1
+    b = {1, 2, 3}
+    c = (1, 2, 3)
+    a_really_long_variable_name = 4
+    nested_var = {'a': a, 'b': b, 'c': c}
+    try:
+        return nested3()
+    except ZeroDivisionError as exc:
+        raise ValueError("Ruined")
+    except FileNotFoundError as exc:
+        raise TypeError("Ruined") from exc
+
+def nested1():
+    nested_var = datetime.utcnow()
+    return nested2()
+
+def nested():
+    nested_var = 1
+    return nested1()
+
+def demo500(request) -> None:
+    var = nested()
+
+def demo500templatemissing(request):
+    return select_template(("demo/a.html", "demo/b.html", "demo/c.html", "demo/d.html"))
+
+def demo500templatesyntax(request):
+    return Template("""Line 1
+    More lines go here
+    and then some
+    and soon we'll maybe get to the error?
+    Nah let's keep going
+    Here's some HTML to keep us going
+    <br>
+    <br>
+    <br>
+    <br>
+    Go away, line 1!
+    Example template {{ 'syntax'|bad_filter }} error
+    Ok now we've done the error
+    How much more do we show afterwards?
+    Got to be a few lines right?
+    Probably...
+    5 or 10 maybe?
+    Looks like 10, so onwards we go...
+    At some point the EOF will get cut off.
+    But not yet, lines aplenty
+    Keep it up, nearly there
+    One more line perhaps? Boom there it is.
+    EOF""")
+
+def demo500unicodeencode(request):
+    '🤞😡🤬👊😔'.encode('ascii')
+
+def demo500unicodedecode(request):
+    b'\xf0\x9f\xa4\x9e\xf0\x9f\x98\xa1\xf0\x9f\xa4\xac\xf0\x9f\x91\x8a\xf0\x9f\x98\x94'.decode('ascii')
+
+urlpatterns = [
+    re_path("^404/(.+)", demo404, name="demo404"),
+    path("404", demo404, name="demo404"),
+    path("500/unicode/decode", demo500unicodedecode, name="demo500unicodedecode"),
+    path("500/unicode/encode", demo500unicodeencode, name="demo500unicodeencode"),
+    path("500/template/syntax", demo500templatesyntax, name="demo500templatesyntax"),
+    path("500/template/missing", demo500templatemissing, name="demo500templatemissing"),
+    path("500", demo500, name="demo500"),
+]
+
+
+if __name__ == "__main__":
+    from django.core import management
+
+    management.execute_from_command_line()
+else:
+    from django.core.wsgi import get_wsgi_application
+
+    application = get_wsgi_application()

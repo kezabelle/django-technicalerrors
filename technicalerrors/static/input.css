@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@layer components {
+  .notification {
+    @apply bg-red-700 text-white p-4 text-sm md:text-base text-center;
+  }
+
+  .masthead {
+    @apply bg-red-400 p-10;
+  }
+
+  .masthead-details {
+    @apply container mx-auto bg-white pt-0 rounded;
+  }
+
+  .masthead-request {
+    @apply py-4 px-6 border-b flex flex-row items-start justify-start;
+  }
+
+  .masthead-request-badge {
+    @apply inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-sm text-gray-500 bg-gray-200 rounded;
+  }
+
+  .masthead-request-url {
+    @apply px-2 py-1 leading-none text-sm text-gray-500 truncate;
+  }
+
+  .masthead-error {
+    @apply px-6 py-6;
+  }
+
+  .masthead-error-title {
+    @apply text-3xl text-red-400 font-semibold;
+  }
+  .masthead-error-subtitle {
+    @apply text-lg text-red-400 font-normal;
+  }
+  .masthead-server-info {
+    @apply px-6 py-4 flex flex-row border-t w-full text-gray-500 text-sm;
+  }
+}
