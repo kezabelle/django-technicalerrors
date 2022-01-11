@@ -20,16 +20,16 @@
     </p>
 </div>
 {% endif %}
-<div class="bg-red-400 p-10">
-    <div class="container mx-auto bg-white pt-0 rounded">
+<div class="masthead">
+    <div class="masthead-details">
         {% if request %}
-        <div class="py-4 px-6 border-b flex flex-row items-start justify-start">
-            <div class="inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-sm text-gray-500 bg-gray-200 rounded">{{ request.META.REQUEST_METHOD }}</div>
-            <div class="px-2 py-1 leading-none text-sm text-gray-500 truncate">{{ request_insecure_uri }}</div>
+        <div class="masthead-request">
+            <div class="masthead-request-badge">{{ request.META.REQUEST_METHOD }}</div>
+            <div class="masthead-request-url">{{ request_insecure_uri }}</div>
         </div>
         {% endif %}
-        <div class="px-6 py-6">
-            <h1 class="text-3xl text-red-400 font-semibold">{% if exception_type %}{{ exception_type }}{% else %}An error occurred{% endif %}</h1>
+        <div class="masthead-error">
+            <h1 class="masthead-error-title">{% if exception_type %}{{ exception_type }}{% else %}An error occurred{% endif %}</h1>
 
             {% if unicode_hint %}
             <h3 class="text-lg text-red-500 font-semibold">The string that could not be encoded/decoded was: <strong>{{ unicode_hint }}</strong></h3>
@@ -60,7 +60,7 @@
         {% endif %}
         -->
 
-        <div class="px-6 py-4 flex flex-row border-t w-full text-gray-500 text-sm">
+        <div class="masthead-server-info">
             <div class="pr-10">Django {{ django_version_info }}</div>
             <div class="pr-10 flex-grow">Python {{ sys_version_info }}</div>
             {% if user_str %}
@@ -74,9 +74,9 @@
     </div>
 </div>
 
-<div class="bg-white lg:px-10">
+<div class="technical-error">
 
-    <div class="container mx-auto py-4">
+    <div class="technical-error-details">
 
 
         <ul class="tab-group">
@@ -129,7 +129,7 @@
 
         {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
         <div class="py-4">
-        <h6 class="px-6 text-red-400 font-semibold text-base">Related settings</h6>
+        <h6 class="related-settings">Related settings</h6>
             <ul class="pairwise-group">
             <li class="pairwise">
                 <span class="pairwise-key">TEMPLATES</span>
@@ -198,7 +198,7 @@
                 {% endfor %}
             </ol>
 
-            <h6 class="px-6 text-red-400 font-semibold text-base">Related settings</h6>
+            <h6 class="related-settings">Related settings</h6>
             <ul class="pairwise-group">
             <li class="pairwise">
                 <span class="pairwise-key">ADMINS</span>
@@ -270,13 +270,13 @@
                     <code>request.FILES</code>
                 </span>
                 <span class="table-cell border-b px-6 py-2">
-                    <code>No data</code>
+                    <code>No data12</code>
                 </span>
             </li>
             {% endfor %}
             </ul>
 
-            <h6>Related settings</h6>
+            <h6 class="related-settings">Related settings</h6>
             <ul class="pairwise-group">
             {% for key, value in settings.items|dictsort:0 %}
             {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
@@ -293,6 +293,7 @@
         {% if request_COOKIES_items %}
         <section id="cookies" class="py-4 hidden">
 
+
             <ul class="pairwise-group">
             {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
             <li class="pairwise">
@@ -301,6 +302,8 @@
             </li>
             {% endfor %}
             </ul>
+
+            <h6 class="related-settings">Related settings</h6>
 
                 <ul class="pairwise-group">
                 {% for key, value in settings.items|dictsort:0 %}

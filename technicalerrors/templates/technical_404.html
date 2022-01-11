@@ -8,38 +8,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page not found at {{ request.path_info }}</title>
     <link href="/static/tailwind.css" rel="stylesheet" type="text/css" media="all"/>
-
+    <script type="application/javascript" src="/static/init.js" defer async></script>
 </head>
 <body class="">
-<div class="container-fluid bg-red-400 p-10">
-    <div class="container mx-auto bg-white pt-0 rounded">
-
-        <div class="py-4 px-10 border-b flex flex-row items-end justify-between">
-                <div class="">{{ request.META.REQUEST_METHOD }} {{ request.path_info }}</div>
-
-
-        <svg style="width: 3.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436.5 152.5"><g fill="#092e20"><path d="M51.5 0h23.8v110.5a157.5 157.5 0 0 1-31 3.3C15.2 113.8 0 100.6 0 75.3 0 51 16.1 35.2 41 35.2c4 0 6.9.3 10.5 1.2zm0 55.6c-2.8-1-5.2-1.2-8.1-1.2-12 0-19 7.4-19 20.4 0 12.8 6.6 19.7 18.8 19.7 2.7 0 4.9-.1 8.3-.6z"/><path d="M113.3 36.9v55.3c0 19-1.4 28.2-5.6 36.1-3.8 7.6-9 12.4-19.5 17.7L66 135.5c10.6-5 15.7-9.3 19-16 3.4-6.8 4.4-14.7 4.4-35.5V36.9zM89.4 0h24v24.5h-24zm38.3 42.3c10.6-5 20.6-7.1 31.7-7.1 12.2 0 20.3 3.2 23.8 9.6 2 3.5 2.7 8.2 2.7 18.1v48.5a262.7 262.7 0 0 1-34.1 2.7c-20 0-29-7-29-22.5 0-16.8 12-24.5 41.2-27v-5.3c0-4.3-2.2-5.8-8.2-5.8a62 62 0 0 0-28 7.2V42.3zm37.4 38c-15.8 1.5-21 4-21 10.2 0 4.6 3 6.8 9.5 6.8 3.6 0 6.8-.3 11.5-1zm32.4-39.7c14-3.7 25.7-5.4 37.5-5.4 12.2 0 21 2.7 26.4 8.2 5 5 6.5 10.7 6.5 22.6v46.8h-24V67c0-9.1-3-12.5-11.5-12.5a36 36 0 0 0-11 1.7v56.7h-24zm79.6 85.2a54.3 54.3 0 0 0 25.6 6.4c15.7 0 22.3-6.4 22.3-21.5v-.5a32.7 32.7 0 0 1-15.5 3.2c-20.9 0-34.2-13.8-34.2-35.6 0-27.1 19.7-42.5 54.5-42.5 10.3 0 19.7 1.1 31.2 3.4L352.8 56c-6.3-1.2-.5-.1-5.3-.6v2.5l.3 10 .2 13 .3 9.9v6.5c0 20.4-1.7 30-6.8 38-7.5 11.6-20.3 17.3-38.6 17.3-9.3 0-17.4-1.4-25.8-4.6v-22zm47.5-71.3H322a26 26 0 0 0-13.8 3.4c-5.7 3.3-8.7 9.2-8.7 17.6 0 11.9 6 18.7 16.5 18.7 3.2 0 5.8-.6 9-1.5v-8.2l-.2-9.2-.2-11-.1-7.9v-1.9zM398 34.9c24 0 38.5 15 38.5 39.3 0 25-15.2 40.6-39.4 40.6-23.8 0-38.6-15-38.6-39.2 0-25.1 15.2-40.8 39.6-40.8zm-.4 60.7c9.1 0 14.6-7.6 14.6-20.8 0-13-5.3-20.7-14.4-20.7-9.5 0-15 7.6-15 20.7 0 13.2 5.5 20.8 14.8 20.8z"/></g></svg>
-        </div>
-    <div class="p-10">
-        <h1 class=""><span class="">404</span> Page not found {% if raising_view_name %}
-            raised by {{ raising_view_name }}
-        {% endif %}
-        </h1>
-        {% if reason %}<span class="">{{ reason }}</span>{% endif %}
+<div class="notification">
+    <p>
+      You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
+      Django settings. When set to <code class="font-bold">False</code>, Django will
+      display a generic 404 template.
+    </p>
 </div>
+
+<div class="masthead">
+    <div class="masthead-details">
+
+        <div class="masthead-request">
+            <div class="masthead-request-badge">{{ request.META.REQUEST_METHOD }}</div>
+            <div class="masthead-request-url">{{ request.build_absolute_uri }}</div>
+
+
+        <!--<svg style="width: 3.5rem;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436.5 152.5"><g fill="#092e20"><path d="M51.5 0h23.8v110.5a157.5 157.5 0 0 1-31 3.3C15.2 113.8 0 100.6 0 75.3 0 51 16.1 35.2 41 35.2c4 0 6.9.3 10.5 1.2zm0 55.6c-2.8-1-5.2-1.2-8.1-1.2-12 0-19 7.4-19 20.4 0 12.8 6.6 19.7 18.8 19.7 2.7 0 4.9-.1 8.3-.6z"/><path d="M113.3 36.9v55.3c0 19-1.4 28.2-5.6 36.1-3.8 7.6-9 12.4-19.5 17.7L66 135.5c10.6-5 15.7-9.3 19-16 3.4-6.8 4.4-14.7 4.4-35.5V36.9zM89.4 0h24v24.5h-24zm38.3 42.3c10.6-5 20.6-7.1 31.7-7.1 12.2 0 20.3 3.2 23.8 9.6 2 3.5 2.7 8.2 2.7 18.1v48.5a262.7 262.7 0 0 1-34.1 2.7c-20 0-29-7-29-22.5 0-16.8 12-24.5 41.2-27v-5.3c0-4.3-2.2-5.8-8.2-5.8a62 62 0 0 0-28 7.2V42.3zm37.4 38c-15.8 1.5-21 4-21 10.2 0 4.6 3 6.8 9.5 6.8 3.6 0 6.8-.3 11.5-1zm32.4-39.7c14-3.7 25.7-5.4 37.5-5.4 12.2 0 21 2.7 26.4 8.2 5 5 6.5 10.7 6.5 22.6v46.8h-24V67c0-9.1-3-12.5-11.5-12.5a36 36 0 0 0-11 1.7v56.7h-24zm79.6 85.2a54.3 54.3 0 0 0 25.6 6.4c15.7 0 22.3-6.4 22.3-21.5v-.5a32.7 32.7 0 0 1-15.5 3.2c-20.9 0-34.2-13.8-34.2-35.6 0-27.1 19.7-42.5 54.5-42.5 10.3 0 19.7 1.1 31.2 3.4L352.8 56c-6.3-1.2-.5-.1-5.3-.6v2.5l.3 10 .2 13 .3 9.9v6.5c0 20.4-1.7 30-6.8 38-7.5 11.6-20.3 17.3-38.6 17.3-9.3 0-17.4-1.4-25.8-4.6v-22zm47.5-71.3H322a26 26 0 0 0-13.8 3.4c-5.7 3.3-8.7 9.2-8.7 17.6 0 11.9 6 18.7 16.5 18.7 3.2 0 5.8-.6 9-1.5v-8.2l-.2-9.2-.2-11-.1-7.9v-1.9zM398 34.9c24 0 38.5 15 38.5 39.3 0 25-15.2 40.6-39.4 40.6-23.8 0-38.6-15-38.6-39.2 0-25.1 15.2-40.8 39.6-40.8zm-.4 60.7c9.1 0 14.6-7.6 14.6-20.8 0-13-5.3-20.7-14.4-20.7-9.5 0-15 7.6-15 20.7 0 13.2 5.5 20.8 14.8 20.8z"/></g></svg>-->
+
+        </div>
+    <div class="masthead-error">
+        <h1 class="masthead-error-title">URL not found</h1>
+
+        {% if reason %}
+        <h2 class="masthead-error-subtitle">{{ reason }}</h2>
+        {% endif %}
+    </div>
+        {% if raising_view_name %}
+        <div class="masthead-server-info">
+            raised by {{ raising_view_name }}
+        </div>
+        {% endif %}
     </div>
 </div>
-<div class="container-fluid bg-slate-100">
-    <div class="container mx-auto bg-slate-50 p-10">
+<div class="technical-error">
+    <div class="technical-error-details">
 
+        <ul class="tab-group">
+            {% if urlpatterns %}
+            <li data-tab-target="#urlpatterns" class="tab active">
+                URL Patterns
+            </li>
+            {% endif %}
+            <li data-tab-target="#get" class="tab">
+                Request Data
+            </li>
+            <li data-tab-target="#cookies" class="tab">
+                Cookies
+            </li>
+            <li data-tab-target="#request_environ" class="tab">
+                Environment
+            </li>
+            <li data-tab-target="#settings" class="tab">
+                Settings
+            </li>
+        </ul>
+
+        <section id="urlpatterns">
         {% if urlpatterns %}
-            Using the URLconf{% if urlconf != root_urlconf %}{{ urlconf }}{% else %}
-            {{ root_urlconf }}{% endif %}, Django tried these URL patterns, in this order
+            Using the URLconf
+            {% if urlconf != root_urlconf %}
+            <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
+            {% else %}
+            <code>{{ root_urlconf }}</code>
+            {% endif %}, Django tried these URL patterns, in this order
             <ul>
                 {% for pattern in urlpatterns %}
                     <li>
                         {% for pat in pattern %}
-                            {{ pat.pattern }}
+                        {{ pat.pattern }}{% if 0 and pat.url_patterns %}{% for subpat in pat.url_patterns %}
+                            {{ subpat.pattern }}
+                        {% endfor %}{% endif %}
+
                             {% if forloop.last and pat.name %}[name='{{ pat.name }}']
                             {% endif %}
                         {% endfor %}
@@ -48,14 +91,26 @@
             </ul>
         {% endif %}
 
-        You’re seeing this error because you have <code>DEBUG = True</code> in
-        your Django settings file. Change that to <code>False</code>, and Django
-        will display a standard 404 page.
+
+        <h6 class="related-settings">Related settings</h6>
+
+        <ul class="pairwise-group">
+        {% for key, value in settings.items|dictsort:0 %}
+            {% if 'URL' in key or 'PREPEND_WWW' in key or 'APPEND_SLASH' in key or 'MEDIA_' in key or 'STATICFILES' in key or 'STATIC_' in key or 'X_FORWARDED' in key %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ key }}</code>
+                <pre class="pairwise-value">{{ value|pprint }}</pre>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        </section>
+
 
     </div>
 </div>
 
-<div class="container-fluid bg-slate-100">
+<div class="bg-slate-100">
     <div class="container mx-auto bg-white p-10">
         <table>
             {% for k, v in request.GET.items %}
@@ -89,7 +144,7 @@
         </table>
     </div>
 </div>
-<div class="container-fluid bg-slate-100">
+<div class="bg-slate-100">
     <div class="container mx-auto bg-white p-10">
         Installed Applications:
         {{ settings.INSTALLED_APPS|pprint }}
@@ -97,7 +152,7 @@
         {{ settings.MIDDLEWARE|pprint }}
     </div>
 </div>
-<div class="container-fluid bg-slate-100">
+<div class="bg-slate-100">
     <div class="container mx-auto bg-white p-10">
         <table class="req">
             <thead>

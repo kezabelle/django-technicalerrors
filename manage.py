@@ -6,7 +6,7 @@ from tempfile import gettempdir
 import django
 from django.conf import settings
 from django.http import HttpResponse, Http404
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.template.loader import select_template
 from django.template import Template
 
@@ -41,10 +41,19 @@ if not settings.configured:
         DEBUG=True,
         INSTALLED_APPS=(
             "django.contrib.staticfiles",
+            "django.contrib.contenttypes",
+            "django.contrib.auth",
+            "django.contrib.messages",
+            "django.contrib.admin",
+            "django.contrib.admindocs",
         ) + EXTRA_INSTALLED_APPS,
         ALLOWED_HOSTS=("*"),
         ROOT_URLCONF=__name__,
-        MIDDLEWARE=() + EXTRA_MIDDLEWARE,
+        MIDDLEWARE=(
+            "django.contrib.sessions.middleware.SessionMiddleware",
+            "django.contrib.auth.middleware.AuthenticationMiddleware",
+            "django.contrib.messages.middleware.MessageMiddleware",
+                   ) + EXTRA_MIDDLEWARE,
         TEMPLATES=[
             {
                 "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -53,6 +62,7 @@ if not settings.configured:
                 "OPTIONS": {
                     "context_processors": (
                         "django.template.context_processors.request",
+                        "django.contrib.auth.context_processors.auth",
                         "django.contrib.messages.context_processors.messages",
                     ),
                 },
@@ -77,6 +87,9 @@ if not settings.configured:
         TIME_ZONE="UTC",
     )
     django.setup()
+
+from django.contrib import admin
+from django.contrib.admindocs import urls as admindocs_urls
 
 def demo404(request) -> HttpResponse:
     raise Http404("Custom message")
@@ -147,6 +160,8 @@ def demo500unicodedecode(request):
     b'\xf0\x9f\xa4\x9e\xf0\x9f\x98\xa1\xf0\x9f\xa4\xac\xf0\x9f\x91\x8a\xf0\x9f\x98\x94'.decode('ascii')
 
 urlpatterns = [
+    path("admin/docs/", include(admindocs_urls)),
+    path('admin/', admin.site.urls),
     re_path("^404/(.+)", demo404, name="demo404"),
     path("404", demo404, name="demo404"),
     path("500/unicode/decode", demo500unicodedecode, name="demo500unicodedecode"),

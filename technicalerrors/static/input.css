@@ -49,19 +49,32 @@
   }
 
 
+  .technical-error {
+    @apply bg-white lg:px-10;
+  }
+
+  .technical-error-details {
+    @apply container mx-auto py-4 px-6;
+  }
+
 
   .tab-group {
-    @apply flex flex-col md:flex-row justify-center;
+    @apply flex flex-col md:flex-row justify-center -mx-6;
   }
 
   .tab {
-    @apply grow cursor-pointer text-center px-1 pb-4 border-b-4;
+    @apply grow cursor-pointer text-center px-1 pb-4 border-b-4 font-semibold ;
+    @apply  hover:border-b-red-200 hover:text-red-400;
   }
 
   .tab.active {
-    @apply text-red-500 font-semibold border-b-red-400;
+    @apply text-red-500 border-b-red-400;
   }
 
+
+  .related-settings {
+    @apply px-6 text-red-400 font-semibold text-base;
+  }
 
 
   .pairwise-group {
