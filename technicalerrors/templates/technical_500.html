@@ -10,9 +10,9 @@
     <link href="/static/tailwind.css" rel="stylesheet" type="text/css" media="all"/>
     <script type="application/javascript" src="/static/init.js" defer async></script>
 </head>
-<body class="overflow-y-scroll text-gray-500">
+<body class="">
 {% if not is_email %}
-<div class="bg-red-700 text-white p-4 text-sm md:text-base  text-center">
+<div class="notification">
     <p>
       You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
       Django settings. When set to <code class="font-bold">False</code>, Django will
@@ -20,7 +20,7 @@
     </p>
 </div>
 {% endif %}
-<div class="container-fluid bg-red-400 p-10">
+<div class="bg-red-400 p-10">
     <div class="container mx-auto bg-white pt-0 rounded">
         {% if request %}
         <div class="py-4 px-6 border-b flex flex-row items-start justify-start">
@@ -74,59 +74,78 @@
     </div>
 </div>
 
-<div class="container-fluid bg-white lg:px-10">
+<div class="bg-white lg:px-10">
 
     <div class="container mx-auto py-4">
 
 
-        <ul class="flex flex-col md:flex-row justify-center">
+        <ul class="tab-group">
             {% if template_info or postmortem %}
-            <li data-target="#templates" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4 text-red-500 font-semibold border-b-red-400">
+            <li data-tab-target="#templates" class="tab active">
                 Template
             </li>
             {% endif %}
             {% if frames %}
-            <li data-target="#traceback" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+            <li data-tab-target="#traceback" class="tab">
                 Traceback
             </li>
             {% endif %}
-            <li data-target="#get" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
-                Query String
+            <li data-tab-target="#get" class="tab">
+                Request Data
             </li>
-            <li data-target="#post" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
-                Form Data
-            </li>
-            <li data-target="#cookies" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+            <li data-tab-target="#cookies" class="tab">
                 Cookies
             </li>
-            <li data-target="#request_environ" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+            <li data-tab-target="#request_environ" class="tab">
                 Environment
             </li>
-            <li data-target="#settings" class="grow cursor-pointer text-center px-1 pb-4 text-gray-500 border-b-4">
+            <li data-tab-target="#settings" class="tab">
                 Settings
             </li>
         </ul>
 
         {% if postmortem %}
         <section id="templates" class="py-4">
+        <p>Templates were tried in the following order:</p>
         <ol class="pt-4">
         {% for entry in postmortem %}
                     {% if entry.tried %}
                         {% for attempt in entry.tried %}
-                        <li class="border-b px-6 py-2"><pre class="text-sm">{{ attempt.0.name }}</pre>
+                        <li class="border-b px-6 py-2">
                             <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ entry.backend.name }}</span>
+                            <code class="text-sm">{{ attempt.0.name }}</code>
                             <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ attempt.0.loader_name }}</span>
                             <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ attempt.1 }}</span>
                         </li>
                         {% endfor %}
                     {% else %}
                         <li class="border-b px-6 py-2">
-                            The <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ entry.backend.name }}</span>
-                            backend did not provide a list of tried templates.
+                            <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-gray-500 bg-gray-200 rounded">{{ entry.backend.name }}</span>
+                            <span class="text-gray-400">Backend did not provide a list of templates tried.</span>
 </li>
                     {% endif %}
         {% endfor %}
         </ol>
+
+        {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
+        <div class="py-4">
+        <h6 class="px-6 text-red-400 font-semibold text-base">Related settings</h6>
+            <ul class="pairwise-group">
+            <li class="pairwise">
+                <span class="pairwise-key">TEMPLATES</span>
+            <span class="pairwise-value">
+                <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
+            </span>
+            </li>
+            <li class="pairwise">
+                <span class="pairwise-key">FORM_RENDERER</span>
+            <span class="pairwise-value">
+                <pre class="">{{ settings.FORM_RENDERER|pprint }}</pre>
+            </span>
+            </li>
+        </ul>
+            </div>
+        {% endif %}
         </section>
         {% endif %}
 
@@ -178,6 +197,26 @@
                     {% endif %}
                 {% endfor %}
             </ol>
+
+            <h6 class="px-6 text-red-400 font-semibold text-base">Related settings</h6>
+            <ul class="pairwise-group">
+            <li class="pairwise">
+                <span class="pairwise-key">ADMINS</span>
+            <span class="pairwise-value">
+                <pre class="">{{ settings.ADMINS|pprint }}</pre>
+            </span>
+            </li>
+            {% for key, value in settings.items|dictsort:0 %}
+                    {% if 'EXCEPTION' in key or 'DEBUG' in key %}
+            <li class="pairwise">
+                <span class="pairwise-key">{{ key }}</span>
+            <span class="pairwise-value">
+                <pre class="">{{ value|pprint }}</pre>
+            </span>
+            </li>
+                {% endif %}
+                {% endfor %}
+        </ul>
         </section>
         {% endif %}
 
@@ -185,40 +224,26 @@
 
         <section id="get" class="py-4 hidden">
 
-            <ul class="table table-auto w-full max-w-full">
+            <h6>request.GET</h6>
+            <ul class="pairwise-group">
             {% for var_name, var_value in request_GET_items|dictsort:0 %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b py-2 px-6">
-                    <code>{{ var_name }}</code>
-                </span>
-                <span class="table-cell border-b py-2 px-6">
-                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
-                </span>
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">
-                    <code>request.GET</code>
-                </span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code>No data</code>
-                </span>
+            <li class="pairwise-key">
+                <span class="pairwise-value">No request.GET data parsed.</span>
             </li>
             {% endfor %}
             </ul>
 
-        </section>
-        <section id="post" class="py-4 hidden">
-
-            <ul class="table table-auto w-full max-w-full">
+            <h6>request.POST</h6>
+            <ul class="pairwise-group">
             {% for var_name, var_value in filtered_POST_items|dictsort:0 %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">
-                    <code>{{ var_name }}</code>
-                </span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
-                </span>
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
             <li class="table-row text-sm">
@@ -230,14 +255,14 @@
                 </span>
             </li>
             {% endfor %}
+            </ul>
+
+            <h6>request.FILES</h6>
+            <ul class="pairwise-group">
             {% for var_name, var_value in request_FILES_items|dictsort:0 %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">
-                    <code>{{ var_name }}</code>
-                </span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
-                </span>
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
             <li class="table-row text-sm">
@@ -251,23 +276,42 @@
             {% endfor %}
             </ul>
 
+            <h6>Related settings</h6>
+            <ul class="pairwise-group">
+            {% for key, value in settings.items|dictsort:0 %}
+            {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ key }}</code>
+                <pre class="pairwise-value">{{ value|pprint }}</pre>
+            </li>
+            {% endif %}
+            {% endfor %}
+            </ul>
+
         </section>
 
         {% if request_COOKIES_items %}
         <section id="cookies" class="py-4 hidden">
 
-            <ul class="table table-auto w-full max-w-full">
+            <ul class="pairwise-group">
             {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">
-                    <code>{{ var_name }}</code>
-                </span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
-                </span>
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <code class="pairwise-value">{{ var_value|pprint }}</code>
             </li>
             {% endfor %}
             </ul>
+
+                <ul class="pairwise-group">
+                {% for key, value in settings.items|dictsort:0 %}
+                    {% if 'COOKIE' in key %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ key }}</code>
+                <pre class="pairwise-value">{{ value|pprint }}</pre>
+            </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
 
         </section>
         {% endif %}
@@ -329,14 +373,14 @@
             </div>
             </div>
 
-            <ul class="table table-auto w-full py-4 max-w-full">
+            <ul class="pairwise-group" role="list">
             {% for var_name, var_value in settings.items|dictsort:0 %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b py-2 px-6">
+            <li class="pairwise">
+                <span class="pairwise-key">
                     <code>{{ var_name }}</code>
                 </span>
-                <span class="table-cell border-b py-2 px-6">
-                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                <span class="pairwise-value">
+                    <pre style="word-break: break-word">{{ var_value|pprint }}</pre>
                 </span>
             </li>
             {% endfor %}
@@ -346,7 +390,7 @@
     </div>
 </div>
 
-<div class="container-fluid bg-white">
+<div class="bg-white">
     <div>
         {% if template_info %}
         <div>

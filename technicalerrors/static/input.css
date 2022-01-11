@@ -3,6 +3,12 @@
 @tailwind utilities;
 @tailwind variants;
 
+@layer base {
+  body {
+    @apply overflow-y-scroll text-gray-500;
+  }
+}
+
 @layer components {
   .notification {
     @apply bg-red-700 text-white p-4 text-sm md:text-base text-center;
@@ -40,5 +46,39 @@
   }
   .masthead-server-info {
     @apply px-6 py-4 flex flex-row border-t w-full text-gray-500 text-sm;
+  }
+
+
+
+  .tab-group {
+    @apply flex flex-col md:flex-row justify-center;
+  }
+
+  .tab {
+    @apply grow cursor-pointer text-center px-1 pb-4 border-b-4;
+  }
+
+  .tab.active {
+    @apply text-red-500 font-semibold border-b-red-400;
+  }
+
+
+
+  .pairwise-group {
+    @apply table table-auto w-full max-w-full text-sm;
+  }
+
+  .pairwise {
+    @apply table-row;
+  }
+
+  .pairwise-key {
+    @apply table-cell border-b py-2 pl-6 pr-2 min-w-[10%] max-w-[40%];
+    width: 1rem;
+  }
+
+  .pairwise-value {
+    @apply table-cell border-b py-2 pl-2 pr-6 min-w-[60%] max-w-[90%];
+    word-break: break-word;
   }
 }
