@@ -91,7 +91,7 @@ if not settings.configured:
 from django.contrib import admin
 from django.contrib.admindocs import urls as admindocs_urls
 
-def demo404(request) -> HttpResponse:
+def demo404(request, *args, **kwargs) -> HttpResponse:
     raise Http404("Custom message")
 
 

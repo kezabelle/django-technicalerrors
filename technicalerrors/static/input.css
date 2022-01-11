@@ -20,6 +20,12 @@
 
   .masthead-details {
     @apply container mx-auto bg-white pt-0 rounded;
+    box-shadow:
+  0px 0px 3.2px rgba(0, 0, 0, 0.035),
+  0px 0px 8.8px rgba(0, 0, 0, 0.05),
+  0px 0px 21.1px rgba(0, 0, 0, 0.065),
+  0px 0px 70px rgba(0, 0, 0, 0.1)
+;
   }
 
   .masthead-request {
@@ -31,7 +37,7 @@
   }
 
   .masthead-request-url {
-    @apply px-2 py-1 leading-none text-sm text-gray-500 truncate;
+    @apply px-2 py-1 leading-none text-sm truncate;
   }
 
   .masthead-error {
@@ -54,12 +60,12 @@
   }
 
   .technical-error-details {
-    @apply container mx-auto py-4 px-6;
+    @apply container mx-auto px-6;
   }
 
 
   .tab-group {
-    @apply flex flex-col md:flex-row justify-center -mx-6;
+    @apply flex flex-col md:flex-row justify-center -mx-6 py-4;
   }
 
   .tab {
@@ -71,14 +77,43 @@
     @apply text-red-500 border-b-red-400;
   }
 
+  .urls-explanation {
+    @apply pb-4;
+  }
+
+  .urls-tried {
+    @apply bg-gray-50 -mx-6 border border-gray-50 rounded;
+    @apply hover:border-gray-200;
+  }
+  .urls-tried li {
+    @apply px-6 py-2 flex flex-row;
+    @apply hover:bg-gray-200;
+  }
+  .urls-tried li:last-child {
+    @apply border-b-0;
+  }
+
+  .urls-tried-regex {
+    @apply flex-grow;
+  }
+
+  .urls-tried-name {
+    @apply flex-grow-0 text-sm font-normal;
+  }
 
   .related-settings {
-    @apply px-6 text-red-400 font-semibold text-base;
+    @apply py-4 text-red-400 font-semibold text-base;
   }
 
 
   .pairwise-group {
-    @apply table table-auto w-full max-w-full text-sm;
+    @apply table table-auto text-sm -mx-6;
+    /* https://caniuse.com/intrinsic-width */
+    /* It's the only way I can make negative margins take up the correct width */
+    width: 100%;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: stretch;
   }
 
   .pairwise {

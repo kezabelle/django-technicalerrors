@@ -69,26 +69,30 @@
 
         <section id="urlpatterns">
         {% if urlpatterns %}
-            Using the URLconf
+            <p class="urls-explanation">Using the URLconf
             {% if urlconf != root_urlconf %}
             <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
             {% else %}
             <code>{{ root_urlconf }}</code>
-            {% endif %}, Django tried these URL patterns, in this order
-            <ul>
+            {% endif %}, Django tried these URL patterns, in this order:
+            </p>
+            <ol class="urls-tried">
                 {% for pattern in urlpatterns %}
                     <li>
                         {% for pat in pattern %}
-                        {{ pat.pattern }}{% if 0 and pat.url_patterns %}{% for subpat in pat.url_patterns %}
+                        <code class="urls-tried-regex">{{ pat.pattern }}
+                            {% if 0 and pat.url_patterns %}{% for subpat in pat.url_patterns %}
                             {{ subpat.pattern }}
-                        {% endfor %}{% endif %}
+                        {% endfor %}{% endif %}</code>
 
-                            {% if forloop.last and pat.name %}[name='{{ pat.name }}']
+                            {% if pat.name %}
+                            {% if forloop.parentloop.last %}<span class="masthead-request-badge">matched</span>{% endif %}
+                            <code class="urls-tried-name">name={{ pat.name }}</code>
                             {% endif %}
                         {% endfor %}
                     </li>
                 {% endfor %}
-            </ul>
+            </ol>
         {% endif %}
 
 

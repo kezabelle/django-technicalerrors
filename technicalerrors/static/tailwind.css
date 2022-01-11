@@ -533,6 +533,12 @@ body {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding-top: 0px;
+  box-shadow:
+  0px 0px 3.2px rgba(0, 0, 0, 0.035),
+  0px 0px 8.8px rgba(0, 0, 0, 0.05),
+  0px 0px 21.1px rgba(0, 0, 0, 0.065),
+  0px 0px 70px rgba(0, 0, 0, 0.1)
+;
 }
 
 .masthead-request {
@@ -575,8 +581,6 @@ body {
   padding-bottom: 0.25rem;
   font-size: 0.875rem;
   line-height: 1;
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
 .masthead-error {
@@ -666,8 +670,6 @@ body {
 .technical-error-details {
   margin-left: auto;
   margin-right: auto;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
@@ -678,6 +680,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -711,9 +715,58 @@ body {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
-.related-settings {
+.urls-explanation {
+  padding-bottom: 1rem;
+}
+
+.urls-tried {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(249 250 251 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+.urls-tried:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.urls-tried li {
+  display: flex;
+  flex-direction: row;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.urls-tried li:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.urls-tried li:last-child {
+  border-bottom-width: 0px;
+}
+
+.urls-tried-regex {
+  flex-grow: 1;
+}
+
+.urls-tried-name {
+  flex-grow: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+.related-settings {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 600;
@@ -722,12 +775,17 @@ body {
 }
 
 .pairwise-group {
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
   display: table;
-  width: 100%;
-  max-width: 100%;
   table-layout: auto;
   font-size: 0.875rem;
   line-height: 1.25rem;
+  /* https://caniuse.com/intrinsic-width */
+  /* It's the only way I can make negative margins take up the correct width */
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: stretch;
 }
 
 .pairwise {

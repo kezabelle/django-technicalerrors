@@ -105,7 +105,7 @@
         </ul>
 
         {% if postmortem %}
-        <section id="templates" class="py-4">
+        <section id="templates" class="">
         <p>Templates were tried in the following order:</p>
         <ol class="pt-4">
         {% for entry in postmortem %}
@@ -150,7 +150,7 @@
         {% endif %}
 
         {% if frames %}
-        <section id="traceback" class="py-4 {% if template_info or postmortem %}hidden{% endif %}">
+        <section id="traceback" class="{% if template_info or postmortem %}hidden{% endif %}">
             <ol class="">
                 {% for frame in frames %}
                     {% ifchanged frame.exc_cause %}
@@ -222,7 +222,7 @@
 
 
 
-        <section id="get" class="py-4 hidden">
+        <section id="get" class="hidden">
 
             <h6>request.GET</h6>
             <ul class="pairwise-group">
@@ -291,7 +291,7 @@
         </section>
 
         {% if request_COOKIES_items %}
-        <section id="cookies" class="py-4 hidden">
+        <section id="cookies" class="hidden">
 
 
             <ul class="pairwise-group">
@@ -319,7 +319,7 @@
         </section>
         {% endif %}
 
-        <section id="request_environ" class="py-4 hidden">
+        <section id="request_environ" class="hidden">
 
             <ul class="table table-auto w-full max-w-full">
             {% if sys_executable %}
@@ -355,7 +355,7 @@
         </section>
 
 
-        <section id="settings" class="py-4 hidden">
+        <section id="settings" class="hidden">
 
             <div class="flex flex-col lg:flex-row bg-gray-100 rounded">
             <div class="w-full lg:w-1/2 py-4 px-6">
