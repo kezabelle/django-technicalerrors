@@ -533,6 +533,10 @@ body {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding-top: 0px;
+  /*
+    https://shadows.brumm.af/
+    https://www.joshwcomeau.com/css/designing-shadows/
+    */
   box-shadow:
   0px 0px 3.2px rgba(0, 0, 0, 0.035),
   0px 0px 8.8px rgba(0, 0, 0, 0.05),
@@ -711,6 +715,8 @@ body {
 .tab.active {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(248 113 113 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
@@ -724,13 +730,8 @@ body {
   margin-right: -1.5rem;
   border-radius: 0.25rem;
   border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(249 250 251 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
-
-.urls-tried:hover {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }

@@ -86,13 +86,23 @@
                         {% endfor %}{% endif %}</code>
 
                             {% if pat.name %}
-                            {% if forloop.parentloop.last %}<span class="masthead-request-badge">matched</span>{% endif %}
+                            {% if forloop.parentloop.last and resolved %}<span class="masthead-request-badge">matched</span>{% endif %}
                             <code class="urls-tried-name">name={{ pat.name }}</code>
                             {% endif %}
                         {% endfor %}
                     </li>
                 {% endfor %}
             </ol>
+
+            {% if resolved %}
+            <p class="urls-explanation">
+                The last pattern matched <code>{{ request.path_info }}</code> but an <code>Http404</code> exception was raised.
+            </p>
+            {% else %}
+            <p class="urls-explanation">
+                None of the above URL patterns matched <code>{{ request.path_info }}</code>, so a <code>Resolver404</code> was raised.
+            </p>
+            {% endif %}
         {% endif %}
 
 

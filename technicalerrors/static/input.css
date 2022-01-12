@@ -20,6 +20,10 @@
 
   .masthead-details {
     @apply container mx-auto bg-white pt-0 rounded;
+    /*
+    https://shadows.brumm.af/
+    https://www.joshwcomeau.com/css/designing-shadows/
+    */
     box-shadow:
   0px 0px 3.2px rgba(0, 0, 0, 0.035),
   0px 0px 8.8px rgba(0, 0, 0, 0.05),
@@ -74,7 +78,7 @@
   }
 
   .tab.active {
-    @apply text-red-500 border-b-red-400;
+    @apply text-red-500 border-b-red-400 bg-red-50;
   }
 
   .urls-explanation {
@@ -83,7 +87,7 @@
 
   .urls-tried {
     @apply bg-gray-50 -mx-6 border border-gray-50 rounded;
-    @apply hover:border-gray-200;
+    @apply border-gray-200;
   }
   .urls-tried li {
     @apply px-6 py-2 flex flex-row;

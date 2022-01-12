@@ -81,6 +81,27 @@ if not settings.configured:
                 }
             }
         ],
+        LOGGING={
+                "version": 1,
+                "disable_existing_loggers": False,
+                "handlers": {
+                    "console": {
+                        "class": "logging.StreamHandler",
+                    },
+                },
+                "loggers": {
+                    "livereloadish": {
+                        "handlers": ["console"],
+                        "level": "WARNING",
+                        "propagate": False,
+                    },
+                    "django.template": {
+                        "handlers": ["console"],
+                        "level": "DEBUG",
+                        "propagate": False,
+                    },
+                },
+            },
         STATIC_URL="/static/",
         USE_I18N=True,
         USE_TZ=True,
