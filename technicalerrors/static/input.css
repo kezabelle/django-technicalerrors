@@ -90,8 +90,11 @@
     @apply border-gray-200;
   }
   .urls-tried li {
-    @apply px-6 py-2 flex flex-row;
-    @apply hover:bg-gray-200;
+    @apply px-6 py-2 flex flex-row border-b border-b-gray-200;
+    @apply hover:bg-gray-100;
+  }
+  .urls-tried li:first-child {
+    @apply border-t-0;
   }
   .urls-tried li:last-child {
     @apply border-b-0;

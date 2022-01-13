@@ -121,9 +121,181 @@
         </section>
 
 
+        <section id="get" class="hidden">
+
+            <h6>request.GET</h6>
+            <ul class="pairwise-group">
+            {% for var_name, var_value in request.GET.items|dictsort:0 %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+            </li>
+            {% empty %}
+            <li class="pairwise-key">
+                <span class="pairwise-value">No request.GET data parsed.</span>
+            </li>
+            {% endfor %}
+            </ul>
+
+            <h6>request.POST</h6>
+            <ul class="pairwise-group">
+            {% for var_name, var_value in request.POST.items|dictsort:0 %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+            </li>
+            {% empty %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>request.POST</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code>No data</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+            <h6>request.FILES</h6>
+            <ul class="pairwise-group">
+            {% for var_name, var_value in request.FILES.items|dictsort:0 %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+            </li>
+            {% empty %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>request.FILES</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code>No data12</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+            <h6 class="related-settings">Related settings</h6>
+            <ul class="pairwise-group">
+            {% for key, value in settings.items|dictsort:0 %}
+            {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ key }}</code>
+                <pre class="pairwise-value">{{ value|pprint }}</pre>
+            </li>
+            {% endif %}
+            {% endfor %}
+            </ul>
+
+        </section>
+
+
+        {% if request.COOKIES.items %}
+        <section id="cookies" class="hidden">
+
+
+            <ul class="pairwise-group">
+            {% for var_name, var_value in request.COOKIES.items|dictsort:0 %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <code class="pairwise-value">{{ var_value|pprint }}</code>
+            </li>
+            {% endfor %}
+            </ul>
+
+            <h6 class="related-settings">Related settings</h6>
+
+                <ul class="pairwise-group">
+                {% for key, value in settings.items|dictsort:0 %}
+                    {% if 'COOKIE' in key %}
+            <li class="pairwise">
+                <code class="pairwise-key">{{ key }}</code>
+                <pre class="pairwise-value">{{ value|pprint }}</pre>
+            </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+
+        </section>
+        {% endif %}
+
+
+        <section id="request_environ" class="hidden">
+
+            <ul class="table table-auto w-full max-w-full">
+            {% if sys_executable %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">Python Executable</span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code style="word-break: break-word">{{ sys_executable }}</code>
+                </span>
+            </li>
+            {% endif %}
+            {% if sys_path %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">Python Path</span>
+                <span class="table-cell border-b px-6 py-2">
+                    {% for path in sys_path %}
+                    <code class="flex" style="word-break: break-word">{{ path }}</code>
+                    {% endfor %}
+                </span>
+            </li>
+            {% endif %}
+            {% for var_name, var_value in request.META.items|dictsort:0 %}
+            <li class="table-row text-sm">
+                <span class="table-cell border-b px-6 py-2">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="table-cell border-b px-6 py-2">
+                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+        </section>
+
+
+        <section id="settings" class="hidden">
+
+            <div class="flex flex-col lg:flex-row bg-gray-100 rounded">
+            <div class="w-full lg:w-1/2 py-4 px-6">
+                <h6 class="font-semibold">Installed Apps</h6>
+                <ol>
+                    {% for app in settings.INSTALLED_APPS %}
+                    <li><code>{{ app }}</code></li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="w-full lg:w-1/2  py-4 px-6 ">
+                <h6 class="font-semibold">Installed Middleware</h6>
+                <ol>
+                    {% for mw in settings.MIDDLEWARE %}
+                    <li><code>{{ mw }}</code></li>
+                    {% endfor %}
+                </ol>
+            </div>
+            </div>
+
+            <ul class="pairwise-group" role="list">
+            {% for var_name, var_value in settings.items|dictsort:0 %}
+            <li class="pairwise">
+                <span class="pairwise-key">
+                    <code>{{ var_name }}</code>
+                </span>
+                <span class="pairwise-value">
+                    <pre style="word-break: break-word">{{ var_value|pprint }}</pre>
+                </span>
+            </li>
+            {% endfor %}
+            </ul>
+
+        </section>
+
+
     </div>
 </div>
-
+<!--
 <div class="bg-slate-100">
     <div class="container mx-auto bg-white p-10">
         <table>
@@ -188,5 +360,6 @@
         </table>
     </div>
 </div>
+-->
 </body>
 </html>

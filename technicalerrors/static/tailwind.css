@@ -739,6 +739,9 @@ body {
 .urls-tried li {
   display: flex;
   flex-direction: row;
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(229 231 235 / var(--tw-border-opacity));
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   padding-top: 0.5rem;
@@ -747,7 +750,11 @@ body {
 
 .urls-tried li:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+.urls-tried li:first-child {
+  border-top-width: 0px;
 }
 
 .urls-tried li:last-child {
