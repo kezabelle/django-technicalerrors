@@ -121,7 +121,6 @@ def nested3():
     with open(filename, 'rb') as f:
         return f.read()
 
-
 def nested2():
     a = 1
     b = {1, 2, 3}

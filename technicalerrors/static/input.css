@@ -4,136 +4,332 @@
 @tailwind variants;
 
 @layer base {
-  body {
-    @apply overflow-y-scroll text-gray-500;
-  }
+    html {
+        max-width: 100vw;
+    }
+
+    body {
+        @apply overflow-y-scroll text-gray-500;
+        max-width: 100vw;
+        overscroll-behavior: none;
+    }
 }
 
 @layer components {
-  .notification {
-    @apply bg-red-700 text-white p-4 text-sm md:text-base text-center;
-  }
+    .notification {
+        @apply bg-red-700 text-white p-4 text-sm md:text-base text-center;
+    }
 
-  .masthead {
-    @apply bg-red-400 p-10;
-  }
+    .masthead {
+        @apply bg-red-400 p-10;
+    }
 
-  .masthead-details {
-    @apply container mx-auto bg-white pt-0 rounded;
-    /*
-    https://shadows.brumm.af/
-    https://www.joshwcomeau.com/css/designing-shadows/
-    */
-    box-shadow:
-  0px 0px 3.2px rgba(0, 0, 0, 0.035),
-  0px 0px 8.8px rgba(0, 0, 0, 0.05),
-  0px 0px 21.1px rgba(0, 0, 0, 0.065),
-  0px 0px 70px rgba(0, 0, 0, 0.1)
-;
-  }
+    .masthead-details {
+        @apply container mx-auto bg-white pt-0 rounded;
+        /*
+        https://shadows.brumm.af/
+        https://www.joshwcomeau.com/css/designing-shadows/
+        */
+        box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.035),
+        0px 0px 8.8px rgba(0, 0, 0, 0.05),
+        0px 0px 21.1px rgba(0, 0, 0, 0.065),
+        0px 0px 70px rgba(0, 0, 0, 0.1);
+    }
 
-  .masthead-request {
-    @apply py-4 px-6 border-b flex flex-row items-start justify-start;
-  }
+    .masthead-request {
+        @apply py-4 px-6 border-b flex flex-row items-start justify-start truncate;
+    }
 
-  .masthead-request-badge {
-    @apply inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-sm text-gray-500 bg-gray-200 rounded;
-  }
+    .masthead-request-badge {
+        @apply inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-sm text-gray-500 bg-gray-200 rounded;
+    }
 
-  .masthead-request-url {
-    @apply px-2 py-1 leading-none text-sm truncate;
-  }
+    .masthead-request-url {
+        @apply px-2 py-1 leading-none text-sm truncate;
+    }
 
-  .masthead-error {
-    @apply px-6 py-6;
-  }
+    .masthead-request-url-scheme,
+    .masthead-request-url-host,
+    .masthead-request-url-path,
+    .masthead-request-url-qs {
+        @apply pb-px border-b-white border-b;
+        @apply motion-reduce:transition-none transition ease-out duration-300;
+        @apply hover:border-b-gray-500 ease-in;
+    }
 
-  .masthead-error-title {
-    @apply text-3xl text-red-400 font-semibold;
-  }
-  .masthead-error-subtitle {
-    @apply text-lg text-red-400 font-normal;
-  }
-  .masthead-server-info {
-    @apply px-6 py-4 flex flex-row border-t w-full text-gray-500 text-sm;
-  }
+    .masthead-error {
+        @apply px-6 py-6;
+    }
 
+    .masthead-error-title {
+        @apply text-3xl text-red-500 font-semibold;
+    }
 
-  .technical-error {
-    @apply bg-white lg:px-10;
-  }
+    .masthead-error-subtitle {
+        @apply text-lg text-red-500 font-normal;
+    }
 
-  .technical-error-details {
-    @apply container mx-auto px-6;
-  }
-
-
-  .tab-group {
-    @apply flex flex-col md:flex-row justify-center -mx-6 py-4;
-  }
-
-  .tab {
-    @apply grow cursor-pointer text-center px-1 pb-4 border-b-4 font-semibold ;
-    @apply  hover:border-b-red-200 hover:text-red-400;
-  }
-
-  .tab.active {
-    @apply text-red-500 border-b-red-400 bg-red-50;
-  }
-
-  .urls-explanation {
-    @apply pb-4;
-  }
-
-  .urls-tried {
-    @apply bg-gray-50 -mx-6 border border-gray-50 rounded;
-    @apply border-gray-200;
-  }
-  .urls-tried li {
-    @apply px-6 py-2 flex flex-row border-b border-b-gray-200;
-    @apply hover:bg-gray-100;
-  }
-  .urls-tried li:first-child {
-    @apply border-t-0;
-  }
-  .urls-tried li:last-child {
-    @apply border-b-0;
-  }
-
-  .urls-tried-regex {
-    @apply flex-grow;
-  }
-
-  .urls-tried-name {
-    @apply flex-grow-0 text-sm font-normal;
-  }
-
-  .related-settings {
-    @apply py-4 text-red-400 font-semibold text-base;
-  }
+    .masthead-server-info {
+        @apply px-6 py-4 flex flex-row border-t w-full text-gray-500 text-sm;
+    }
 
 
-  .pairwise-group {
-    @apply table table-auto text-sm -mx-6;
-    /* https://caniuse.com/intrinsic-width */
-    /* It's the only way I can make negative margins take up the correct width */
-    width: 100%;
-    width: -webkit-fill-available;
-    width: -moz-available;
-    width: stretch;
-  }
+    .technical-error {
+        @apply bg-white lg:px-10;
+    }
 
-  .pairwise {
-    @apply table-row;
-  }
+    .technical-error-details {
+        @apply container mx-auto;
+    }
 
-  .pairwise-key {
-    @apply table-cell border-b py-2 pl-6 pr-2 min-w-[10%] max-w-[40%];
-    width: 1rem;
-  }
+    .technical-error-details section {
+        @apply px-6;
+    }
 
-  .pairwise-value {
-    @apply table-cell border-b py-2 pl-2 pr-6 min-w-[60%] max-w-[90%];
-    word-break: break-word;
-  }
+
+    .tab-group {
+        @apply container mx-auto my-4 flex flex-col justify-center;
+        @apply md:flex-row;
+    }
+
+    .tab {
+        @apply uppercase text-sm grow cursor-pointer text-center px-1 py-4 border-b-4 border-b-red-50 font-semibold  bg-red-50;
+        @apply hover:border-b-red-200 hover:text-red-400;
+    }
+
+    .tab:first-child {
+      @apply rounded-l;
+    }
+
+    .tab:last-child {
+      @apply rounded-r;
+    }
+
+    .tab.active {
+        @apply transition duration-500 text-red-500 border-b-red-400;
+    }
+
+    .urls-explanation {
+        @apply pb-4;
+    }
+
+    .urls-tried {
+        @apply bg-gray-50 -mx-6 border border-gray-200 rounded;
+    }
+
+    .urls-tried li {
+        @apply px-6 py-2 flex flex-row border-b border-b-gray-200;
+        @apply hover:bg-gray-100;
+    }
+
+    .urls-tried li:first-child {
+        @apply border-t-0;
+    }
+
+    .urls-tried li:last-child {
+        @apply border-b-0;
+    }
+
+    .urls-tried-regex {
+        @apply flex-grow;
+    }
+
+    .urls-tried-name {
+        @apply flex-grow-0 text-sm font-normal;
+    }
+
+    .related-settings {
+        @apply py-4 text-red-400 font-semibold text-base;
+    }
+
+
+    .traceback {
+        @apply bg-gray-50 border border-gray-200 rounded -mx-6;
+    }
+
+    .traceback-cause-chain {
+        @apply py-4 px-6 font-semibold bg-white text-red-500;
+    }
+
+    .traceback-frame {
+        @apply border-b border-b-gray-200 cursor-pointer;
+    }
+
+    .traceback-where {
+        @apply border-b border-b-gray-200 flex flex-row py-2 px-6 items-center text-sm;
+        @apply sticky top-0;
+    }
+
+    .traceback-frame.library .traceback-where {
+        @apply bg-gray-50 text-gray-400;
+    }
+
+    .traceback-frame.user .traceback-where {
+        @apply bg-gray-100 text-gray-900;
+    }
+
+    .traceback-file {
+        @apply flex-grow truncate;
+    }
+
+    .traceback-file code:first-child {
+        @apply font-semibold;
+    }
+
+    .traceback-function {
+        @apply flex-grow-0 pl-5;
+    }
+
+    .traceback-function code {
+        @apply font-semibold;
+    }
+
+    .traceback-content {
+        @apply bg-white;
+    }
+
+    .traceback-context {
+        @apply hidden px-6 overflow-hidden text-ellipsis text-sm;
+    }
+
+    .traceback-frame.active .traceback-context {
+        @apply block min-h-[1.25rem];
+    }
+
+    .traceback-context-raising {
+        @apply mx-6 overflow-hidden text-ellipsis text-sm;
+    }
+
+    .traceback-frame.library .traceback-context-raising {
+        @apply text-gray-400;
+    }
+
+    .traceback-frame.user .traceback-context-raising {
+        @apply text-gray-900;
+    }
+
+    .traceback-frame.active .traceback-context-raising {
+        @apply text-white bg-red-400 font-semibold rounded;
+    }
+
+    .traceback-locals {
+        /*@apply  bg-red-200 text-red-700;*/
+        @apply hidden px-6;
+    }
+
+    .traceback-frame.active .traceback-locals {
+        @apply block;
+    }
+
+    .traceback-clipboard {
+    @apply font-semibold uppercase bg-red-50 text-sm py-2 px-3 rounded;
+        @apply hover:bg-red-400 hover:text-white;
+    }
+
+
+    .pairwise-group {
+        @apply table table-auto border-collapse text-sm -mx-6;
+        /* https://caniuse.com/intrinsic-width */
+        /* It's the only way I can make negative margins take up the correct width */
+        max-width: 100vw;
+        width: 100%;
+        width: -webkit-fill-available;
+        width: -moz-available;
+        width: stretch;
+    }
+
+    .pairwise {
+        @apply block pb-4 border-b;
+        @apply md:pb-0 md:table-row;
+    }
+
+    .pairwise:last-child {
+        @apply border-b-0;
+    }
+
+    .pairwise-key {
+
+        @apply block w-full py-2 pl-6;
+        @apply lg:w-4 lg:table-cell lg:min-w-[10%] lg:max-w-[40%];
+    }
+
+    .pairwise-value {
+        @apply block w-full py-2 px-6;
+        @apply lg:table-cell lg:min-w-[60%] lg:max-w-[90%] ;
+        word-break: break-word;
+    }
+    .pairwise-value > pre {
+        @apply overflow-y-hidden overflow-x-auto;
+        max-width: 100vw;
+        word-break: break-word;
+    }
+
+
+    .tooltip2 {
+        @apply absolute z-50 top-6 rounded px-3 py-2 max-w-prose bg-gray-500 font-semibold select-none pointer-events-none text-white text-xs text-center;
+        @apply transition ease-out opacity-0 duration-100 delay-100;
+        transform: translateX(-50%) scale(0, 1);
+        left: 50%;
+    }
+
+    .tooltip2.open {
+        @apply opacity-100 duration-200;
+        transform: translateX(-50%) scale(1, 1);
+        transition-delay: 0s;
+
+        box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.035),
+        0px 0px 8.8px rgba(0, 0, 0, 0.05),
+        0px 0px 21.1px rgba(0, 0, 0, 0.065),
+        0px 0px 70px rgba(0, 0, 0, 0.1)
+    }
+
+    .tooltip2:after {
+        @apply absolute top-0 w-0 h-0 border-transparent border-b-gray-500 border-8 -ml-2 select-none pointer-events-none;
+        @apply ease-linear duration-100;
+        transition-property: top;
+        content: "";
+        left: 50%;
+        z-index: -1;
+        transition-delay: 0s;
+    }
+
+    .tooltip2.open:after {
+        @apply -top-4 delay-200;
+    }
+
+    .tooltip2:hover:after {
+        @apply -bottom-4 delay-200;
+    }
+
+    .tooltip {
+        @apply relative;
+    }
+
+    .tooltip:before {
+        @apply absolute z-20 top-6 rounded px-3 py-2 max-w-prose bg-gray-500 select-none pointer-events-none text-white text-xs text-center transition opacity-0 scale-0 ease-out duration-200 delay-1000;
+        content: attr(aria-label);
+        transform-origin: center;
+        transform: translateX(-50%) scale(0);
+        left: 50%;
+        /*pointer-events: none;*/
+    }
+
+    .tooltip:hover:before {
+        @apply opacity-100 ease-in;
+        transition-delay: 0s;
+        transform: translateX(-50%) scale(1);
+    }
+
+    .tooltip:after {
+        @apply absolute z-10 w-0 h-0 -bottom-4 border-transparent border-b-gray-500 border-8 -ml-2 select-none pointer-events-none opacity-0 ease-out duration-100;
+        transition-property: opacity, bottom;
+        left: 50%;
+        content: "";
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .tooltip:hover:after {
+        @apply opacity-100 ease-in -bottom-2.5 delay-200;
+    }
 }

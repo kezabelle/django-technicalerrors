@@ -32,22 +32,18 @@
             <h1 class="masthead-error-title">{% if exception_type %}{{ exception_type }}{% else %}An error occurred{% endif %}</h1>
 
             {% if unicode_hint %}
-            <h3 class="text-lg text-red-500 font-semibold">The string that could not be encoded/decoded was: <strong>{{ unicode_hint }}</strong></h3>
-            <h2 class="text-lg text-red-500 font-normal">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</h2>
+                <p class="masthead-error-subtitle">The string that could not be encoded/decoded was: <strong>{{ unicode_hint }}</strong></p>
+                <p class="masthead-error-subtitle">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</p>
             {% elif template_does_not_exist and postmortem %}
 
-                <h2 class="text-lg text-red-400 font-normal">
-                    {% if exception_value %}
-                    Failed to load a template matching <strong>{{ exception_value|force_escape }}</strong>
-                    {% else %}
-                    Failed to load a template
-                    {% endif %}
-                </h2>
+                <p class="masthead-error-subtitle">
+                Failed to load a template {% if exception_value %}matching <code>{{ exception_value|force_escape }}</code>{% endif %}
+                </p>
 
             {% elif template_does_not_exist %}
-                <h2 class="text-lg text-red-400 font-normal">No templates were found because your 'TEMPLATES' setting is not configured.</h2>
+                <p class="masthead-error-subtitle">No templates were found because your 'TEMPLATES' setting is not configured.</p>
             {% else %}
-            <h2 class="text-lg text-red-400 font-normal">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</h2>
+            <p class="masthead-error-subtitle">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</p>
             {% endif %}
 
         </div>
@@ -61,7 +57,9 @@
         -->
 
         <div class="masthead-server-info">
-            <div class="pr-10">Django {{ django_version_info }}</div>
+            <div class="pr-10">Django {{ django_version_info }}
+<!--            <a href="https://docs.djangoproject.com/en/4.0/">Docs</a>-->
+            </div>
             <div class="pr-10 flex-grow">Python {{ sys_version_info }}</div>
             {% if user_str %}
             <div class="pr-10 flex-grow-0 text-right">{{ user_str }}</div>
@@ -74,37 +72,74 @@
     </div>
 </div>
 
+<ul class="tab-group">
+    {% if template_info or postmortem %}
+    <li data-tab-target="#templates" class="tab active">
+        Template
+    </li>
+    {% endif %}
+    {% if frames %}
+    <li data-tab-target="#traceback" class="tab {% if template_info or postmortem %}{% else %}active{% endif %}">
+        Traceback
+    </li>
+    {% endif %}
+    <li data-tab-target="#get" class="tab">
+        Request Data
+    </li>
+    <li data-tab-target="#cookies" class="tab">
+        Cookies
+    </li>
+    <li data-tab-target="#request_environ" class="tab">
+        Environment
+    </li>
+    <li data-tab-target="#settings" class="tab">
+        Settings
+    </li>
+</ul>
+
 <div class="technical-error">
 
     <div class="technical-error-details">
 
 
-        <ul class="tab-group">
-            {% if template_info or postmortem %}
-            <li data-tab-target="#templates" class="tab active">
-                Template
+        {% if template_info %}
+        <section id="templates" class="">
+            <ol class="traceback">
+                <li data-traceback class="traceback-frame user active">
+                    <div class="traceback-where">
+                        <span class="traceback-file">Line <code class="">{{ template_info.line }}</code> in template <code class="">{{  template_info.name }}</code></span>
+                    </div>
+                    <div class="traceback-content">
+
+                    {% for source_line in template_info.source_lines %}
+                    <pre class="{% if source_line.0 == template_info.line %}traceback-context-raising{% else %}traceback-context{% endif %}">{{ source_line.1 }}</pre>
+                    {% endfor %}
+                    </div>
+                </li>
+            </ol>
+
+        {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
+        <div class="py-4">
+        <h6 class="related-settings">Related settings</h6>
+            <ul class="pairwise-group">
+            <li class="pairwise">
+                <span class="pairwise-key">TEMPLATES</span>
+            <span class="pairwise-value">
+                <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
+            </span>
             </li>
-            {% endif %}
-            {% if frames %}
-            <li data-tab-target="#traceback" class="tab">
-                Traceback
-            </li>
-            {% endif %}
-            <li data-tab-target="#get" class="tab">
-                Request Data
-            </li>
-            <li data-tab-target="#cookies" class="tab">
-                Cookies
-            </li>
-            <li data-tab-target="#request_environ" class="tab">
-                Environment
-            </li>
-            <li data-tab-target="#settings" class="tab">
-                Settings
+            <li class="pairwise">
+                <span class="pairwise-key">FORM_RENDERER</span>
+            <span class="pairwise-value">
+                <pre class="">{{ settings.FORM_RENDERER|pprint }}</pre>
+            </span>
             </li>
         </ul>
+            </div>
+        {% endif %}
 
-        {% if postmortem %}
+        </section>
+        {% elif postmortem %}
         <section id="templates" class="">
         <p>Templates were tried in the following order:</p>
         <ol class="pt-4">
@@ -151,52 +186,104 @@
 
         {% if frames %}
         <section id="traceback" class="{% if template_info or postmortem %}hidden{% endif %}">
-            <ol class="">
+            <ol class="traceback">
                 {% for frame in frames %}
                     {% ifchanged frame.exc_cause %}
                     {% if frame.exc_cause %}
-                        <li><strong>
+                        <li class="traceback-cause-chain">
                         {% if frame.exc_cause_explicit %}
-                            The above exception ({{ frame.exc_cause|force_escape }}) was the direct cause of the following exception:
+                            The above was was the direct cause of:<br>
+                            {{ frame.exc_cause }}
                           {% else %}
-                            During handling of {{ frame.exc_cause|force_escape }}, another exception occurred:
+                            A nother exception occurred during handling of:<br>
+                            {{ frame.exc_cause|force_escape }}
                           {% endif %}
-                        </strong></li>
+                        </li>
                     {% endif %}
                     {% endifchanged %}
 
                     {% if frame.tb %}
-                        <li class="">
-                            <div class="flex flex-row py-2 px-6 items-center {% if frame.type == 'user' %}bg-gray-100 text-gray-700{% else %}bg-gray-50 text-gray-400{% endif %}">
-                                <span class="flex-grow truncate">line <code class="font-semibold">{{ frame.lineno }}</code> in <code>{{ frame.filename }}</code></span>
-                                <span class="flex-grow-0 pl-5"><code class="font-semibold">{{ frame.function }}</code></span>
+                        <li data-traceback class="traceback-frame {% if frame.type == 'user' %}user{% else %}library{% endif %}">
+                            <div class="traceback-where">
+                                <span class="traceback-file">Line <code class="">{{ frame.lineno }}</code> in <code class="">{{ frame.filename }}</code></span>
+                                <span class="traceback-function"><code class="">{{ frame.function }}</code></span>
                             </div>
-                            <div class="{% if frame.type == 'user' %}{% else %}hidden{% endif %}">
+                            <div class="traceback-content">
                             {% if frame.context_line %}
                             {% for line in frame.pre_context %}
-                            {% if line %}<pre class="hidden bg-gray-50 text-gray-500 px-6 overflow-hidden text-ellipsis">{{ line }}</pre>{% endif %}
+                            <pre class="traceback-context">{{ line }}</pre>
                             {% endfor %}
 
-                            <pre class="bg-red-500 text-white px-6 overflow-hidden text-ellipsis">{{ frame.context_line }}</pre>
-
-                            {% if frame.vars %}
-                                <ul class="hidden bg-red-200 text-red-700 px-6 py-2">
-                                <li><strong>Local variables</strong></li>
-                                {% for var_name, var_value in frame.vars|dictsort:0 %}
-                                <li><pre class="truncate">{{ var_name }} = {{ var_value }}</pre></li>
-                                {% endfor %}
-                                </ul>
-                            {% endif %}
+                            <pre class="traceback-context-raising">{{ frame.context_line }}</pre>
 
                             {% for line in frame.post_context %}
-                            {% if line %}<pre class="hidden bg-gray-50 text-gray-500 px-6 overflow-hidden text-ellipsis">{{ line }}</pre>{% endif %}
+                            <pre class="traceback-context">{{ line }}</pre>
                             {% endfor %}
+                            {% endif %}
+
+
+                            {% if frame.vars %}
+                                <div class="traceback-locals">
+                                <h6 class="related-settings">Local variables</h6>
+                                <ul class="pairwise-group">
+<!--                                <li><strong>Local variables</strong></li>-->
+                                {% for var_name, var_value in frame.vars|dictsort:0 %}
+                                <li class="pairwise">
+                                    <code class="pairwise-key">{{ var_name }}</code>
+
+                                    <code class="pairwise-value {% if ' at 0x' in var_value %}text-red-500{% endif %}">{{ var_value }}</code>
+                               </li>
+                                {% endfor %}
+                                </ul>
+                                </div>
                             {% endif %}
                             </div>
                         </li>
                     {% endif %}
                 {% endfor %}
             </ol>
+
+<textarea id="traceback_area" hidden>
+Environment:
+
+{% if request %}
+Request Method: {{ request.META.REQUEST_METHOD }}
+Request URL: {{ request_insecure_uri }}
+{% endif %}
+Django Version: {{ django_version_info }}
+Python Version: {{ sys_version_info }}
+Installed Applications:
+{{ settings.INSTALLED_APPS|pprint }}
+Installed Middleware:
+{{ settings.MIDDLEWARE|pprint }}
+
+{% if template_does_not_exist %}Template loader postmortem
+{% if postmortem %}Django tried loading these templates, in this order:
+{% for entry in postmortem %}
+Using engine {{ entry.backend.name }}:
+{% if entry.tried %}{% for attempt in entry.tried %}    * {{ attempt.0.loader_name }}: {{ attempt.0.name }} ({{ attempt.1 }})
+{% endfor %}{% else %}    This engine did not provide a list of tried templates.
+{% endif %}{% endfor %}
+{% else %}No templates were found because your 'TEMPLATES' setting is not configured.
+{% endif %}{% endif %}{% if template_info %}
+Template error:
+In template {{ template_info.name }}, error at line {{ template_info.line }}
+   {{ template_info.message }}
+{% for source_line in template_info.source_lines %}{% if source_line.0 == template_info.line %}   {{ source_line.0 }} : {{ template_info.before }} {{ template_info.during }} {{ template_info.after }}{% else %}   {{ source_line.0 }} : {{ source_line.1 }}{% endif %}{% endfor %}{% endif %}
+
+Traceback (most recent call last):{% for frame in frames %}
+{% ifchanged frame.exc_cause %}{% if frame.exc_cause %}{% if frame.exc_cause_explicit %}
+The above exception ({{ frame.exc_cause|force_escape }}) was the direct cause of the following exception:
+{% else %}
+During handling of the above exception ({{ frame.exc_cause|force_escape }}), another exception occurred:
+{% endif %}{% endif %}{% endifchanged %}  {% if frame.tb %}File "{{ frame.filename }}"{% if frame.context_line %}, line {{ frame.lineno }}{% endif %}, in {{ frame.function }}
+{% if frame.context_line %}    {% spaceless %}{{ frame.context_line }}{% endspaceless %}{% endif %}{% else %}{% if forloop.first %}None{% else %}Traceback: None{% endif %}{% endif %}{% endfor %}
+
+Exception Type: {{ exception_type }}{% if request %} at {{ request.path_info }}{% endif %}
+Exception Value: {{ exception_value|force_escape }}
+</textarea>
+
+            <button class="traceback-clipboard">Copy traceback to clipboard</button>
 
             <h6 class="related-settings">Related settings</h6>
             <ul class="pairwise-group">
@@ -321,39 +408,32 @@
 
         <section id="request_environ" class="hidden">
 
-            <ul class="table table-auto w-full max-w-full">
+            <ul class="pairwise-group">
             {% if sys_executable %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">Python Executable</span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code style="word-break: break-word">{{ sys_executable }}</code>
-                </span>
+            <li class="pairwise">
+                <span class="pairwise-key">Python Executable</span>
+                <code class="pairwise-value">{{ sys_executable }}</code>
             </li>
             {% endif %}
             {% if sys_path %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">Python Path</span>
-                <span class="table-cell border-b px-6 py-2">
+            <li class="pairwise">
+                <span class="pairwise-key">Python Path</span>
+                <span class="pairwise-value">
                     {% for path in sys_path %}
-                    <code class="flex" style="word-break: break-word">{{ path }}</code>
+                    <code>{{ path }}</code>
                     {% endfor %}
                 </span>
             </li>
             {% endif %}
             {% for var_name, var_value in request_meta.items|dictsort:0 %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">
-                    <code>{{ var_name }}</code>
-                </span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code style="word-break: break-word">{{ var_value|pprint }}</code>
-                </span>
+            <li class="pairwise">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <code class="pairwise-value">{{ var_value|pprint }}</code>
             </li>
             {% endfor %}
             </ul>
 
         </section>
-
 
         <section id="settings" class="hidden">
 
@@ -390,33 +470,8 @@
             </ul>
 
         </section>
+
     </div>
-</div>
-
-<div class="bg-white">
-    <div>
-        {% if template_info %}
-        <div>
-        <h3>In template <code>{{ template_info.name }}</code>, error on line <strong class="text-red-500">{{ template_info.line }}</strong></h3>
-        <h4>{{ template_info.message }}</h4>
-
-        <ol class="list-decimal pl-5">
-        {% for source_line in template_info.source_lines %}
-            <li value="{{ source_line.0 }}">
-            {% if source_line.0 == template_info.line %}
-            <code>{{ source_line.1 }}</code>&nbsp;
-            {% endif %}
-            </li>
-        {% endfor %}
-        </ol>
-        </div>
-        {% endif %}
-
-        <div class="">
-
-        </div>
-    </div>
-
 </div>
 </body>
 </html>
