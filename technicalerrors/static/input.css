@@ -15,13 +15,24 @@
     }
 }
 
+@layer utilities {
+
+    .horizontally-lines-up {
+        @apply px-4;
+        @apply md:px-6;
+    }
+
+}
+
 @layer components {
+
     .notification {
         @apply bg-red-700 text-white p-4 text-sm md:text-base text-center;
     }
 
     .masthead {
-        @apply bg-red-400 p-10;
+        @apply bg-red-400 p-2;
+        @apply sm:p-4 md:p-6 lg:p-10;
     }
 
     .masthead-details {
@@ -37,7 +48,9 @@
     }
 
     .masthead-request {
-        @apply py-4 px-6 border-b flex flex-row items-start justify-start truncate;
+        @apply horizontally-lines-up;
+        @apply py-2 border-b flex flex-row items-start justify-start truncate;
+        @apply md:py-4;
     }
 
     .masthead-request-badge {
@@ -58,38 +71,48 @@
     }
 
     .masthead-error {
-        @apply px-6 py-6;
+        @apply horizontally-lines-up;
+        @apply py-4;
+        @apply md:py-6;
     }
 
     .masthead-error-title {
-        @apply text-3xl text-red-500 font-semibold;
+        @apply text-xl text-red-500 font-semibold;
+        @apply md:text-3xl;
     }
 
     .masthead-error-subtitle {
-        @apply text-lg text-red-500 font-normal;
+        @apply text-base text-red-500 font-normal;
+        @apply md:text-lg
     }
 
     .masthead-server-info {
-        @apply px-6 py-4 flex flex-row border-t w-full text-gray-500 text-sm;
+        @apply py-2 px-4 flex flex-col border-t w-full text-gray-500 text-sm;
+        @apply md:py-4 md:px-6 md:flex-row;
     }
 
 
     .technical-error {
-        @apply bg-white lg:px-10;
+        @apply bg-white;
+        @apply p-4; /* same as masthead */
+        @apply md:px-6 lg:px-10;
     }
 
     .technical-error-details {
         @apply container mx-auto;
     }
 
-    .technical-error-details section {
-        @apply px-6;
+    .technical-error-details > section {
+        /*@apply block;*/
+        /*@apply px-6;*/
     }
 
 
     .tab-group {
-        @apply container mx-auto my-4 flex flex-col justify-center;
-        @apply md:flex-row;
+        @apply container mx-auto my-0 flex-row flex-wrap justify-center;
+        @apply md:flex-row md:my-4;
+        /*TODO: deal with*/
+        @apply flex md:flex;
     }
 
     .tab {
@@ -144,7 +167,8 @@
 
 
     .traceback {
-        @apply bg-gray-50 border border-gray-200 rounded -mx-6;
+        @apply bg-gray-50 border border-gray-200 rounded;
+        /*@apply  -mx-6;*/
     }
 
     .traceback-cause-chain {
@@ -156,8 +180,9 @@
     }
 
     .traceback-where {
-        @apply border-b border-b-gray-200 flex flex-row py-2 px-6 items-center text-sm;
+        @apply py-2 px-6 border-b border-b-gray-200 flex flex-row  items-center text-sm;
         @apply sticky top-0;
+        @apply md:py-2 md:px-6;
     }
 
     .traceback-frame.library .traceback-where {
@@ -228,7 +253,8 @@
 
 
     .pairwise-group {
-        @apply table table-auto border-collapse text-sm -mx-6;
+        @apply table table-auto border-collapse text-sm;
+        /*@apply -mx-6;*/
         /* https://caniuse.com/intrinsic-width */
         /* It's the only way I can make negative margins take up the correct width */
         max-width: 100vw;
