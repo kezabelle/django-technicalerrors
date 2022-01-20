@@ -40,9 +40,26 @@
 }
 
 @layer components {
+    .guideline:before{
+        content: "";
+         @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-2 sm:ml-4 md:ml-6 z-50;
+     }
+    .guideline2:before{
+        content: "";
+         @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-4 sm:ml-8 md:ml-12 z-50;
+     }
+
+    .guideline:after {
+        content: "";
+         @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-2 sm:mr-4 md:mr-6 z-50;
+     }
+    .guideline2:after {
+        content: "";
+         @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-4 sm:mr-8 md:mr-12 z-50;
+     }
 
     .notification {
-        @apply px-4 sm:px-6 md:px-8 lg:px-10
+        @apply py-2 px-4 sm:px-6 sm:py-4 md:px-10
         bg-red-700 text-white
         text-sm text-left md:text-base xl:text-center;
     }
