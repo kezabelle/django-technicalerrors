@@ -9,7 +9,7 @@
     }
 
     body {
-        @apply overflow-y-scroll text-gray-500;
+        @apply overflow-y-scroll text-gray-500 bg-white;
         max-width: 100vw;
         overscroll-behavior: none;
     }
@@ -17,9 +17,24 @@
 
 @layer utilities {
 
-    .horizontally-lines-up {
+    .px-consistent-outer {
         @apply px-4;
-        @apply md:px-6;
+        @apply sm:px-6 md:px-8 lg:px-10;
+    }
+
+    .px-consistent {
+        @apply px-2 sm:px-4 md:px-6;
+    }
+    .py-consistent {
+        @apply py-2 sm:py-4 md:py-6;
+    }
+
+    .mx-consistent {
+        @apply mx-4 md:mx-6;
+    }
+
+    .my-consistent {
+        @apply my-2 sm:my-4;
     }
 
 }
@@ -27,16 +42,17 @@
 @layer components {
 
     .notification {
-        @apply bg-red-700 text-white p-4 text-sm md:text-base text-center;
+        @apply px-4 sm:px-6 md:px-8 lg:px-10
+        bg-red-700 text-white
+        text-sm text-left md:text-base xl:text-center;
     }
 
     .masthead {
-        @apply bg-red-400 p-2;
-        @apply sm:p-4 md:p-6 lg:p-10;
+        @apply bg-red-400 p-2 sm:p-4 md:p-6;
     }
 
     .masthead-details {
-        @apply container mx-auto bg-white pt-0 rounded;
+        @apply bg-white rounded w-full;
         /*
         https://shadows.brumm.af/
         https://www.joshwcomeau.com/css/designing-shadows/
@@ -48,9 +64,7 @@
     }
 
     .masthead-request {
-        @apply horizontally-lines-up;
-        @apply py-2 border-b flex flex-row items-start justify-start truncate;
-        @apply md:py-4;
+        @apply py-2 md:py-4 border-b flex flex-row items-start justify-start truncate;
     }
 
     .masthead-request-badge {
@@ -71,7 +85,7 @@
     }
 
     .masthead-error {
-        @apply horizontally-lines-up;
+        @apply px-consistent;
         @apply py-4;
         @apply md:py-6;
     }
@@ -94,12 +108,13 @@
 
     .technical-error {
         @apply bg-white;
-        @apply p-4; /* same as masthead */
+        @apply px-consistent;
+        @apply py-4;
         @apply md:px-6 lg:px-10;
     }
 
     .technical-error-details {
-        @apply container mx-auto;
+        /*@apply container mx-auto;*/
     }
 
     .technical-error-details > section {
@@ -109,10 +124,9 @@
 
 
     .tab-group {
-        @apply container mx-auto my-0 flex-row flex-wrap justify-center;
-        @apply md:flex-row md:my-4;
-        /*TODO: deal with*/
-        @apply flex md:flex;
+        /*@apply container mx-auto;*/
+        /*@apply px-consistent;*/
+        @apply px-consistent my-consistent flex-row flex-wrap justify-center flex;
     }
 
     .tab {
