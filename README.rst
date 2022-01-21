@@ -78,7 +78,7 @@ There's a number of differences between the data given to the 500 and 404 pages,
   - The Python version (e.g. ``3.9.5``)
   - The server time (e.g. ``Fri, 21 Jan 2022 20:47:51 +0000``)
   - The frame which caused the ``Http404`` to be thrown.
-
+- Ideally the *source* lines shown in the **template** and **traceback** panels would be fixed up using ``textwrap.dedent`` based on the ``[top:bottom]`` being selected.
 
 .. _Django: https://docs.djangoproject.com/
 .. _Tailwind: https://tailwindcss.com/
