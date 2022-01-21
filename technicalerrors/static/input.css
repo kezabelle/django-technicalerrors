@@ -307,7 +307,7 @@
         ;
     }
     .traceback-context-raising .specific {
-        @apply bg-red-600 px-2 py-[2px];
+        @apply bg-red-700 font-semibold px-2 py-[2px];
     }
 
     .traceback-frame.library .traceback-context-raising {
@@ -319,7 +319,7 @@
     }
 
     .traceback-frame.active .traceback-context-raising {
-        @apply text-white bg-red-400 font-semibold;
+        @apply text-white bg-red-500;
     }
 
     .traceback-locals {
