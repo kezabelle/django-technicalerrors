@@ -129,8 +129,7 @@
 
     .masthead-error {
         @apply
-            p-4
-            md:py-6;
+            p-4;
     }
 
     .masthead-error-title {
@@ -144,10 +143,10 @@
     }
 
     .masthead-location {
-        @apply px-4 py-2 text-gray-500 text-sm text-red-500 bg-yellow-100 inline-block
+        @apply text-gray-500 text-sm block
     }
     .masthead-location > code {
-        @apply font-semibold;
+        @apply font-semibold bg-red-50 p-0.5 rounded;
     }
 
     .masthead-server-info {
