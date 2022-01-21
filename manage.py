@@ -160,7 +160,7 @@ def demo500templatesyntax(request):
     <br>
     <br>
     Go away, line 1!
-    Example template {{ 'syntax'|bad_filter }} error
+    Example template {{ 'syntax'|bad_filter }} some really long line error that might cause issues on small screens
     Ok now we've done the error
     How much more do we show afterwards?
     Got to be a few lines right?

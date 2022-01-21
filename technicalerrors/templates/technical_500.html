@@ -10,10 +10,9 @@
     <link href="/static/tailwind.css" rel="stylesheet" type="text/css" media="all"/>
     <script type="application/javascript" src="/static/init.js" defer async></script>
 </head>
-<body class="">
-<div class="guideline">
-    <div class="guideline2"></div>
-</div>
+<body class="debug-grid">
+<div class="guideline"><div class="guideline2"></div></div>
+
 {% if not is_email %}
 <div class="notification">
     <p>
@@ -104,7 +103,6 @@
 
     <div class="technical-error-details">
 
-
         {% if template_info %}
         <section id="templates" class="">
             <ol class="traceback">
@@ -113,23 +111,18 @@
                         <span class="traceback-file">Line <code class="">{{ template_info.line }}</code> in template <code class="">{{  template_info.name }}</code></span>
                     </div>
                     <div class="traceback-content">
-
-                    {% for source_line in template_info.source_lines %}
-                    <pre class="{% if source_line.0 == template_info.line %}traceback-context-raising{% else %}traceback-context{% endif %}">{{ source_line.1 }}</pre>
-                    {% endfor %}
+                        <pre class="traceback-context"><span>{% for source_line in template_info.source_lines %}{% if source_line.0 == template_info.line %}<span class="traceback-context-raising">{{ template_info.before }}<span class="specific">{{ template_info.during }}</span>{{ template_info.after }}</span>{% else %}{{ source_line.1 }}{% endif %}{% endfor %}</span></pre>
                     </div>
                 </li>
             </ol>
 
         {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
-        <div class="py-4">
-        <h6 class="related-settings">Related settings</h6>
+        <div class="related-settings">
+        <h6>Related settings</h6>
             <ul class="pairwise-group">
             <li class="pairwise">
                 <span class="pairwise-key">TEMPLATES</span>
-            <span class="pairwise-value">
-                <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
-            </span>
+                <pre class="pairwise-value">{{ settings.TEMPLATES|pprint }}</pre>
             </li>
             <li class="pairwise">
                 <span class="pairwise-key">FORM_RENDERER</span>
@@ -166,8 +159,8 @@
         </ol>
 
         {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
-        <div class="py-4">
-        <h6 class="related-settings">Related settings</h6>
+        <div class="related-settings">
+        <h6>Related settings</h6>
             <ul class="pairwise-group">
             <li class="pairwise">
                 <span class="pairwise-key">TEMPLATES</span>
@@ -213,23 +206,16 @@
                             </div>
                             <div class="traceback-content">
                             {% if frame.context_line %}
-                            {% for line in frame.pre_context %}
-                            <pre class="traceback-context">{{ line }}</pre>
-                            {% endfor %}
-
-                            <pre class="traceback-context-raising">{{ frame.context_line }}</pre>
-
-                            {% for line in frame.post_context %}
-                            <pre class="traceback-context">{{ line }}</pre>
-                            {% endfor %}
+                            <pre class="traceback-context"><span>{% for line in frame.pre_context %}{{ line }}
+{% endfor %}<span class="traceback-context-raising">{{ frame.context_line }}</span>{% for line in frame.post_context %}{{ line }}
+{% endfor %}</span></pre>
                             {% endif %}
 
 
                             {% if frame.vars %}
                                 <div class="traceback-locals">
-                                <h6 class="related-settings">Local variables</h6>
+                                <h6>Local variables</h6>
                                 <ul class="pairwise-group">
-<!--                                <li><strong>Local variables</strong></li>-->
                                 {% for var_name, var_value in frame.vars|dictsort:0 %}
                                 <li class="pairwise">
                                     <code class="pairwise-key">{{ var_name }}</code>
@@ -288,25 +274,27 @@ Exception Value: {{ exception_value|force_escape }}
 
             <button class="traceback-clipboard">Copy traceback to clipboard</button>
 
-            <h6 class="related-settings">Related settings</h6>
-            <ul class="pairwise-group">
-            <li class="pairwise">
-                <span class="pairwise-key">ADMINS</span>
-            <span class="pairwise-value">
-                <pre class="">{{ settings.ADMINS|pprint }}</pre>
-            </span>
-            </li>
-            {% for key, value in settings.items|dictsort:0 %}
-                    {% if 'EXCEPTION' in key or 'DEBUG' in key %}
-            <li class="pairwise">
-                <span class="pairwise-key">{{ key }}</span>
-            <span class="pairwise-value">
-                <pre class="">{{ value|pprint }}</pre>
-            </span>
-            </li>
-                {% endif %}
-                {% endfor %}
-        </ul>
+            <div class="related-settings">
+            <h6>Related settings</h6>
+                <ul class="pairwise-group">
+                <li class="pairwise">
+                    <span class="pairwise-key">ADMINS</span>
+                <span class="pairwise-value">
+                    <pre class="">{{ settings.ADMINS|pprint }}</pre>
+                </span>
+                </li>
+                {% for key, value in settings.items|dictsort:0 %}
+                        {% if 'EXCEPTION' in key or 'DEBUG' in key %}
+                <li class="pairwise">
+                    <span class="pairwise-key">{{ key }}</span>
+                <span class="pairwise-value">
+                    <pre class="">{{ value|pprint }}</pre>
+                </span>
+                </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         </section>
         {% endif %}
 
@@ -366,7 +354,8 @@ Exception Value: {{ exception_value|force_escape }}
             {% endfor %}
             </ul>
 
-            <h6 class="related-settings">Related settings</h6>
+            <div class="related-settings">
+            <h6>Related settings</h6>
             <ul class="pairwise-group">
             {% for key, value in settings.items|dictsort:0 %}
             {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
@@ -377,6 +366,7 @@ Exception Value: {{ exception_value|force_escape }}
             {% endif %}
             {% endfor %}
             </ul>
+            </div>
 
         </section>
 
@@ -393,7 +383,8 @@ Exception Value: {{ exception_value|force_escape }}
             {% endfor %}
             </ul>
 
-            <h6 class="related-settings">Related settings</h6>
+            <div class="related-settings">
+            <h6>Related settings</h6>
 
                 <ul class="pairwise-group">
                 {% for key, value in settings.items|dictsort:0 %}
@@ -405,6 +396,7 @@ Exception Value: {{ exception_value|force_escape }}
                     {% endif %}
                     {% endfor %}
                 </ul>
+            </div>
 
         </section>
         {% endif %}
