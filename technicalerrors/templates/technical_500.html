@@ -48,6 +48,12 @@
             <p class="masthead-error-subtitle">{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}</p>
             {% endif %}
 
+            <p class="masthead-location">
+                Raised
+                {% if raising_view_name %} during view <code>{{ raising_view_name }}</code>{% endif %}
+                {% if lastframe %} by <code>{{ lastframe.function }}</code> on line <code>{{ lastframe.lineno }}</code> in <code>{{ lastframe.filename }}</code>{% endif %}
+            </p>
+
         </div>
 
         <!--

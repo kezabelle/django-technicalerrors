@@ -22,7 +22,7 @@ EXTRA_MIDDLEWARE = ()
 
 USE_TECHNICALERRORS = os.environ.get("USE_TECHNICALERRORS", "1").lower() in {"1", "t", "true", "ok", "yes"}
 if USE_TECHNICALERRORS:
-    EXTRA_INSTALLED_APPS += ("technicalerrors",)
+    EXTRA_INSTALLED_APPS += ("technicalerrors.TechnicalErrors",)
 
 try:
     from livereloadish import watch_file
@@ -44,6 +44,7 @@ if not settings.configured:
             "django.contrib.contenttypes",
             "django.contrib.auth",
             "django.contrib.messages",
+            "django.contrib.sessions",
             "django.contrib.admin",
             "django.contrib.admindocs",
         ) + EXTRA_INSTALLED_APPS,

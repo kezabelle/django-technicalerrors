@@ -143,6 +143,13 @@
         @apply md:text-lg
     }
 
+    .masthead-location {
+        @apply px-4 py-2 text-gray-500 text-sm text-red-500 bg-yellow-100 inline-block
+    }
+    .masthead-location > code {
+        @apply font-semibold;
+    }
+
     .masthead-server-info {
         @apply p-4
         flex flex-col border-t w-full text-gray-500 text-sm
