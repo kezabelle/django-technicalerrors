@@ -135,6 +135,29 @@
         {% elif postmortem %}
         <section id="templates" class="">
         <p>Templates were tried in the following order:</p>
+
+        <ol class="traceback">
+            {% for entry in postmortem %}
+            {% if entry.tried %}
+                {% for attempt in entry.tried %}
+                {% ifchanged entry.backend.name attempt.0.loader_name %}
+                <li class="traceback-frame user">
+                    <div class="traceback-where">
+                        <span class="traceback-file">Line <code class="">{{ frame.lineno }}</code> in <code class="">{{ frame.filename }}</code></span>
+                        <code class="traceback-function">{{ frame.function }}</code>
+                    </div>
+                    <div class="traceback-content">
+                        {{ attempt }}
+                    </div>
+                </li>
+                {% endifchanged %}
+                {% endfor %}
+            {% else %}
+            <!-- TODO -->
+            {% endif %}
+            {% endfor %}
+        </ol>
+
         <ol class="pt-4">
         {% for entry in postmortem %}
                     {% if entry.tried %}
