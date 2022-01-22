@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex,noimageindex,nofollow,noarchive,nosnippet,nocache">
     <title>{% if exception_type %}{{ exception_type }}{% else %}An error occurred{% endif %}</title>
-    <link href="/static/tailwind.css" rel="stylesheet" type="text/css" media="all"/>
-    <script type="application/javascript" src="/static/init.js" defer async></script>
+    <!-- TODO: these will get inlined eventually -->
+    <link href="/static/tailwind.css" rel="stylesheet" />
+    <script src="/static/init.js" defer async></script>
 </head>
 <body class="debug-grid">
 <div class="guideline"><div class="guideline2"></div></div>
