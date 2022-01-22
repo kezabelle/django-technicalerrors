@@ -460,7 +460,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 /*    background-image:*/
 /*            linear-gradient(to bottom, rgba(0, 0, 255, 0.2) 1px, transparent 1px), linear-gradient(to right, rgba(0, 0, 255, 0.1) 1px, transparent 1px);*/
 /*}*/
-.notification {
+footer {
   order: 1;
   max-width: 100vw;
   --tw-bg-opacity: 1;
@@ -477,30 +477,30 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 @media (min-width: 640px) {
 
-  .notification {
+  footer {
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
 }
 @media (min-width: 768px) {
 
-  .notification {
+  footer {
     padding-left: 3rem;
     padding-right: 3rem;
   }
 
-  .notification {
+  footer {
     font-size: 1rem;
     line-height: 1.5rem;
   }
 }
 @media (min-width: 1280px) {
 
-  .notification {
+  footer {
     text-align: center;
   }
 }
-.masthead {
+header {
   order: 2;
   --tw-bg-opacity: 1;
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
@@ -508,7 +508,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 @media (min-width: 768px) {
 
-  .masthead {
+  header {
     padding: 2rem;
   }
 }
@@ -664,7 +664,7 @@ Ensure the default browser behavior of the `hidden` attribute.
     flex-direction: row;
   }
 }
-.technical-error {
+main {
   order: 4;
   max-width: 100vw;
   padding-left: 1rem;
@@ -672,7 +672,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 @media (min-width: 768px) {
 
-  .technical-error {
+  main {
     padding-left: 2rem;
     padding-right: 2rem;
   }

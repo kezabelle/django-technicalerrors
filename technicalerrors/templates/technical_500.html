@@ -15,7 +15,7 @@
 </head>
 <body class="debug-grid">
 <div class="guideline"><div class="guideline2"></div></div>
-<div class="masthead">
+<header>
     <div class="masthead-details">
         {% if request %}
         <div class="masthead-request">
@@ -71,7 +71,7 @@
         </div>
 
     </div>
-</div>
+</header>
 
 <ul class="tab-group">
     {% if template_info or postmortem %}
@@ -98,7 +98,7 @@
     </li>
 </ul>
 
-<div class="technical-error">
+<main>
 
     <div class="technical-error-details">
 
@@ -466,16 +466,16 @@ Exception Value: {{ exception_value|force_escape }}
         </section>
 
     </div>
-</div>
+</main>
 
 {% if not is_email %}
-<div class="notification">
+<footer>
     <p>
       You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
       Django settings. When set to <code class="font-bold">False</code>, Django will
       display a generic template for this status&nbsp;code.
     </p>
-</div>
+</footer>
 {% endif %}
 
 </body>
