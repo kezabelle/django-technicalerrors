@@ -7,6 +7,31 @@ django-technicalerrors
 A reusable `Django`_ application which provides alternate templates for the error
 pages shown when `DEBUG = True`
 
+
+Screenshots
+-----------
+
+These are heavily work-in-progress, as I think through the various bits...
+
+500 (Server Error)
+^^^^^^^^^^^^^^^^^^
+
+.. image:: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/500.png
+   :alt: technical 500 page
+   :width: 400px
+   :align: left
+   :target: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/500.png
+
+
+404 (Not found)
+^^^^^^^^^^^^^^^^^^
+
+.. image:: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/404.png
+   :alt: technical 404 page
+   :width: 400px
+   :align: left
+   :target: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/404.png
+
 Why though?
 -----------
 
@@ -41,31 +66,6 @@ Targets
 - Technical 404 page
 - Technical 500 page
 - ... others?
-
-Screenshots
------------
-
-These are heavily work-in-progress, as I think through the various bits...
-
-500 (Server Error)
-^^^^^^^^^^^^^^^^^^
-
-.. image:: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/500.png
-   :alt: technical 500 page
-   :width: 400px
-   :align: left
-   :target: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/500.png
-
-
-404 (Not found)
-^^^^^^^^^^^^^^^^^^
-
-.. image:: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/404.png
-   :alt: technical 404 page
-   :width: 400px
-   :align: left
-   :target: https://raw.githubusercontent.com/kezabelle/django-technicalerrors/main/images/404.png
-
 
 Notes
 -----
