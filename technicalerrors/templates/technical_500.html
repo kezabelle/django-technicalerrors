@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAf0lEQVR4AWNAB7f1XQzv6rlMB+KbQPwThKHs6SA5BlzgsaUl5x09l1lAhf+A+D8O/A+kBqQWQ/NdPeeDEEWEMUgtiiFQm/+TgkF64H7G52x83gGHCTTA/pOJp4MMuEmBATdBBvykwICfFBtAsRcoDkSKo5HChER5UqY8M1GcnQF/BO2ETMyzpwAAAABJRU5ErkJggg==" />
 </head>
 <body class="debug-grid">
+<link rel="stylesheet" href="https://csswizardry.com/ct/ct.css" class="ct" />
 <div class="guideline"><div class="guideline2"></div></div>
 <header>
     <div class="masthead-details">
@@ -194,7 +195,7 @@
                         <li data-traceback class="traceback-frame {% if frame.type == 'user' %}user{% else %}library{% endif %}">
                             <div class="traceback-where">
                                 <span class="traceback-file">Line <code class="">{{ frame.lineno }}</code> in <code class="">{{ frame.filename }}</code></span>
-                                <span class="traceback-function"><code class="">{{ frame.function }}</code></span>
+                                <code class="traceback-function">{{ frame.function }}</code>
                             </div>
                             <div class="traceback-content">
                             {% if frame.context_line %}

@@ -714,8 +714,6 @@ main {
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
         /*@apply  -mx-6;*/
 }
 .traceback-cause-chain {
@@ -775,14 +773,32 @@ main {
 }
 .traceback-function {
   flex-grow: 0;
-  padding-left: 1rem;
+  padding-left: 1rem; /* pr-4 relative; */
 }
-.traceback-function code {
+/*.traceback-function:before {*/
+/*    @apply block bg-gray-300 absolute w-3 h-0.5 top-2.5 right-0*/
+/*        ;*/
+/*    content       : "";*/
+/*    transition: transform 200ms ease-out;*/
+/*    transform: rotate(0deg);*/
+/*}*/
+/*.traceback-function:after {*/
+/*    @apply block bg-gray-300 absolute w-3 h-0.5 top-2.5 right-0*/
+/*        ;*/
+/*    transition: transform 200ms ease-out;*/
+/*    transform: rotate(90deg);*/
+/*    content       : "";*/
+/*}*/
+/*.traceback-frame.active .traceback-function:before {*/
+/*    transform: rotate(180deg);*/
+/*}*/
+/*.traceback-frame.active .traceback-function:after {*/
+/*    transform: rotate(180deg);*/
+/*}*/
+.traceback-frame.user .traceback-function {
   font-weight: 600;
 }
 .traceback-content {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
