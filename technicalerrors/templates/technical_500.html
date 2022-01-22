@@ -7,22 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex,noimageindex,nofollow,noarchive,nosnippet,nocache">
     <title>{% if exception_type %}{{ exception_type }}{% else %}An error occurred{% endif %}</title>
+    <meta name="description" content="{% if exception_value %}{{ exception_value|force_escape }}{% else %}No exception message supplied{% endif %}">
+    <meta name="theme-color">
     <!-- TODO: these will get inlined eventually -->
     <link href="/static/tailwind.css" rel="stylesheet" />
     <script src="/static/init.js" defer async></script>
 </head>
 <body class="debug-grid">
 <div class="guideline"><div class="guideline2"></div></div>
-
-{% if not is_email %}
-<div class="notification">
-    <p>
-      You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
-      Django settings. When set to <code class="font-bold">False</code>, Django will
-      display a generic template for this status&nbsp;code.
-    </p>
-</div>
-{% endif %}
 <div class="masthead">
     <div class="masthead-details">
         {% if request %}
@@ -475,5 +467,16 @@ Exception Value: {{ exception_value|force_escape }}
 
     </div>
 </div>
+
+{% if not is_email %}
+<div class="notification">
+    <p>
+      You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
+      Django settings. When set to <code class="font-bold">False</code>, Django will
+      display a generic template for this status&nbsp;code.
+    </p>
+</div>
+{% endif %}
+
 </body>
 </html>
