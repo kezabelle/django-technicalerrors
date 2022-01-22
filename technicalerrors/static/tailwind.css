@@ -500,6 +500,9 @@ footer {
     text-align: center;
   }
 }
+footer > code {
+  font-weight: 700;
+}
 header {
   order: 2;
   --tw-bg-opacity: 1;
@@ -677,9 +680,6 @@ main {
     padding-right: 2rem;
   }
 }
-.technical-error-details {
-        /*@apply container mx-auto;*/
-    }
 .technical-error-details > section {
         /*@apply block;*/
         /*@apply px-6;*/
@@ -957,7 +957,7 @@ main {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.pairwise-group {
+.pairwise {
   display: block;
   table-layout: auto;
   border-collapse: collapse;
@@ -966,11 +966,11 @@ main {
 }
 @media (min-width: 1024px) {
 
-  .pairwise-group {
+  .pairwise {
     display: table;
   }
 }
-.pairwise-group {
+.pairwise {
         /*@apply -mx-6;*/
         /* https://caniuse.com/intrinsic-width */
         /* It's the only way I can make negative margins take up the correct width */
@@ -980,22 +980,22 @@ main {
         /*width: -moz-available;*/
         /*width: stretch;*/
     }
-.pairwise {
+.pairwise > li {
   display: block;
   border-bottom-width: 1px;
   padding-bottom: 0.5rem;
 }
 @media (min-width: 1024px) {
 
-  .pairwise {
+  .pairwise > li {
     display: table-row;
   }
 
-  .pairwise {
+  .pairwise > li {
     padding-bottom: 0px;
   }
 }
-.pairwise:last-child {
+.pairwise > li:last-child {
   border-bottom-width: 0px;
 }
 .pairwise-key {

@@ -113,10 +113,10 @@
 
         <h6 class="related-settings">Related settings</h6>
 
-        <ul class="pairwise-group">
+        <ul class="pairwise">
         {% for key, value in settings.items|dictsort:0 %}
             {% if 'URL' in key or 'PREPEND_WWW' in key or 'APPEND_SLASH' in key or 'MEDIA_' in key or 'STATICFILES' in key or 'STATIC_' in key or 'X_FORWARDED' in key %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ key }}</code>
                 <pre class="pairwise-value">{{ value|pprint }}</pre>
             </li>
@@ -129,9 +129,9 @@
         <section id="get" class="hidden">
 
             <h6>request.GET</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in request.GET.items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
@@ -143,9 +143,9 @@
             </ul>
 
             <h6>request.POST</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in request.POST.items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
@@ -162,9 +162,9 @@
             </ul>
 
             <h6>request.FILES</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in request.FILES.items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
@@ -181,10 +181,10 @@
             </ul>
 
             <h6 class="related-settings">Related settings</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for key, value in settings.items|dictsort:0 %}
             {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ key }}</code>
                 <pre class="pairwise-value">{{ value|pprint }}</pre>
             </li>
@@ -199,9 +199,9 @@
         <section id="cookies" class="hidden">
 
 
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in request.COOKIES.items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <code class="pairwise-value">{{ var_value|pprint }}</code>
             </li>
@@ -210,10 +210,10 @@
 
             <h6 class="related-settings">Related settings</h6>
 
-                <ul class="pairwise-group">
+                <ul class="pairwise">
                 {% for key, value in settings.items|dictsort:0 %}
                     {% if 'COOKIE' in key %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ key }}</code>
                 <pre class="pairwise-value">{{ value|pprint }}</pre>
             </li>
@@ -227,15 +227,15 @@
 
         <section id="request_environ" class="hidden">
 
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% if sys_executable %}
-            <li class="pairwise">
+            <li class="">
                 <span class="pairwise-key">Python Executable</span>
                 <code class="pairwise-value">{{ sys_executable }}</code>
             </li>
             {% endif %}
             {% if sys_path %}
-            <li class="pairwise">
+            <li class="">
                 <span class="pairwise-key">Python Path</span>
                 <span class="pairwise-value">
                     {% for path in sys_path %}
@@ -245,7 +245,7 @@
             </li>
             {% endif %}
             {% for var_name, var_value in request.META.items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <code class="pairwise-value">{{ var_value|pprint }}</code>
             </li>
@@ -276,9 +276,9 @@
             </div>
             </div>
 
-            <ul class="pairwise-group" role="list">
+            <ul class="pairwise" role="list">
             {% for var_name, var_value in settings.items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <span class="pairwise-key">
                     <code>{{ var_name }}</code>
                 </span>

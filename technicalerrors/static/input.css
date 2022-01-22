@@ -87,6 +87,9 @@
         order-1
         ;
     }
+    footer > code {
+        @apply font-bold;
+    }
 
     header {
         @apply bg-red-400 p-4 md:p-8 order-2;
@@ -164,10 +167,6 @@
         px-4 md:px-8
         order-4
         /*md:px-6 lg:px-10;*/
-    }
-
-    .technical-error-details {
-        /*@apply container mx-auto;*/
     }
 
     .technical-error-details > section {
@@ -345,7 +344,7 @@
     }
 
 
-    .pairwise-group {
+    .pairwise {
         @apply block table-auto border-collapse text-sm
         lg:table
         ;
@@ -359,7 +358,7 @@
         /*width: stretch;*/
     }
 
-    .pairwise {
+    .pairwise > li {
         @apply
         block
         border-b
@@ -367,7 +366,7 @@
         lg:pb-0 lg:table-row;
     }
 
-    .pairwise:last-child {
+    .pairwise > li:last-child {
         @apply border-b-0;
     }
 

@@ -12,6 +12,7 @@
     <!-- TODO: these will get inlined eventually -->
     <link href="/static/tailwind.css" rel="stylesheet" />
     <script src="/static/init.js" defer async></script>
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAf0lEQVR4AWNAB7f1XQzv6rlMB+KbQPwThKHs6SA5BlzgsaUl5x09l1lAhf+A+D8O/A+kBqQWQ/NdPeeDEEWEMUgtiiFQm/+TgkF64H7G52x83gGHCTTA/pOJp4MMuEmBATdBBvykwICfFBtAsRcoDkSKo5HChER5UqY8M1GcnQF/BO2ETMyzpwAAAABJRU5ErkJggg==" />
 </head>
 <body class="debug-grid">
 <div class="guideline"><div class="guideline2"></div></div>
@@ -100,8 +101,6 @@
 
 <main>
 
-    <div class="technical-error-details">
-
         {% if template_info %}
         <section id="templates" class="">
             <ol class="traceback">
@@ -118,16 +117,14 @@
         {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
         <div class="related-settings">
         <h6>Related settings</h6>
-            <ul class="pairwise-group">
-            <li class="pairwise">
-                <span class="pairwise-key">TEMPLATES</span>
+            <ul class="pairwise">
+            <li class="">
+                <code class="pairwise-key">TEMPLATES</code>
                 <pre class="pairwise-value">{{ settings.TEMPLATES|pprint }}</pre>
             </li>
-            <li class="pairwise">
-                <span class="pairwise-key">FORM_RENDERER</span>
-            <span class="pairwise-value">
-                <pre class="">{{ settings.FORM_RENDERER|pprint }}</pre>
-            </span>
+            <li class="">
+                <code class="pairwise-key">FORM_RENDERER</code>
+                <pre class="pairwise-value">{{ settings.FORM_RENDERER|pprint }}</pre>
             </li>
         </ul>
             </div>
@@ -160,18 +157,14 @@
         {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
         <div class="related-settings">
         <h6>Related settings</h6>
-            <ul class="pairwise-group">
-            <li class="pairwise">
-                <span class="pairwise-key">TEMPLATES</span>
-            <span class="pairwise-value">
-                <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
-            </span>
+            <ul class="pairwise">
+            <li class="">
+                <code class="pairwise-key">TEMPLATES</code>
+                <pre class="pairwise-value">{{ settings.TEMPLATES|pprint }}</pre>
             </li>
-            <li class="pairwise">
-                <span class="pairwise-key">FORM_RENDERER</span>
-            <span class="pairwise-value">
-                <pre class="">{{ settings.FORM_RENDERER|pprint }}</pre>
-            </span>
+            <li class="">
+                <code class="pairwise-key">FORM_RENDERER</code>
+                <pre class="pairwise-value">{{ settings.FORM_RENDERER|pprint }}</pre>
             </li>
         </ul>
             </div>
@@ -214,9 +207,9 @@
                             {% if frame.vars %}
                                 <div class="traceback-locals">
                                 <h6>Local variables</h6>
-                                <ul class="pairwise-group">
+                                <ul class="pairwise">
                                 {% for var_name, var_value in frame.vars|dictsort:0 %}
-                                <li class="pairwise">
+                                <li class="">
                                     <code class="pairwise-key">{{ var_name }}</code>
 
                                     <code class="pairwise-value {% if ' at 0x' in var_value %}text-red-500{% endif %}">{{ var_value }}</code>
@@ -275,20 +268,16 @@ Exception Value: {{ exception_value|force_escape }}
 
             <div class="related-settings">
             <h6>Related settings</h6>
-                <ul class="pairwise-group">
-                <li class="pairwise">
-                    <span class="pairwise-key">ADMINS</span>
-                <span class="pairwise-value">
-                    <pre class="">{{ settings.ADMINS|pprint }}</pre>
-                </span>
+                <ul class="pairwise">
+                <li class="">
+                    <code class="pairwise-key">ADMINS</code>
+                    <pre class="pairwise-value">{{ settings.ADMINS|pprint }}</pre>
                 </li>
                 {% for key, value in settings.items|dictsort:0 %}
                         {% if 'EXCEPTION' in key or 'DEBUG' in key %}
-                <li class="pairwise">
-                    <span class="pairwise-key">{{ key }}</span>
-                <span class="pairwise-value">
-                    <pre class="">{{ value|pprint }}</pre>
-                </span>
+                <li class="">
+                    <code class="pairwise-key">{{ key }}</code>
+                    <pre class="pairwise-value">{{ value|pprint }}</pre>
                 </li>
                     {% endif %}
                     {% endfor %}
@@ -302,9 +291,9 @@ Exception Value: {{ exception_value|force_escape }}
         <section id="get" class="hidden">
 
             <h6>request.GET</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in request_GET_items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
@@ -316,9 +305,9 @@ Exception Value: {{ exception_value|force_escape }}
             </ul>
 
             <h6>request.POST</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in filtered_POST_items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
@@ -335,9 +324,9 @@ Exception Value: {{ exception_value|force_escape }}
             </ul>
 
             <h6>request.FILES</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in request_FILES_items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
@@ -355,10 +344,10 @@ Exception Value: {{ exception_value|force_escape }}
 
             <div class="related-settings">
             <h6>Related settings</h6>
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for key, value in settings.items|dictsort:0 %}
             {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ key }}</code>
                 <pre class="pairwise-value">{{ value|pprint }}</pre>
             </li>
@@ -373,9 +362,9 @@ Exception Value: {{ exception_value|force_escape }}
         <section id="cookies" class="hidden">
 
 
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <code class="pairwise-value">{{ var_value|pprint }}</code>
             </li>
@@ -385,10 +374,10 @@ Exception Value: {{ exception_value|force_escape }}
             <div class="related-settings">
             <h6>Related settings</h6>
 
-                <ul class="pairwise-group">
+                <ul class="pairwise">
                 {% for key, value in settings.items|dictsort:0 %}
                     {% if 'COOKIE' in key %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ key }}</code>
                 <pre class="pairwise-value">{{ value|pprint }}</pre>
             </li>
@@ -402,16 +391,16 @@ Exception Value: {{ exception_value|force_escape }}
 
         <section id="request_environ" class="hidden">
 
-            <ul class="pairwise-group">
+            <ul class="pairwise">
             {% if sys_executable %}
-            <li class="pairwise">
-                <span class="pairwise-key">Python Executable</span>
+            <li class="">
+                <code class="pairwise-key">Python Executable</code>
                 <code class="pairwise-value">{{ sys_executable }}</code>
             </li>
             {% endif %}
             {% if sys_path %}
-            <li class="pairwise">
-                <span class="pairwise-key">Python Path</span>
+            <li class="">
+                <code class="pairwise-key">Python Path</code>
                 <span class="pairwise-value">
                     {% for path in sys_path %}
                     <code>{{ path }}</code>
@@ -420,7 +409,7 @@ Exception Value: {{ exception_value|force_escape }}
             </li>
             {% endif %}
             {% for var_name, var_value in request_meta.items|dictsort:0 %}
-            <li class="pairwise">
+            <li class="">
                 <code class="pairwise-key">{{ var_name }}</code>
                 <code class="pairwise-value">{{ var_value|pprint }}</code>
             </li>
@@ -450,31 +439,24 @@ Exception Value: {{ exception_value|force_escape }}
             </div>
             </div>
 
-            <ul class="pairwise-group" role="list">
+            <ul class="pairwise" role="list">
             {% for var_name, var_value in settings.items|dictsort:0 %}
-            <li class="pairwise">
-                <span class="pairwise-key">
-                    <code>{{ var_name }}</code>
-                </span>
-                <span class="pairwise-value">
-                    <pre style="word-break: break-word">{{ var_value|pprint }}</pre>
-                </span>
+            <li class="">
+                <code class="pairwise-key">{{ var_name }}</code>
+                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
             </li>
             {% endfor %}
             </ul>
 
         </section>
 
-    </div>
 </main>
 
 {% if not is_email %}
 <footer>
-    <p>
-      You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
-      Django settings. When set to <code class="font-bold">False</code>, Django will
+      You’re seeing this because you have <code>DEBUG = True</code> in your
+      Django settings. When set to <code>False</code>, Django will
       display a generic template for this status&nbsp;code.
-    </p>
 </footer>
 {% endif %}
 
