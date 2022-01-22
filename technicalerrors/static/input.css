@@ -15,70 +15,38 @@
         /*height: 100%;*/
         overscroll-behavior: none;
     }
-    body.debug-grid {
-        @apply relative top-0 left-0;
-    }
-    body.debug-grid:before {
-        @apply absolute top-0 left-0 right-0 bottom-0 h-full select-none pointer-events-none z-50;
-        max-width: 100vw;
-        content: "";
-        background-size: 0.5rem 1rem;
-        background-image:
-                /*linear-gradient(to bottom, rgba(0, 0, 255, 0.1) 1px, transparent 1px),*/
-                linear-gradient(to right, rgba(0, 0, 255, 0.1) 1px, transparent 1px);
-    }
-}
-
-@layer utilities {
-
-    .px-consistent-outer {
-        @apply px-4;
-        @apply sm:px-6 md:px-8 lg:px-10;
-    }
-
-    .px-consistent {
-        @apply px-2 sm:px-4 md:px-6;
-    }
-    .py-consistent {
-        @apply py-2 sm:py-4 md:py-6;
-    }
-
-    .mx-consistent {
-        @apply mx-4 md:mx-6;
-    }
-
-    .my-consistent {
-        @apply my-2 sm:my-4;
-    }
-
+    /*body.debug-grid {*/
+    /*    @apply relative top-0 left-0;*/
+    /*}*/
+    /*body.debug-grid:before {*/
+    /*    @apply absolute top-0 left-0 right-0 bottom-0 h-full select-none pointer-events-none z-50;*/
+    /*    max-width: 100vw;*/
+    /*    content: "";*/
+    /*    background-size: 0.5rem 1rem;*/
+    /*    background-image:*/
+    /*            !*linear-gradient(to bottom, rgba(0, 0, 255, 0.1) 1px, transparent 1px),*!*/
+    /*            linear-gradient(to right, rgba(0, 0, 255, 0.1) 1px, transparent 1px);*/
+    /*}*/
 }
 
 @layer components {
-    .guideline:before{
-        content: "";
-         @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-4 md:ml-8 z-50;
-     }
-    .guideline:after{
-        content: "";
-         @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-8 md:ml-12 z-50;
-     }
+    /*.guideline:before{*/
+    /*    content: "";*/
+    /*     @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-4 md:ml-8 z-50;*/
+    /* }*/
+    /*.guideline:after{*/
+    /*    content: "";*/
+    /*     @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-8 md:ml-12 z-50;*/
+    /* }*/
 
-    .guideline2:before {
-        content: "";
-         @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-4 md:mr-8 z-50;
-     }
-    .guideline2:after {
-        content: "";
-         @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-8 md:mr-12 z-50;
-     }
-    /*.guideline {*/
-    /*    @apply absolute h-full w-full select-none;*/
-
-    /*    !* https://stackoverflow.com/a/32861765 *!*/
-    /*    background-size: 1rem 1rem;*/
-    /*    background-image:*/
-    /*            linear-gradient(to bottom, rgba(0, 0, 255, 0.2) 1px, transparent 1px), linear-gradient(to right, rgba(0, 0, 255, 0.1) 1px, transparent 1px);*/
-    /*}*/
+    /*.guideline2:before {*/
+    /*    content: "";*/
+    /*     @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-4 md:mr-8 z-50;*/
+    /* }*/
+    /*.guideline2:after {*/
+    /*    content: "";*/
+    /*     @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-8 md:mr-12 z-50;*/
+    /* }*/
 
     footer {
         @apply py-2 px-8 sm:py-4 md:px-12
@@ -344,18 +312,14 @@
     }
 
 
+
+
+
     .pairwise {
-        @apply block table-auto border-collapse text-sm
+        @apply block table-auto border-collapse text-sm w-full
         lg:table
         ;
-        /*@apply -mx-6;*/
-        /* https://caniuse.com/intrinsic-width */
-        /* It's the only way I can make negative margins take up the correct width */
         max-width: 100vw;
-        width: 100%;
-        /*width: -webkit-fill-available;*/
-        /*width: -moz-available;*/
-        /*width: stretch;*/
     }
 
     .pairwise > li {
@@ -363,34 +327,34 @@
         block
         border-b
         pb-2
-        lg:pb-0 lg:table-row;
+        lg:pb-0 lg:table-row
+        /*hover:bg-yellow-50*/
     }
 
     .pairwise > li:last-child {
         @apply border-b-0;
     }
 
-    .pairwise-key {
+    .pairwise > li > code:first-child {
         @apply
         block w-full
         py-2 pl-4
         lg:w-4 lg:table-cell lg:min-w-[10%] lg:max-w-[40%];
     }
 
-    .pairwise-value {
+    /* Sometimes we need to use <code> instead of <pre> */
+    .pairwise > li > pre,
+    .pairwise > li > code:last-child {
         @apply block max-w-full
      overflow-y-hidden overflow-x-auto
-        py-0 mx-4
+        py-0 ml-4
         lg:py-2 lg:pl-4 lg:table-cell lg:min-w-[60%] lg:max-w-[90%] ;
         word-break: break-word;
     }
-    /*.pairwise-value > pre,*/
-    /*.pairwise-value > code {*/
-    /*    @apply overflow-y-hidden overflow-x-auto*/
-    /*    ;*/
-    /*    max-width: 100vw;*/
-    /*    word-break: break-word;*/
-    /*}*/
+
+
+
+
 
 
     .tooltip2 {

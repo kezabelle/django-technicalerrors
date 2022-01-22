@@ -301,31 +301,18 @@ Ensure the default browser behavior of the `hidden` attribute.
         -ms-scroll-chaining: none;
             overscroll-behavior: none;
 }
-    body.debug-grid {
-  position: relative;
-  top: 0px;
-  left: 0px;
-}
-    body.debug-grid:before {
-  pointer-events: none;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: 50;
-  height: 100%;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-        max-width: 100vw;
-        content: "";
-        background-size: 0.5rem 1rem;
-        background-image:
-                /*linear-gradient(to bottom, rgba(0, 0, 255, 0.1) 1px, transparent 1px),*/
-                linear-gradient(to right, rgba(0, 0, 255, 0.1) 1px, transparent 1px);
-}
+    /*body.debug-grid {*/
+    /*    @apply relative top-0 left-0;*/
+    /*}*/
+    /*body.debug-grid:before {*/
+    /*    @apply absolute top-0 left-0 right-0 bottom-0 h-full select-none pointer-events-none z-50;*/
+    /*    max-width: 100vw;*/
+    /*    content: "";*/
+    /*    background-size: 0.5rem 1rem;*/
+    /*    background-image:*/
+    /*            !*linear-gradient(to bottom, rgba(0, 0, 255, 0.1) 1px, transparent 1px),*!*/
+    /*            linear-gradient(to right, rgba(0, 0, 255, 0.1) 1px, transparent 1px);*/
+    /*}*/
 
 *, ::before, ::after {
   --tw-translate-x: 0;
@@ -369,97 +356,22 @@ Ensure the default browser behavior of the `hidden` attribute.
     max-width: 1536px;
   }
 }
-.guideline:before{
-        content: "";
-        position: fixed;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        z-index: 50;
-        margin-left: 1rem;
-        display: block;
-        height: 100%;
-        width: 0px;
-        border-left-width: 1px;
-        --tw-border-opacity: 1;
-        border-left-color: rgb(0 0 0 / var(--tw-border-opacity));
-     }
-@media (min-width: 768px) {
-
-  .guideline:before {
-    margin-left: 2rem;
-  }
-}
-.guideline:after{
-        content: "";
-        position: fixed;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
-        z-index: 50;
-        margin-left: 2rem;
-        display: block;
-        height: 100%;
-        width: 0px;
-        border-left-width: 1px;
-        --tw-border-opacity: 1;
-        border-left-color: rgb(0 0 0 / var(--tw-border-opacity));
-     }
-@media (min-width: 768px) {
-
-  .guideline:after {
-    margin-left: 3rem;
-  }
-}
-.guideline2:before {
-        content: "";
-        position: fixed;
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        z-index: 50;
-        margin-right: 1rem;
-        display: block;
-        height: 100%;
-        width: 0px;
-        border-right-width: 1px;
-        --tw-border-opacity: 1;
-        border-right-color: rgb(0 0 0 / var(--tw-border-opacity));
-     }
-@media (min-width: 768px) {
-
-  .guideline2:before {
-    margin-right: 2rem;
-  }
-}
-.guideline2:after {
-        content: "";
-        position: fixed;
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        z-index: 50;
-        margin-right: 2rem;
-        display: block;
-        height: 100%;
-        width: 0px;
-        border-right-width: 1px;
-        --tw-border-opacity: 1;
-        border-right-color: rgb(0 0 0 / var(--tw-border-opacity));
-     }
-@media (min-width: 768px) {
-
-  .guideline2:after {
-    margin-right: 3rem;
-  }
-}
-/*.guideline {*/
-/*    @apply absolute h-full w-full select-none;*/
-/*    !* https://stackoverflow.com/a/32861765 *!*/
-/*    background-size: 1rem 1rem;*/
-/*    background-image:*/
-/*            linear-gradient(to bottom, rgba(0, 0, 255, 0.2) 1px, transparent 1px), linear-gradient(to right, rgba(0, 0, 255, 0.1) 1px, transparent 1px);*/
-/*}*/
+/*.guideline:before{*/
+/*    content: "";*/
+/*     @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-4 md:ml-8 z-50;*/
+/* }*/
+/*.guideline:after{*/
+/*    content: "";*/
+/*     @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-8 md:ml-12 z-50;*/
+/* }*/
+/*.guideline2:before {*/
+/*    content: "";*/
+/*     @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-4 md:mr-8 z-50;*/
+/* }*/
+/*.guideline2:after {*/
+/*    content: "";*/
+/*     @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-8 md:mr-12 z-50;*/
+/* }*/
 footer {
   order: 1;
   max-width: 100vw;
@@ -959,6 +871,7 @@ main {
 }
 .pairwise {
   display: block;
+  width: 100%;
   table-layout: auto;
   border-collapse: collapse;
   font-size: 0.875rem;
@@ -971,14 +884,7 @@ main {
   }
 }
 .pairwise {
-        /*@apply -mx-6;*/
-        /* https://caniuse.com/intrinsic-width */
-        /* It's the only way I can make negative margins take up the correct width */
         max-width: 100vw;
-        width: 100%;
-        /*width: -webkit-fill-available;*/
-        /*width: -moz-available;*/
-        /*width: stretch;*/
     }
 .pairwise > li {
   display: block;
@@ -998,7 +904,7 @@ main {
 .pairwise > li:last-child {
   border-bottom-width: 0px;
 }
-.pairwise-key {
+.pairwise > li > code:first-child {
   display: block;
   width: 100%;
   padding-top: 0.5rem;
@@ -1007,25 +913,25 @@ main {
 }
 @media (min-width: 1024px) {
 
-  .pairwise-key {
+  .pairwise > li > code:first-child {
     display: table-cell;
   }
 
-  .pairwise-key {
+  .pairwise > li > code:first-child {
     width: 1rem;
   }
 
-  .pairwise-key {
+  .pairwise > li > code:first-child {
     min-width: 10%;
   }
 
-  .pairwise-key {
+  .pairwise > li > code:first-child {
     max-width: 40%;
   }
 }
-.pairwise-value {
+/* Sometimes we need to use <code> instead of <pre> */
+.pairwise > li > pre, .pairwise > li > code:last-child {
   margin-left: 1rem;
-  margin-right: 1rem;
   display: block;
   max-width: 100%;
   overflow-x: auto;
@@ -1035,37 +941,31 @@ main {
 }
 @media (min-width: 1024px) {
 
-  .pairwise-value {
+  .pairwise > li > pre, .pairwise > li > code:last-child {
     display: table-cell;
   }
 
-  .pairwise-value {
+  .pairwise > li > pre, .pairwise > li > code:last-child {
     min-width: 60%;
   }
 
-  .pairwise-value {
+  .pairwise > li > pre, .pairwise > li > code:last-child {
     max-width: 90%;
   }
 
-  .pairwise-value {
+  .pairwise > li > pre, .pairwise > li > code:last-child {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
 
-  .pairwise-value {
+  .pairwise > li > pre, .pairwise > li > code:last-child {
     padding-left: 1rem;
   }
 }
-.pairwise-value {
+.pairwise > li > pre,
+    .pairwise > li > code:last-child {
         word-break: break-word;
     }
-/*.pairwise-value > pre,*/
-/*.pairwise-value > code {*/
-/*    @apply overflow-y-hidden overflow-x-auto*/
-/*    ;*/
-/*    max-width: 100vw;*/
-/*    word-break: break-word;*/
-/*}*/
 .tooltip2 {
   pointer-events: none;
   position: absolute;

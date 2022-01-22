@@ -119,12 +119,12 @@
         <h6>Related settings</h6>
             <ul class="pairwise">
             <li class="">
-                <code class="pairwise-key">TEMPLATES</code>
-                <pre class="pairwise-value">{{ settings.TEMPLATES|pprint }}</pre>
+                <code class="">TEMPLATES</code>
+                <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
             </li>
             <li class="">
-                <code class="pairwise-key">FORM_RENDERER</code>
-                <pre class="pairwise-value">{{ settings.FORM_RENDERER|pprint }}</pre>
+                <code class="">FORM_RENDERER</code>
+                <pre class="">{{ settings.FORM_RENDERER|pprint }}</pre>
             </li>
         </ul>
             </div>
@@ -159,12 +159,12 @@
         <h6>Related settings</h6>
             <ul class="pairwise">
             <li class="">
-                <code class="pairwise-key">TEMPLATES</code>
-                <pre class="pairwise-value">{{ settings.TEMPLATES|pprint }}</pre>
+                <code class="">TEMPLATES</code>
+                <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
             </li>
             <li class="">
-                <code class="pairwise-key">FORM_RENDERER</code>
-                <pre class="pairwise-value">{{ settings.FORM_RENDERER|pprint }}</pre>
+                <code class="">FORM_RENDERER</code>
+                <pre class="">{{ settings.FORM_RENDERER|pprint }}</pre>
             </li>
         </ul>
             </div>
@@ -206,13 +206,13 @@
 
                             {% if frame.vars %}
                                 <div class="traceback-locals">
-                                <h6>Local variables</h6>
+                                <h6>{{ frame.vars|length }} local variable{{ frame.vars|pluralize:"s" }}</h6>
                                 <ul class="pairwise">
                                 {% for var_name, var_value in frame.vars|dictsort:0 %}
                                 <li class="">
-                                    <code class="pairwise-key">{{ var_name }}</code>
+                                    <code class="">{{ var_name }}</code>
 
-                                    <code class="pairwise-value {% if ' at 0x' in var_value %}text-red-500{% endif %}">{{ var_value }}</code>
+                                    <code class="{% if ' at 0x' in var_value %}text-red-500{% endif %}">{{ var_value }}</code>
                                </li>
                                 {% endfor %}
                                 </ul>
@@ -270,14 +270,14 @@ Exception Value: {{ exception_value|force_escape }}
             <h6>Related settings</h6>
                 <ul class="pairwise">
                 <li class="">
-                    <code class="pairwise-key">ADMINS</code>
-                    <pre class="pairwise-value">{{ settings.ADMINS|pprint }}</pre>
+                    <code class="">ADMINS</code>
+                    <pre class="">{{ settings.ADMINS|pprint }}</pre>
                 </li>
                 {% for key, value in settings.items|dictsort:0 %}
                         {% if 'EXCEPTION' in key or 'DEBUG' in key %}
                 <li class="">
-                    <code class="pairwise-key">{{ key }}</code>
-                    <pre class="pairwise-value">{{ value|pprint }}</pre>
+                    <code class="">{{ key }}</code>
+                    <pre class="">{{ value|pprint }}</pre>
                 </li>
                     {% endif %}
                     {% endfor %}
@@ -294,12 +294,12 @@ Exception Value: {{ exception_value|force_escape }}
             <ul class="pairwise">
             {% for var_name, var_value in request_GET_items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
-            <li class="pairwise-key">
-                <span class="pairwise-value">No request.GET data parsed.</span>
+            <li class="">
+                <span class="">No request.GET data parsed.</span>
             </li>
             {% endfor %}
             </ul>
@@ -308,8 +308,8 @@ Exception Value: {{ exception_value|force_escape }}
             <ul class="pairwise">
             {% for var_name, var_value in filtered_POST_items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
             <li class="table-row text-sm">
@@ -327,8 +327,8 @@ Exception Value: {{ exception_value|force_escape }}
             <ul class="pairwise">
             {% for var_name, var_value in request_FILES_items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
             <li class="table-row text-sm">
@@ -348,8 +348,8 @@ Exception Value: {{ exception_value|force_escape }}
             {% for key, value in settings.items|dictsort:0 %}
             {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
             <li class="">
-                <code class="pairwise-key">{{ key }}</code>
-                <pre class="pairwise-value">{{ value|pprint }}</pre>
+                <code class="">{{ key }}</code>
+                <pre class="">{{ value|pprint }}</pre>
             </li>
             {% endif %}
             {% endfor %}
@@ -365,8 +365,8 @@ Exception Value: {{ exception_value|force_escape }}
             <ul class="pairwise">
             {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <code class="pairwise-value">{{ var_value|pprint }}</code>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% endfor %}
             </ul>
@@ -378,8 +378,8 @@ Exception Value: {{ exception_value|force_escape }}
                 {% for key, value in settings.items|dictsort:0 %}
                     {% if 'COOKIE' in key %}
             <li class="">
-                <code class="pairwise-key">{{ key }}</code>
-                <pre class="pairwise-value">{{ value|pprint }}</pre>
+                <code class="">{{ key }}</code>
+                <pre class="">{{ value|pprint }}</pre>
             </li>
                     {% endif %}
                     {% endfor %}
@@ -394,24 +394,21 @@ Exception Value: {{ exception_value|force_escape }}
             <ul class="pairwise">
             {% if sys_executable %}
             <li class="">
-                <code class="pairwise-key">Python Executable</code>
-                <code class="pairwise-value">{{ sys_executable }}</code>
+                <code class="">Python Executable</code>
+                <pre class="">{{ sys_executable }}</pre>
             </li>
             {% endif %}
             {% if sys_path %}
             <li class="">
-                <code class="pairwise-key">Python Path</code>
-                <span class="pairwise-value">
-                    {% for path in sys_path %}
-                    <code>{{ path }}</code>
-                    {% endfor %}
-                </span>
+                <code class="">Python Path</code>
+                <pre class="">{% for path in sys_path %}{{ path }}
+{% endfor %}</pre>
             </li>
             {% endif %}
             {% for var_name, var_value in request_meta.items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <code class="pairwise-value">{{ var_value|pprint }}</code>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% endfor %}
             </ul>
@@ -442,8 +439,8 @@ Exception Value: {{ exception_value|force_escape }}
             <ul class="pairwise" role="list">
             {% for var_name, var_value in settings.items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% endfor %}
             </ul>
