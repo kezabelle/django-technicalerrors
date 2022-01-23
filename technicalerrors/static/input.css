@@ -225,7 +225,7 @@
         @apply border-b border-b-gray-200 cursor-pointer;
     }
     .traceback-frame.active {
-        @apply cursor-inherit;
+        @apply cursor-auto;
     }
 
     .traceback-where {

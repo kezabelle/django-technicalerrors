@@ -89,7 +89,7 @@
             <code>{{ root_urlconf }}</code>{% endif %}:
                         </span>
                     </div>
-                </li>
+                    <ol class="pairwise">
                 {% for pattern in urlpatterns %}
                     <li>
                         {% for pat in pattern %}
@@ -105,6 +105,8 @@
                         {% endfor %}
                     </li>
                 {% endfor %}
+            </ol>
+                </li>
             </ol>
 
         {% endif %}
