@@ -11,17 +11,10 @@
     <script type="application/javascript" src="/static/init.js" defer async></script>
 </head>
 <body class="">
-<div class="notification">
-    <p>
-      You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
-      Django settings. When set to <code class="font-bold">False</code>, Django will
-      display a generic 404 template.
-    </p>
-</div>
 
 <div class="tooltip2"></div>
 
-<div class="masthead">
+<header>
     <div class="masthead-details">
 
         <div class="masthead-request">
@@ -48,11 +41,9 @@
         </div>
         {% endif %}
     </div>
-</div>
-<div class="technical-error">
-    <div class="technical-error-details">
+</header>
 
-        <ul class="tab-group">
+<ul class="tab-group">
             {% if urlpatterns %}
             <li data-tab-target="#urlpatterns" class="tab active">
                 URL Patterns
@@ -72,16 +63,33 @@
             </li>
         </ul>
 
+<main>
+
         <section id="urlpatterns">
+            <p>Django tried these URL patterns, in this order</p>
+
+            {% if resolved %}
+            <p class="urls-explanation">
+                The last pattern matched <code>{{ request.path_info }}</code> but an <code>Http404</code> exception was raised.
+            </p>
+            {% else %}
+            <p class="urls-explanation">
+                None of the patterns matched <code>{{ request.path_info }}</code>, so a <code>Resolver404</code> was raised.
+            </p>
+            {% endif %}
         {% if urlpatterns %}
-            <p class="urls-explanation">Using the URLconf
+            <ol class="traceback">
+                <li class="traceback-frame user active">
+                    <div class="traceback-where">
+                        <span class="traceback-file">
+                            Using the URLconf
             {% if urlconf != root_urlconf %}
             <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
             {% else %}
-            <code>{{ root_urlconf }}</code>
-            {% endif %}, Django tried these URL patterns, in this order:
-            </p>
-            <ol class="urls-tried">
+            <code>{{ root_urlconf }}</code>{% endif %}:
+                        </span>
+                    </div>
+                </li>
                 {% for pattern in urlpatterns %}
                     <li>
                         {% for pat in pattern %}
@@ -99,15 +107,6 @@
                 {% endfor %}
             </ol>
 
-            {% if resolved %}
-            <p class="urls-explanation">
-                The last pattern matched <code>{{ request.path_info }}</code> but an <code>Http404</code> exception was raised.
-            </p>
-            {% else %}
-            <p class="urls-explanation">
-                None of the above URL patterns matched <code>{{ request.path_info }}</code>, so a <code>Resolver404</code> was raised.
-            </p>
-            {% endif %}
         {% endif %}
 
 
@@ -292,73 +291,12 @@
         </section>
 
 
-    </div>
-</div>
-<!--
-<div class="bg-slate-100">
-    <div class="container mx-auto bg-white p-10">
-        <table>
-            {% for k, v in request.GET.items %}
-                <tr>
-                    <td>{{ k }}</td>
-                    <td class="code">
-                        <pre>{{ v|pprint }}</pre>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-        <table>
-            {% for k, v in request.FILES.items %}
-                <tr>
-                    <td>{{ k }}</td>
-                    <td class="code">
-                        <pre>{{ v|pprint }}</pre>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-        <table>
-        {% for k, v in request.COOKIES.items %}
-            <tr>
-                <td>{{ k }}</td>
-                <td class="code">
-                    <pre>{{ v|pprint }}</pre>
-                </td>
-            </tr>
-        {% endfor %}
-        </table>
-    </div>
-</div>
-<div class="bg-slate-100">
-    <div class="container mx-auto bg-white p-10">
-        Installed Applications:
-        {{ settings.INSTALLED_APPS|pprint }}
-        Installed Middleware:
-        {{ settings.MIDDLEWARE|pprint }}
-    </div>
-</div>
-<div class="bg-slate-100">
-    <div class="container mx-auto bg-white p-10">
-        <table class="req">
-            <thead>
-            <tr>
-                <th>Setting</th>
-                <th>Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for var in settings.items|dictsort:0 %}
-                <tr>
-                    <td>{{ var.0 }}</td>
-                    <td class="code">
-                        <pre>{{ var.1|pprint }}</pre>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
--->
+</main>
+
+<footer>
+      You’re seeing this because you have <code class="font-bold">DEBUG = True</code> in your
+      Django settings. When set to <code class="font-bold">False</code>, Django will
+      display a generic 404 template.
+</footer>
 </body>
 </html>

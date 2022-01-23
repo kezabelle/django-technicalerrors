@@ -52,6 +52,12 @@
         {% endif %}
         -->
 
+    <p class="masthead-location">
+        Raised
+        {% if raising_view_name %} during view <code>{{ raising_view_name }}</code>{% endif %}
+<!--        {% if raising_view_name and lastframe %}<br>{% endif %}-->
+        {% if lastframe %} by <code>{{ lastframe.function }}</code> on line <code>{{ lastframe.lineno }}</code> in <code>{{ lastframe.filename }}</code>{% endif %}
+    </p>
 
         <div class="masthead-server-info">
             <div class="pr-10">Django {{ django_version_info }}
@@ -67,6 +73,8 @@
         </div>
 
     </div>
+
+
 </header>
 
 <ul class="tab-group">
@@ -83,9 +91,9 @@
     <li data-tab-target="#get" class="tab">
         Request Data
     </li>
-    <li data-tab-target="#cookies" class="tab">
-        Cookies
-    </li>
+<!--    <li data-tab-target="#cookies" class="tab">-->
+<!--        Cookies-->
+<!--    </li>-->
     <li data-tab-target="#request_environ" class="tab">
         Environment
     </li>
@@ -99,7 +107,7 @@
         {% if template_info %}
         <section id="templates" class="">
             <ol class="traceback">
-                <li data-traceback class="traceback-frame user active">
+                <li data-expandable class="traceback-frame user active">
                     <div class="traceback-where">
                         <span class="traceback-file">Line <code class="">{{ template_info.line }}</code> in template <code class="">{{  template_info.name }}</code></span>
                     </div>
@@ -127,12 +135,6 @@
         {% elif postmortem %}
         <section id="templates" class="">
 
-        <p class="masthead-location">
-            Raised
-            {% if raising_view_name %} during view <code>{{ raising_view_name }}</code>{% endif %}
-            {% if lastframe %} by <code>{{ lastframe.function }}</code> on line <code>{{ lastframe.lineno }}</code> in <code>{{ lastframe.filename }}</code>{% endif %}
-        </p>
-
         <p>Templates were tried in the following order:</p>
 
         <ol class="traceback">
@@ -143,7 +145,7 @@
                     {% for loader_name, items in attempts_by_loader %}
                     <div class="traceback-where">
                         <span class="traceback-file"><code class="">{{ entry }}</code> using <code class="">{{ loader_name }}</code></span>
-                        <code class="traceback-function">{{ entry.backend.name }}</code>
+<!--                        <code class="traceback-function">{{ entry.backend.name }}</code>-->
                     </div>
                     <div class="traceback-locals">
                         <ol class="pairwise">
@@ -223,13 +225,6 @@
         {% if frames %}
         <section id="traceback" class="{% if template_info or postmortem %}hidden{% endif %}">
 
-
-        <p class="masthead-location">
-            Raised
-            {% if raising_view_name %} during view <code>{{ raising_view_name }}</code>{% endif %}
-            {% if lastframe %} by <code>{{ lastframe.function }}</code> on line <code>{{ lastframe.lineno }}</code> in <code>{{ lastframe.filename }}</code>{% endif %}
-        </p>
-
             <ol class="traceback">
                 {% for frame in frames %}
                     {% ifchanged frame.exc_cause %}
@@ -247,7 +242,7 @@
                     {% endifchanged %}
 
                     {% if frame.tb %}
-                        <li data-traceback class="traceback-frame {% if frame.type == 'user' %}user{% else %}library{% endif %}">
+                        <li data-expandable class="traceback-frame {% if frame.type == 'user' %}user{% else %}library{% endif %}">
                             <div class="traceback-where">
                                 <span class="traceback-file">Line <code class="">{{ frame.lineno }}</code> in <code class="">{{ frame.filename }}</code></span>
                                 <code class="traceback-function">{{ frame.function }}</code>
@@ -321,6 +316,8 @@ Exception Value: {{ exception_value|force_escape }}
 
             <button class="traceback-clipboard">Copy traceback to clipboard</button>
 
+            <label for="always-expand"><input type="checkbox" name="always-expand" id="always-expand"> Always show expanded</label>
+
             <div class="related-settings">
             <h6>Related settings</h6>
                 <ul class="pairwise">
@@ -345,63 +342,92 @@ Exception Value: {{ exception_value|force_escape }}
 
         <section id="get" class="hidden">
 
-            <h6>request.GET</h6>
-            <ul class="pairwise">
-            {% for var_name, var_value in request_GET_items|dictsort:0 %}
-            <li class="">
-                <code class="">{{ var_name }}</code>
-                <pre class="">{{ var_value|pprint }}</pre>
-            </li>
-            {% empty %}
-            <li class="">
-                <span class="">No request.GET data parsed.</span>
-            </li>
-            {% endfor %}
-            </ul>
-
-            <h6>request.POST</h6>
-            <ul class="pairwise">
-            {% for var_name, var_value in filtered_POST_items|dictsort:0 %}
-            <li class="">
-                <code class="">{{ var_name }}</code>
-                <pre class="">{{ var_value|pprint }}</pre>
-            </li>
-            {% empty %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">
-                    <code>request.POST</code>
-                </span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code>No data</code>
-                </span>
-            </li>
-            {% endfor %}
-            </ul>
-
-            <h6>request.FILES</h6>
-            <ul class="pairwise">
-            {% for var_name, var_value in request_FILES_items|dictsort:0 %}
-            <li class="">
-                <code class="">{{ var_name }}</code>
-                <pre class="">{{ var_value|pprint }}</pre>
-            </li>
-            {% empty %}
-            <li class="table-row text-sm">
-                <span class="table-cell border-b px-6 py-2">
-                    <code>request.FILES</code>
-                </span>
-                <span class="table-cell border-b px-6 py-2">
-                    <code>No data12</code>
-                </span>
-            </li>
-            {% endfor %}
-            </ul>
+            <ol class="traceback">
+                <li class="traceback-frame user active">
+                    <div class="traceback-where">
+                        <span class="traceback-file"><code class="">request.COOKIES</code></span>
+                    </div>
+                        <ul class="pairwise">
+                        {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
+                        <li class="">
+                            <code class="">{{ var_name }}</code>
+                            <pre class="">{{ var_value|pprint }}</pre>
+                        </li>
+                        {% empty %}
+                        <li class="">
+                            <span class="">No request.GET data parsed.</span>
+                        </li>
+                        {% endfor %}
+                        </ul>
+                </li>
+                <li class="traceback-frame user active">
+                    <div class="traceback-where">
+                        <span class="traceback-file"><code class="">request.GET</code></span>
+                    </div>
+                        <ul class="pairwise">
+                        {% for var_name, var_value in request_GET_items|dictsort:0 %}
+                        <li class="">
+                            <code class="">{{ var_name }}</code>
+                            <pre class="">{{ var_value|pprint }}</pre>
+                        </li>
+                        {% empty %}
+                        <li class="">
+                            <span class="">No request.GET data parsed.</span>
+                        </li>
+                        {% endfor %}
+                        </ul>
+                </li>
+                <li class="traceback-frame user active">
+                    <div class="traceback-where">
+                        <span class="traceback-file"><code class="">request.POST</code></span>
+                    </div>
+                    <ul class="pairwise">
+                    {% for var_name, var_value in filtered_POST_items|dictsort:0 %}
+                    <li class="">
+                        <code class="">{{ var_name }}</code>
+                        <pre class="">{{ var_value|pprint }}</pre>
+                    </li>
+                    {% empty %}
+                    <li class="table-row text-sm">
+                        <span class="table-cell border-b px-6 py-2">
+                            <code>request.POST</code>
+                        </span>
+                        <span class="table-cell border-b px-6 py-2">
+                            <code>No data</code>
+                        </span>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li class="traceback-frame user active">
+                    <div class="traceback-where">
+                        <span class="traceback-file"><code class="">request.FILES</code></span>
+                    </div>
+                    <ul class="pairwise">
+                    {% for var_name, var_value in request_FILES_items|dictsort:0 %}
+                    <li class="">
+                        <code class="">{{ var_name }}</code>
+                        <pre class="">{{ var_value|pprint }}</pre>
+                    </li>
+                    {% empty %}
+                    <li class="table-row text-sm">
+                        <span class="table-cell border-b px-6 py-2">
+                            <code>request.POST</code>
+                        </span>
+                        <span class="table-cell border-b px-6 py-2">
+                            <code>No data</code>
+                        </span>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </li>
+            </ol>
 
             <div class="related-settings">
             <h6>Related settings</h6>
             <ul class="pairwise">
             {% for key, value in settings.items|dictsort:0 %}
-            {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
+            {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key or 'COOKIE' in key %}
             <li class="">
                 <code class="">{{ key }}</code>
                 <pre class="">{{ value|pprint }}</pre>
@@ -503,6 +529,7 @@ Exception Value: {{ exception_value|force_escape }}
         </section>
 
 </main>
+
 
 {% if not is_email %}
 <footer>

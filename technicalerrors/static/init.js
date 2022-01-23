@@ -4,7 +4,7 @@
     "use strict";
     const setUp = () => {
         const allPanels = document.querySelectorAll('[data-tab-target]');
-        const allToggles = document.querySelectorAll('[data-toggle-target]');
+        const showable = document.querySelectorAll('[data-toggle-target]');
         const hidePanel = (element) => {
             const panelSelector = element.dataset.tabTarget || "";
             if (panelSelector !== "") {
@@ -15,7 +15,7 @@
                 }
             }
         };
-        const showPanel = (event) => {
+        const showHideOthers = (event) => {
             const element = event.target;
             if (element !== null) {
                 const panelSelector = element.dataset.tabTarget || "";
@@ -29,20 +29,23 @@
                 }
             }
         };
-        const toggleRelated = (event) => {
+        const show = (element, panel) => {
+            if (panel.classList.contains("hidden")) {
+                panel.classList.remove('hidden');
+            }
+            else {
+                panel.classList.add('hidden');
+            }
+            element.classList.add("active");
+        };
+        const showBoxContents = (event) => {
             const element = event.target;
             if (element !== null) {
                 const toggleSelector = element.dataset.toggleTarget || "";
                 if (toggleSelector !== "") {
                     const panel = document.querySelector(toggleSelector);
                     if (panel !== null) {
-                        if (panel.classList.contains("hidden")) {
-                            panel.classList.remove('hidden');
-                        }
-                        else {
-                            panel.classList.add('hidden');
-                        }
-                        element.classList.add("active");
+                        return show(element, panel);
                     }
                 }
             }
@@ -146,34 +149,29 @@
                 }
             }
         }
-        class Traceback {
+        class ExpandableBox {
             constructor(element) {
                 this.owner = element;
                 this.show = this.show.bind(this);
-                this.hide = this.hide.bind(this);
-                this.toggle = this.toggle.bind(this);
                 this.bind();
             }
             bind() {
-                this.owner.addEventListener("click", this.toggle);
+                if (this.owner.classList.contains("inactive") || !this.owner.classList.contains("active")) {
+                    this.owner.addEventListener("click", this.show);
+                }
             }
             static ready(selector) {
                 const foundTraces = document.querySelectorAll(selector);
                 return foundTraces.forEach((value) => {
-                    return new Traceback(value);
+                    return new ExpandableBox(value);
                 });
             }
-            toggle(event) {
-                if (this.owner.classList.contains('active')) {
-                    return this.hide(event);
-                }
-                return this.show(event);
-            }
-            hide(event) {
-                this.owner.classList.remove('active');
-            }
             show(event) {
+                if (this.owner.classList.contains("active")) {
+                    return;
+                }
                 this.owner.classList.add('active');
+                this.owner.classList.remove('inactive');
                 const { x, y, top } = this.owner.getBoundingClientRect();
                 const { scrollX, scrollY } = window;
                 const goTo = scrollY + top;
@@ -198,10 +196,10 @@
             }
         }
         allPanels.forEach((value) => {
-            value.addEventListener("click", showPanel);
+            value.addEventListener("click", showHideOthers);
         });
-        allToggles.forEach((value) => {
-            value.addEventListener("click", toggleRelated);
+        showable.forEach((value) => {
+            value.addEventListener("click", showBoxContents);
         });
         const initialTab = document.location.hash;
         if (initialTab !== '') {
@@ -212,7 +210,7 @@
             });
         }
         Tooltip.ready('[data-tooltip-target]');
-        Traceback.ready('[data-traceback]');
+        ExpandableBox.ready('[data-expandable]');
         const copyToClipboardButton = document.querySelector('.traceback-clipboard');
         const copyToClipboardContents = document.getElementById("traceback_area");
         if (copyToClipboardButton !== null && copyToClipboardContents !== null) {

@@ -116,7 +116,7 @@
     }
 
     .masthead-location {
-        @apply block
+        @apply block text-gray-900
     }
     .masthead-location > code {
         @apply underline underline-offset-1 decoration-from-font decoration-gray-300;
@@ -147,7 +147,7 @@
         @apply
         p-4 md:px-8
         flex-row flex-wrap justify-center flex max-w-[100vw]
-        order-3
+        order-2
         ;
     }
 
@@ -197,7 +197,7 @@
         @apply flex-grow-0 text-sm font-normal;
     }
 
-    section > p {
+    main > p {
         @apply m-4 mt-0;
     }
 
@@ -223,6 +223,9 @@
 
     .traceback-frame {
         @apply border-b border-b-gray-200 cursor-pointer;
+    }
+    .traceback-frame.active {
+        @apply cursor-inherit;
     }
 
     .traceback-where {

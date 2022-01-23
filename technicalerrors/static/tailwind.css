@@ -618,6 +618,8 @@ header {
 }
 .masthead-location {
   display: block;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 .masthead-location > code {
   -webkit-text-decoration-line: underline;
@@ -662,7 +664,7 @@ main {
         /*@apply px-6;*/
     }
 .tab-group {
-  order: 3;
+  order: 2;
   display: flex;
   max-width: 100vw;
   flex-direction: row;
@@ -763,7 +765,7 @@ main {
   line-height: 1.25rem;
   font-weight: 400;
 }
-section > p {
+main > p {
   margin: 1rem;
   margin-top: 0px;
 }
@@ -801,6 +803,9 @@ section > p {
   border-bottom-width: 1px;
   --tw-border-opacity: 1;
   border-bottom-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+.traceback-frame.active {
+  cursor: default;
 }
 .traceback-where {
   position: -webkit-sticky;

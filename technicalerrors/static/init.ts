@@ -3,7 +3,7 @@
     const setUp = () => {
 
         const allPanels: NodeListOf<HTMLElement> = document.querySelectorAll('[data-tab-target]');
-        const allToggles: NodeListOf<HTMLElement> = document.querySelectorAll('[data-toggle-target]');
+        const showable: NodeListOf<HTMLElement> = document.querySelectorAll('[data-toggle-target]');
 
         const hidePanel = (element: HTMLElement) => {
             const panelSelector = element.dataset.tabTarget || "";
@@ -16,7 +16,7 @@
             }
         }
 
-        const showPanel = (event: Event) => {
+        const showHideOthers = (event: Event) => {
             const element = event.target as HTMLElement | null;
             if (element !== null) {
                 const panelSelector = element.dataset.tabTarget || "";
@@ -31,19 +31,23 @@
             }
         }
 
-        const toggleRelated = (event: Event) => {
+        const show = (element: HTMLElement, panel: Element) => {
+                if (panel.classList.contains("hidden")) {
+                    panel.classList.remove('hidden');
+                } else {
+                    panel.classList.add('hidden');
+                }
+                element.classList.add("active");
+        }
+
+        const showBoxContents = (event: Event) => {
             const element = event.target as HTMLElement | null;
             if (element !== null) {
                 const toggleSelector = element.dataset.toggleTarget || "";
                 if (toggleSelector !== "") {
                     const panel = document.querySelector(toggleSelector);
                     if (panel !== null) {
-                        if (panel.classList.contains("hidden")) {
-                            panel.classList.remove('hidden');
-                        } else {
-                            panel.classList.add('hidden');
-                        }
-                        element.classList.add("active");
+                        return show(element, panel);
                     }
                 }
             }
@@ -177,41 +181,34 @@
             }
         }
 
-        class Traceback {
+        class ExpandableBox {
             private owner: HTMLElement;
 
             constructor(element: HTMLElement) {
                 this.owner = element;
                 this.show = this.show.bind(this);
-                this.hide = this.hide.bind(this);
-                this.toggle = this.toggle.bind(this);
                 this.bind();
             }
 
             bind() {
-                this.owner.addEventListener("click", this.toggle);
+                if (this.owner.classList.contains("inactive") || !this.owner.classList.contains("active")) {
+                    this.owner.addEventListener("click", this.show);
+                }
             }
 
             static ready(selector: string) {
                 const foundTraces: NodeListOf<HTMLElement> = document.querySelectorAll(selector);
                 return foundTraces.forEach((value) => {
-                    return new Traceback(value);
+                    return new ExpandableBox(value);
                 });
             }
 
-            toggle(event: MouseEvent | PointerEvent) {
-                if (this.owner.classList.contains('active')) {
-                    return this.hide(event);
-                }
-                return this.show(event);
-            }
-
-            hide(event: MouseEvent | PointerEvent) {
-                this.owner.classList.remove('active');
-            }
-
             show(event: MouseEvent | PointerEvent) {
+                if (this.owner.classList.contains("active")) {
+                    return;
+                }
                 this.owner.classList.add('active');
+                this.owner.classList.remove('inactive');
                 const {x, y, top} = this.owner.getBoundingClientRect();
                 const {scrollX, scrollY} = window;
                 const goTo = scrollY + top;
@@ -238,10 +235,10 @@
 
 
         allPanels.forEach((value) => {
-            value.addEventListener("click", showPanel);
+            value.addEventListener("click", showHideOthers);
         });
-        allToggles.forEach((value) => {
-            value.addEventListener("click", toggleRelated);
+        showable.forEach((value) => {
+            value.addEventListener("click", showBoxContents);
         });
 
 
@@ -255,7 +252,7 @@
         }
 
         Tooltip.ready('[data-tooltip-target]');
-        Traceback.ready('[data-traceback]');
+        ExpandableBox.ready('[data-expandable]');
 
         const copyToClipboardButton = document.querySelector('.traceback-clipboard') as HTMLButtonElement | null;
         const copyToClipboardContents = document.getElementById("traceback_area") as HTMLTextAreaElement | null ;
