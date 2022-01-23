@@ -30,23 +30,23 @@
 }
 
 @layer components {
-    /*.guideline:before{*/
-    /*    content: "";*/
-    /*     @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-4 md:ml-8 z-50;*/
-    /* }*/
-    /*.guideline:after{*/
-    /*    content: "";*/
-    /*     @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-8 md:ml-12 z-50;*/
-    /* }*/
+    .guideline:before{
+        content: "";
+         @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-4 md:ml-8 z-50;
+     }
+    .guideline:after{
+        content: "";
+         @apply block fixed top-0 bottom-0 left-0 border-l border-l-black w-0 h-full ml-8 md:ml-12 z-50;
+     }
 
-    /*.guideline2:before {*/
-    /*    content: "";*/
-    /*     @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-4 md:mr-8 z-50;*/
-    /* }*/
-    /*.guideline2:after {*/
-    /*    content: "";*/
-    /*     @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-8 md:mr-12 z-50;*/
-    /* }*/
+    .guideline2:before {
+        content: "";
+         @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-4 md:mr-8 z-50;
+     }
+    .guideline2:after {
+        content: "";
+         @apply block fixed top-0 bottom-0 right-0 border-r border-r-black w-0 h-full mr-8 md:mr-12 z-50;
+     }
 
     footer {
         @apply py-2 px-8 sm:py-4 md:px-12
@@ -116,10 +116,10 @@
     }
 
     .masthead-location {
-        @apply text-gray-500 text-sm block
+        @apply block
     }
     .masthead-location > code {
-        @apply font-semibold bg-red-50 p-0.5 rounded;
+        @apply underline underline-offset-1 decoration-from-font decoration-gray-300;
     }
 
     .masthead-server-info {
@@ -195,6 +195,10 @@
 
     .urls-tried-name {
         @apply flex-grow-0 text-sm font-normal;
+    }
+
+    section > p {
+        @apply m-4 mt-0;
     }
 
     .related-settings {
@@ -273,13 +277,16 @@
         @apply font-semibold;
     }
 
-    .traceback-content {
-        @apply py-4;
-    }
+    /*.traceback-content {*/
+    /*    @apply py-4;*/
+    /*}*/
+
+
     .traceback-context {
         @apply block overflow-hidden
-        mx-4
+        my-4 mx-4
         ;
+        word-break: break-all;
         font-size: 0;
         line-height: 0;
     }
@@ -314,11 +321,20 @@
     }
 
     .traceback-locals {
-        @apply hidden;
+        @apply hidden my-4;
     }
     .traceback-locals > h6 {
-        @apply text-red-500 font-semibold
-        px-4 pt-4
+        @apply py-2 px-4
+        font-semibold
+        border-b border-b-gray-200 text-sm
+        ;
+    }
+    .traceback-locals > code {
+        @apply block
+        ;
+    }
+    .traceback-locals > p {
+        @apply px-4
     }
 
     .traceback-frame.active .traceback-locals {
@@ -351,7 +367,7 @@
     }
 
     .pairwise > li:last-child {
-        @apply border-b-0;
+        @apply border-b-0 pb-0;
     }
 
     .pairwise > li > code:first-child {
@@ -367,7 +383,8 @@
         @apply block max-w-full
      overflow-y-hidden overflow-x-auto
         py-0 ml-4
-        lg:py-2 lg:pl-4 lg:table-cell lg:min-w-[60%] lg:max-w-[90%] ;
+        lg:py-2 lg:pl-4 lg:table-cell lg:min-w-[60%] lg:max-w-[90%]
+        ;
         word-break: break-word;
     }
 
