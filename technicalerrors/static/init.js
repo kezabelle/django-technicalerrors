@@ -176,7 +176,14 @@
                 const { scrollX, scrollY } = window;
                 const goTo = scrollY + top;
                 // if (goTo > scrollY) {
-                // TODO: detect reduced motion and make this not happen then!
+                const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+                if (reducedMotion.matches) {
+                    return;
+                }
+                // Don't perform any auto-scrolling if it's not smooth...
+                if (!('scrollBehavior' in document.documentElement.style)) {
+                    return;
+                }
                 window.scroll({
                     top: goTo,
                     behavior: 'smooth'
