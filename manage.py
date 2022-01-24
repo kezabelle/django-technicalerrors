@@ -20,12 +20,19 @@ except ModuleNotFoundError:
 EXTRA_INSTALLED_APPS = ()
 EXTRA_MIDDLEWARE = ()
 
-USE_TECHNICALERRORS = os.environ.get("USE_TECHNICALERRORS", "1").lower() in {"1", "t", "true", "ok", "yes"}
+USE_TECHNICALERRORS = os.environ.get("USE_TECHNICALERRORS", "1").lower() in {
+    "1",
+    "t",
+    "true",
+    "ok",
+    "yes",
+}
 if USE_TECHNICALERRORS:
     EXTRA_INSTALLED_APPS += ("technicalerrors.TechnicalErrors",)
 
 try:
     from livereloadish import watch_file
+
     EXTRA_INSTALLED_APPS += ("livereloadish",)
     EXTRA_MIDDLEWARE += ("livereloadish.middleware.LivereloadishMiddleware",)
 except ModuleNotFoundError:
@@ -47,18 +54,20 @@ if not settings.configured:
             "django.contrib.sessions",
             "django.contrib.admin",
             "django.contrib.admindocs",
-        ) + EXTRA_INSTALLED_APPS,
+        )
+        + EXTRA_INSTALLED_APPS,
         ALLOWED_HOSTS=("*"),
         ROOT_URLCONF=__name__,
         MIDDLEWARE=(
             "django.contrib.sessions.middleware.SessionMiddleware",
             "django.contrib.auth.middleware.AuthenticationMiddleware",
             "django.contrib.messages.middleware.MessageMiddleware",
-                   ) + EXTRA_MIDDLEWARE,
+        )
+        + EXTRA_MIDDLEWARE,
         TEMPLATES=[
             {
                 "BACKEND": "django.template.backends.django.DjangoTemplates",
-                "DIRS": (os.path.join(HERE, 'extra_templates'),),
+                "DIRS": (os.path.join(HERE, "extra_templates"),),
                 "APP_DIRS": True,
                 "OPTIONS": {
                     "context_processors": (
@@ -79,30 +88,30 @@ if not settings.configured:
                         "django.template.context_processors.request",
                         "django.contrib.messages.context_processors.messages",
                     ),
-                }
-            }
-        ],
-        LOGGING={
-                "version": 1,
-                "disable_existing_loggers": False,
-                "handlers": {
-                    "console": {
-                        "class": "logging.StreamHandler",
-                    },
-                },
-                "loggers": {
-                    "livereloadish": {
-                        "handlers": ["console"],
-                        "level": "WARNING",
-                        "propagate": False,
-                    },
-                    "django.template": {
-                        "handlers": ["console"],
-                        "level": "DEBUG",
-                        "propagate": False,
-                    },
                 },
             },
+        ],
+        LOGGING={
+            "version": 1,
+            "disable_existing_loggers": False,
+            "handlers": {
+                "console": {
+                    "class": "logging.StreamHandler",
+                },
+            },
+            "loggers": {
+                "livereloadish": {
+                    "handlers": ["console"],
+                    "level": "WARNING",
+                    "propagate": False,
+                },
+                "django.template": {
+                    "handlers": ["console"],
+                    "level": "DEBUG",
+                    "propagate": False,
+                },
+            },
+        },
         STATIC_URL="/static/",
         USE_I18N=True,
         USE_TZ=True,
@@ -113,44 +122,65 @@ if not settings.configured:
 from django.contrib import admin
 from django.contrib.admindocs import urls as admindocs_urls
 
+
 def demo404(request, *args, **kwargs) -> HttpResponse:
     raise Http404("Custom message")
 
 
 def nested3():
-    filename = os.path.join(gettempdir(), 'a_long_path', 'that_probably', 'goes_off_screen', 'a_random_file_that_shouldnt_exist.mp3')
-    with open(filename, 'rb') as f:
+    filename = os.path.join(
+        gettempdir(),
+        "a_long_path",
+        "that_probably",
+        "goes_off_screen",
+        "and_causes_wrapping_issues",
+        "elsewhere",
+        "on_the_page",
+        "that_need_addressing",
+        "a_random_file_that_shouldnt_exist.mp3",
+    )
+    with open(filename, "rb") as f:
         return f.read()
+
 
 def nested2():
     a = 1
     b = {1, 2, 3}
     c = (1, 2, 3)
     a_really_long_variable_name = 4
-    nested_var = {'a': a, 'b': b, 'c': c}
+    nested_var = {"a": a, "b": b, "c": c}
+    a_really_long_variable_value = "Ruined" * 50
     try:
         return nested3()
     except ZeroDivisionError as exc:
         raise ValueError("Ruined")
     except FileNotFoundError as exc:
-        raise TypeError("Ruined") from exc
+        raise TypeError(
+            "RuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuinedRuined"
+        ) from exc
+
 
 def nested1():
     nested_var = datetime.utcnow()
     return nested2()
 
+
 def nested():
     nested_var = 1
     return nested1()
 
+
 def demo500(request) -> None:
     var = nested()
+
 
 def demo500templatemissing(request):
     return select_template(("demo/a.html", "demo/b.html", "demo/c.html", "demo/d.html"))
 
+
 def demo500templatesyntax(request):
-    return Template("""Line 1
+    return Template(
+        """Line 1
     More lines go here
     and then some
     and soon we'll maybe get to the error?
@@ -172,23 +202,65 @@ def demo500templatesyntax(request):
     But not yet, lines aplenty
     Keep it up, nearly there
     One more line perhaps? Boom there it is.
-    EOF""")
+    EOF"""
+    )
+
 
 def demo500unicodeencode(request):
-    '🤞😡🤬👊😔'.encode('ascii')
+    "🤞😡🤬👊😔".encode("ascii")
+
 
 def demo500unicodedecode(request):
-    b'\xf0\x9f\xa4\x9e\xf0\x9f\x98\xa1\xf0\x9f\xa4\xac\xf0\x9f\x91\x8a\xf0\x9f\x98\x94'.decode('ascii')
+    b"\xf0\x9f\xa4\x9e\xf0\x9f\x98\xa1\xf0\x9f\xa4\xac\xf0\x9f\x91\x8a\xf0\x9f\x98\x94".decode(
+        "ascii"
+    )
+
 
 urlpatterns = [
     path("admin/docs/", include(admindocs_urls)),
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     re_path("^404/(.+)", demo404, name="demo404"),
     path("404", demo404, name="demo404"),
-    path("500/unicode/decode", demo500unicodedecode, name="demo500unicodedecode"),
-    path("500/unicode/encode", demo500unicodeencode, name="demo500unicodeencode"),
-    path("500/template/syntax", demo500templatesyntax, name="demo500templatesyntax"),
-    path("500/template/missing", demo500templatemissing, name="demo500templatemissing"),
+    path(
+        "500/",
+        include(
+            (
+                [
+                    path(
+                        "unicode",
+                        include(
+                            (
+                                [
+                                    path(
+                                        "decode",
+                                        demo500unicodedecode,
+                                        name="demo500unicodedecode",
+                                    ),
+                                    path(
+                                        "encode",
+                                        demo500unicodeencode,
+                                        name="demo500unicodeencode",
+                                    ),
+                                ],
+                                "unicodes",
+                            )
+                        ),
+                    ),
+                    path(
+                        "template/syntax",
+                        demo500templatesyntax,
+                        name="demo500templatesyntax",
+                    ),
+                    path(
+                        "template/missing",
+                        demo500templatemissing,
+                        name="demo500templatemissing",
+                    ),
+                ],
+                "nested_appname",
+            )
+        ),
+    ),
     path("500", demo500, name="demo500"),
 ]
 
