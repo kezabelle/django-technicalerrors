@@ -168,34 +168,34 @@
         @apply transition duration-500 text-red-500 border-b-red-400;
     }
 
-    .urls-explanation {
-        @apply pb-4;
-    }
+    /*.urls-explanation {*/
+    /*    @apply pb-4;*/
+    /*}*/
 
-    .urls-tried {
-        @apply bg-gray-50 -mx-6 border border-gray-200 rounded;
-    }
+    /*.urls-tried {*/
+    /*    @apply bg-gray-50 -mx-6 border border-gray-200 rounded;*/
+    /*}*/
 
-    .urls-tried li {
-        @apply px-6 py-2 flex flex-row border-b border-b-gray-200;
-        @apply hover:bg-gray-100;
-    }
+    /*.urls-tried li {*/
+    /*    @apply px-6 py-2 flex flex-row border-b border-b-gray-200;*/
+    /*    @apply hover:bg-gray-100;*/
+    /*}*/
 
-    .urls-tried li:first-child {
-        @apply border-t-0;
-    }
+    /*.urls-tried li:first-child {*/
+    /*    @apply border-t-0;*/
+    /*}*/
 
-    .urls-tried li:last-child {
-        @apply border-b-0;
-    }
+    /*.urls-tried li:last-child {*/
+    /*    @apply border-b-0;*/
+    /*}*/
 
-    .urls-tried-regex {
-        @apply flex-grow;
-    }
+    /*.urls-tried-regex {*/
+    /*    @apply flex-grow;*/
+    /*}*/
 
-    .urls-tried-name {
-        @apply flex-grow-0 text-sm font-normal;
-    }
+    /*.urls-tried-name {*/
+    /*    @apply flex-grow-0 text-sm font-normal;*/
+    /*}*/
 
     main > p {
         @apply m-4 mt-0;
@@ -213,7 +213,7 @@
 
 
     .traceback {
-        @apply border border-gray-200 rounded;
+        /*@apply border-l border-r border-gray-200 rounded;*/
         /*@apply  -mx-6;*/
     }
 
@@ -222,8 +222,14 @@
     }
 
     .traceback-frame {
-        @apply border-b border-b-gray-200 cursor-pointer;
+        @apply cursor-pointer
+        border border-gray-200
+        ;
     }
+    .traceback-frame + .traceback-frame {
+        @apply border-t-0
+    }
+
     .traceback-frame.active {
         @apply cursor-auto;
     }
@@ -231,8 +237,8 @@
     .traceback-where {
         @apply
         py-2 px-4
-
-        border-b border-b-gray-200 flex flex-row  items-center text-sm
+            border-b border-b-gray-200
+        flex flex-row items-center text-sm
         sticky top-0 ;
     }
 
@@ -324,7 +330,8 @@
     }
 
     .traceback-locals {
-        @apply hidden my-4;
+        @apply hidden ;
+        /*my-4;*/
     }
     .traceback-locals > h6 {
         @apply py-2 px-4
@@ -353,14 +360,23 @@
 
 
 
-    .pairwise {
+    .rowable {
         @apply block table-auto border-collapse text-sm w-full
         lg:table
         ;
         max-width: 100vw;
     }
+    .rowable.settings {
 
-    .pairwise > li {
+    }
+    .rowable.request {
+
+    }
+    .rowable.urls {
+
+    }
+
+    .rowable > li {
         @apply
         block
         border-b
@@ -369,26 +385,35 @@
         /*hover:bg-yellow-50*/
     }
 
-    .pairwise > li:last-child {
+    .rowable > li:last-child {
         @apply border-b-0 pb-0;
     }
 
-    .pairwise > li > code:first-child {
+    .rowable > li > code:first-child {
         @apply
         block w-full
         py-2 pl-4
-        lg:w-4 lg:table-cell lg:min-w-[10%] lg:max-w-[40%];
+        lg:w-4 lg:table-cell
+        /*lg:min-w-[10%] lg:max-w-[40%]*/
+        ;
+    }
+    .rowable.urls > li > code:first-child {
+        @apply w-full;
     }
 
     /* Sometimes we need to use <code> instead of <pre> */
-    .pairwise > li > pre,
-    .pairwise > li > code:last-child {
+    .rowable > li > pre,
+    .rowable > li > code:last-child {
         @apply block max-w-full
      overflow-y-hidden overflow-x-auto
-        py-0 ml-4
-        lg:py-2 lg:pl-4 lg:table-cell lg:min-w-[60%] lg:max-w-[90%]
+        py-0 mx-4
+        lg:py-2 lg:px-4 lg:mx-0 lg:table-cell
+        /*lg:min-w-[60%] lg:max-w-[90%]*/
         ;
         word-break: break-word;
+    }
+    .rowable.urls > li > span {
+        @apply w-4 whitespace-nowrap;
     }
 
 

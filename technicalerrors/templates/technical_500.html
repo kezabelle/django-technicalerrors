@@ -16,7 +16,7 @@
 </head>
 <body class="debug-grid">
 <link rel="stylesheet" href="https://csswizardry.com/ct/ct.css" class="ct" />
-<div class="guideline"><div class="guideline2"></div></div>
+<div class="guidelinex"><div class="guideline2x"></div></div>
 <header>
     <div class="masthead-details">
         {% if request %}
@@ -118,7 +118,7 @@
         {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
         <div class="related-settings">
         <h6>Related settings</h6>
-            <ul class="pairwise">
+            <ul class="rowable settings">
             <li class="">
                 <code class="">TEMPLATES</code>
                 <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
@@ -148,7 +148,7 @@
 <!--                        <code class="traceback-function">{{ entry.backend.name }}</code>-->
                     </div>
                     <div class="traceback-locals">
-                        <ol class="pairwise">
+                        <ol class="rowable locals">
                     {% for item in items %}<li><code>{{ item.0.name }}</code></li>{% endfor %}
                         </ol>
                     </div>
@@ -207,7 +207,7 @@
         {% if settings and settings.TEMPLATES or settings.FORM_RENDERER %}
         <div class="related-settings">
         <h6>Related settings</h6>
-            <ul class="pairwise">
+            <ul class="rowable settings">
             <li class="">
                 <code class="">TEMPLATES</code>
                 <pre class="">{{ settings.TEMPLATES|pprint }}</pre>
@@ -258,7 +258,7 @@
                             {% if frame.vars %}
                                 <div class="traceback-locals">
                                 <h6>{{ frame.vars|length }} local variable{{ frame.vars|pluralize:"s" }}</h6>
-                                <ul class="pairwise">
+                                <ul class="rowable locals">
                                 {% for var_name, var_value in frame.vars|dictsort:0 %}
                                 <li class="">
                                     <code class="">{{ var_name }}</code>
@@ -320,7 +320,7 @@ Exception Value: {{ exception_value|force_escape }}
 
             <div class="related-settings">
             <h6>Related settings</h6>
-                <ul class="pairwise">
+                <ul class="rowable settings">
                 <li class="">
                     <code class="">ADMINS</code>
                     <pre class="">{{ settings.ADMINS|pprint }}</pre>
@@ -347,7 +347,7 @@ Exception Value: {{ exception_value|force_escape }}
                     <div class="traceback-where">
                         <span class="traceback-file"><code class="">request.COOKIES</code></span>
                     </div>
-                        <ul class="pairwise">
+                        <ul class="rowable request">
                         {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
                         <li class="">
                             <code class="">{{ var_name }}</code>
@@ -364,7 +364,7 @@ Exception Value: {{ exception_value|force_escape }}
                     <div class="traceback-where">
                         <span class="traceback-file"><code class="">request.GET</code></span>
                     </div>
-                        <ul class="pairwise">
+                        <ul class="rowable request">
                         {% for var_name, var_value in request_GET_items|dictsort:0 %}
                         <li class="">
                             <code class="">{{ var_name }}</code>
@@ -381,7 +381,7 @@ Exception Value: {{ exception_value|force_escape }}
                     <div class="traceback-where">
                         <span class="traceback-file"><code class="">request.POST</code></span>
                     </div>
-                    <ul class="pairwise">
+                    <ul class="rowable request">
                     {% for var_name, var_value in filtered_POST_items|dictsort:0 %}
                     <li class="">
                         <code class="">{{ var_name }}</code>
@@ -403,7 +403,7 @@ Exception Value: {{ exception_value|force_escape }}
                     <div class="traceback-where">
                         <span class="traceback-file"><code class="">request.FILES</code></span>
                     </div>
-                    <ul class="pairwise">
+                    <ul class="rowable request">
                     {% for var_name, var_value in request_FILES_items|dictsort:0 %}
                     <li class="">
                         <code class="">{{ var_name }}</code>
@@ -425,7 +425,7 @@ Exception Value: {{ exception_value|force_escape }}
 
             <div class="related-settings">
             <h6>Related settings</h6>
-            <ul class="pairwise">
+            <ul class="rowable settings">
             {% for key, value in settings.items|dictsort:0 %}
             {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key or 'COOKIE' in key %}
             <li class="">
@@ -443,7 +443,7 @@ Exception Value: {{ exception_value|force_escape }}
         <section id="cookies" class="hidden">
 
 
-            <ul class="pairwise">
+            <ul class="rowable request">
             {% for var_name, var_value in request_COOKIES_items|dictsort:0 %}
             <li class="">
                 <code class="">{{ var_name }}</code>
@@ -455,7 +455,7 @@ Exception Value: {{ exception_value|force_escape }}
             <div class="related-settings">
             <h6>Related settings</h6>
 
-                <ul class="pairwise">
+                <ul class="rowable settings">
                 {% for key, value in settings.items|dictsort:0 %}
                     {% if 'COOKIE' in key %}
             <li class="">
@@ -472,7 +472,7 @@ Exception Value: {{ exception_value|force_escape }}
 
         <section id="request_environ" class="hidden">
 
-            <ul class="pairwise">
+            <ul class="rowable request">
             {% if sys_executable %}
             <li class="">
                 <code class="">Python Executable</code>
@@ -517,7 +517,7 @@ Exception Value: {{ exception_value|force_escape }}
             </div>
             </div>
 
-            <ul class="pairwise" role="list">
+            <ul class="rowable request" role="list">
             {% for var_name, var_value in settings.items|dictsort:0 %}
             <li class="">
                 <code class="">{{ var_name }}</code>

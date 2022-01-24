@@ -86,23 +86,25 @@
             {% if urlconf != root_urlconf %}
             <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
             {% else %}
-            <code>{{ root_urlconf }}</code>{% endif %}:
+            <code>{{ root_urlconf }}</code>{% endif %}
                         </span>
                     </div>
-                    <ol class="pairwise">
+                    <ol class="rowable urls">
                 {% for pattern in urlpatterns %}
                     <li>
-                        {% for pat in pattern %}
-                        <code class="urls-tried-regex">{{ pat.pattern }}
-                            {% if 0 and pat.url_patterns %}{% for subpat in pat.url_patterns %}
-                            {{ subpat.pattern }}
-                        {% endfor %}{% endif %}</code>
-
+                        <code>{% for pat in pattern %}{{ pat.pattern }}{% endfor %}</code>
+                        {{ pattern }}
+                        {% comment %}
                             {% if pat.name %}
+                            <span class="urls-tried-name">
+                            {{pat.app_name}}
+                            {{pat.namespace}}
                             {% if forloop.parentloop.last and resolved %}<span class="masthead-request-badge">matched</span>{% endif %}
-                            <code class="urls-tried-name">name={{ pat.name }}</code>
+                            name={{ pat.name }}
+                            </span>
                             {% endif %}
                         {% endfor %}
+                        {% endcomment %}
                     </li>
                 {% endfor %}
             </ol>
@@ -114,12 +116,12 @@
 
         <h6 class="related-settings">Related settings</h6>
 
-        <ul class="pairwise">
+        <ul class="rowable settings">
         {% for key, value in settings.items|dictsort:0 %}
             {% if 'URL' in key or 'PREPEND_WWW' in key or 'APPEND_SLASH' in key or 'MEDIA_' in key or 'STATICFILES' in key or 'STATIC_' in key or 'X_FORWARDED' in key %}
             <li class="">
-                <code class="pairwise-key">{{ key }}</code>
-                <pre class="pairwise-value">{{ value|pprint }}</pre>
+                <code class="">{{ key }}</code>
+                <pre class="">{{ value|pprint }}</pre>
             </li>
             {% endif %}
             {% endfor %}
@@ -130,25 +132,25 @@
         <section id="get" class="hidden">
 
             <h6>request.GET</h6>
-            <ul class="pairwise">
+            <ul class="rowable request">
             {% for var_name, var_value in request.GET.items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
-            <li class="pairwise-key">
-                <span class="pairwise-value">No request.GET data parsed.</span>
+            <li class="">
+                <span class="">No request.GET data parsed.</span>
             </li>
             {% endfor %}
             </ul>
 
             <h6>request.POST</h6>
-            <ul class="pairwise">
+            <ul class="rowable request">
             {% for var_name, var_value in request.POST.items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
             <li class="table-row text-sm">
@@ -163,11 +165,11 @@
             </ul>
 
             <h6>request.FILES</h6>
-            <ul class="pairwise">
+            <ul class="rowable request">
             {% for var_name, var_value in request.FILES.items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <pre class="pairwise-value">{{ var_value|pprint }}</pre>
+                <code class="">{{ var_name }}</code>
+                <pre class="">{{ var_value|pprint }}</pre>
             </li>
             {% empty %}
             <li class="table-row text-sm">
@@ -182,12 +184,12 @@
             </ul>
 
             <h6 class="related-settings">Related settings</h6>
-            <ul class="pairwise">
+            <ul class="rowable settings">
             {% for key, value in settings.items|dictsort:0 %}
             {% if 'DATA_UPLOAD' in key or 'FILE_UPLOAD' in key or 'MEDIA_' in key or 'DEFAULT_FILE_STORAGE' in key %}
             <li class="">
-                <code class="pairwise-key">{{ key }}</code>
-                <pre class="pairwise-value">{{ value|pprint }}</pre>
+                <code class="">{{ key }}</code>
+                <pre class="">{{ value|pprint }}</pre>
             </li>
             {% endif %}
             {% endfor %}
@@ -200,23 +202,23 @@
         <section id="cookies" class="hidden">
 
 
-            <ul class="pairwise">
+            <ul class="rowable request">
             {% for var_name, var_value in request.COOKIES.items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <code class="pairwise-value">{{ var_value|pprint }}</code>
+                <code class="">{{ var_name }}</code>
+                <code class="">{{ var_value|pprint }}</code>
             </li>
             {% endfor %}
             </ul>
 
             <h6 class="related-settings">Related settings</h6>
 
-                <ul class="pairwise">
+                <ul class="rowable settings">
                 {% for key, value in settings.items|dictsort:0 %}
                     {% if 'COOKIE' in key %}
             <li class="">
-                <code class="pairwise-key">{{ key }}</code>
-                <pre class="pairwise-value">{{ value|pprint }}</pre>
+                <code class="">{{ key }}</code>
+                <pre class="">{{ value|pprint }}</pre>
             </li>
                     {% endif %}
                     {% endfor %}
@@ -228,17 +230,17 @@
 
         <section id="request_environ" class="hidden">
 
-            <ul class="pairwise">
+            <ul class="rowable request">
             {% if sys_executable %}
             <li class="">
-                <span class="pairwise-key">Python Executable</span>
-                <code class="pairwise-value">{{ sys_executable }}</code>
+                <span class="">Python Executable</span>
+                <code class="">{{ sys_executable }}</code>
             </li>
             {% endif %}
             {% if sys_path %}
             <li class="">
-                <span class="pairwise-key">Python Path</span>
-                <span class="pairwise-value">
+                <span class="">Python Path</span>
+                <span class="">
                     {% for path in sys_path %}
                     <code>{{ path }}</code>
                     {% endfor %}
@@ -247,8 +249,8 @@
             {% endif %}
             {% for var_name, var_value in request.META.items|dictsort:0 %}
             <li class="">
-                <code class="pairwise-key">{{ var_name }}</code>
-                <code class="pairwise-value">{{ var_value|pprint }}</code>
+                <code class="">{{ var_name }}</code>
+                <code class="">{{ var_value|pprint }}</code>
             </li>
             {% endfor %}
             </ul>
@@ -277,13 +279,13 @@
             </div>
             </div>
 
-            <ul class="pairwise" role="list">
+            <ul class="rowable settings" role="list">
             {% for var_name, var_value in settings.items|dictsort:0 %}
             <li class="">
-                <span class="pairwise-key">
+                <span class="">
                     <code>{{ var_name }}</code>
                 </span>
-                <span class="pairwise-value">
+                <span class="">
                     <pre style="word-break: break-word">{{ var_value|pprint }}</pre>
                 </span>
             </li>
