@@ -127,6 +127,10 @@ def demo404(request, *args, **kwargs) -> HttpResponse:
     raise Http404("Custom message")
 
 
+def demo404_with_long_message(request, *args, **kwargs) -> HttpResponse:
+    raise Http404("Ruined"*50)
+
+
 def nested3():
     filename = os.path.join(
         gettempdir(),
@@ -219,6 +223,7 @@ def demo500unicodedecode(request):
 urlpatterns = [
     path("admin/docs/", include(admindocs_urls)),
     path("admin/", admin.site.urls),
+    re_path("^404/" + '_'.join(['ruined']*30), demo404_with_long_message, name="demo404_ruined"),
     re_path("^404/(.+)", demo404, name="demo404"),
     path("404", demo404, name="demo404"),
     path(
