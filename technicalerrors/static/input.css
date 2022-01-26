@@ -64,7 +64,8 @@
     }
 
     .masthead-details {
-        @apply bg-white rounded w-full;
+        @apply bg-white rounded w-full
+        ;
         /*
         https://shadows.brumm.af/
         https://www.joshwcomeau.com/css/designing-shadows/
@@ -215,6 +216,7 @@
     .traceback {
         /*@apply border-l border-r border-gray-200 rounded;*/
         /*@apply  -mx-6;*/
+        /*@apply shadow*/
     }
 
     .traceback-cause-chain {
@@ -398,7 +400,10 @@
         ;
     }
     .rowable.urls > li > code:first-child {
-        @apply w-full;
+        @apply w-full
+        /*py-0 pl-0*/
+        ;
+        /*font-size: 0;*/
     }
 
     /* Sometimes we need to use <code> instead of <pre> */
@@ -412,9 +417,33 @@
         ;
         word-break: break-word;
     }
+
+
     .rowable.urls > li > span {
-        @apply w-4 whitespace-nowrap;
+        @apply
+        block max-w-full
+        whitespace-nowrap text-right
+        /*w-4 whitespace-nowrap text-right*/
+        /*py-0 mx-4*/
+        /*!*lg:py-2 lg:px-4 *!*/
+        /*lg:mx-0 lg:table-cell*/
+        ;
     }
+    .rowable.urls > li > code > span {
+        /*@apply py-2 px-4 inline-flex text-sm;*/
+    }
+    .rowable.urls .url-match {
+        @apply
+        bg-green-50 text-green-700
+        py-0.5 px-1.5
+        -ml-1.5
+        border-green-100 border rounded
+        ;
+    }
+    /*.rowable.urls > li > code > span:last-child {*/
+    /*    @apply border-r-0*/
+
+    /*}*/
 
 
 

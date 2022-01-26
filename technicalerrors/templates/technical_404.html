@@ -92,19 +92,18 @@
                     <ol class="rowable urls">
                 {% for pattern in urlpatterns %}
                     <li>
-                        <code>{% for pat in pattern %}{{ pat.pattern }}{% endfor %}</code>
-                        {{ pattern }}
-                        {% comment %}
-                            {% if pat.name %}
-                            <span class="urls-tried-name">
-                            {{pat.app_name}}
-                            {{pat.namespace}}
-                            {% if forloop.parentloop.last and resolved %}<span class="masthead-request-badge">matched</span>{% endif %}
-                            name={{ pat.name }}
-                            </span>
+<!--                        {{ pattern }}-->
+                        <code>{% for pat in pattern %}
+                            {% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}
+                            <span class="pattern url-match" aria-label="Regular expression match">{{ pat.pattern.regex.pattern }}</span>
+                            {% else %}
+                            <span class="pattern">{{ pat.pattern.regex.pattern }}</span>
                             {% endif %}
                         {% endfor %}
-                        {% endcomment %}
+                        </code>
+                        <span>
+                        {% for pat in pattern %}{% if pat.app_name %}{{ pat.app_name }}:{% endif %}{% if pat.namespace %}{{ pat.namespace }}:{% endif %}{% if pat.name %}{{ pat.name }}{% endif %}{% endfor %}
+                        </span>
                     </li>
                 {% endfor %}
             </ol>

@@ -226,8 +226,8 @@ urlpatterns = [
         include(
             (
                 [
-                    path(
-                        "unicode",
+                    re_path(
+                        "^unicode/",
                         include(
                             (
                                 [
@@ -245,6 +245,11 @@ urlpatterns = [
                                 "unicodes",
                             )
                         ),
+                    ),
+                    path(
+                        "inucedo/other_path",
+                        demo500unicodedecode,
+                        name="same_length_as_unicode",
                     ),
                     path(
                         "template/syntax",
