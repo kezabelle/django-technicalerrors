@@ -10,8 +10,12 @@ from django.urls import path, re_path, include
 from django.template.loader import select_template
 from django.template import Template
 
+HAS_JINJA = False
+HAS_PATTERNLIBRARY = False
+HAS_LIVERELOADISH = False
 try:
     import jinja2
+    HAS_JINJA = True
 except ModuleNotFoundError:
     sys.stderr.write("`jinja2` is necessary for this demo project")
     sys.exit(1)
@@ -35,6 +39,15 @@ try:
 
     EXTRA_INSTALLED_APPS += ("livereloadish",)
     EXTRA_MIDDLEWARE += ("livereloadish.middleware.LivereloadishMiddleware",)
+    HAS_LIVERELOADISH = True
+except ModuleNotFoundError:
+    pass
+
+try:
+    import pattern_library
+
+    EXTRA_INSTALLED_APPS += ("pattern_library.apps.PatternLibraryAppConfig",)
+    HAS_PATTERNLIBRARY = True
 except ModuleNotFoundError:
     pass
 
@@ -75,6 +88,7 @@ if not settings.configured:
                         "django.contrib.auth.context_processors.auth",
                         "django.contrib.messages.context_processors.messages",
                     ),
+                    "builtins": ["pattern_library.loader_tags"] if HAS_PATTERNLIBRARY else [],
                 },
             },
             {
@@ -116,6 +130,16 @@ if not settings.configured:
         USE_I18N=True,
         USE_TZ=True,
         TIME_ZONE="UTC",
+        X_FRAME_OPTIONS="SAMEORIGIN",
+        PATTERN_LIBRARY={
+            "SECTIONS": (
+                ("components", ["patterns/components"]),
+                ("pages", ["patterns/pages"]),
+            ),
+            "TEMPLATE_SUFFIX": ".html",
+            "PATTERN_BASE_TEMPLATE_NAME": "patterns/base.html",
+            "BASE_TEMPLATE_NAMES": ["patterns/base_page.html"],
+        },
     )
     django.setup()
 
@@ -273,6 +297,10 @@ urlpatterns = [
     ),
     path("500", demo500, name="demo500"),
 ]
+if HAS_PATTERNLIBRARY:
+    urlpatterns += [
+        path("pattern-library/", include("pattern_library.urls")),
+    ]
 
 
 if __name__ == "__main__":
