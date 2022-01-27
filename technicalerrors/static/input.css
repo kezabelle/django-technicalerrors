@@ -138,7 +138,7 @@
         /*md:px-6 lg:px-10;*/
     }
 
-    .technical-error-details > section {
+    main > section {
         /*@apply block;*/
         /*@apply px-6;*/
     }
@@ -146,24 +146,26 @@
 
     .tab-group {
         @apply
-        p-4 md:px-8
+        px-4 md:px-8
+            mb-8
+         bg-red-50
         flex-row flex-wrap justify-center flex max-w-[100vw]
         order-2
         ;
     }
 
     .tab {
-        @apply uppercase text-sm grow cursor-pointer text-center px-1 py-4 border-b-4 border-b-red-50 font-semibold  bg-red-50;
+        @apply uppercase text-sm grow cursor-pointer text-center px-1 py-4 border-b-4 border-b-red-50 font-semibold;
         @apply hover:border-b-red-200 hover:text-red-400;
     }
 
-    .tab:first-child {
-      @apply rounded-l;
-    }
+    /*.tab:first-child {*/
+    /*  @apply rounded-l;*/
+    /*}*/
 
-    .tab:last-child {
-      @apply rounded-r;
-    }
+    /*.tab:last-child {*/
+    /*  @apply rounded-r;*/
+    /*}*/
 
     .tab.active {
         @apply transition duration-500 text-red-500 border-b-red-400;
@@ -307,8 +309,14 @@
     }
 
     .traceback-frame.active .traceback-context {
-        @apply text-sm overflow-x-auto;
+        @apply text-sm overflow-x-auto relative;
     }
+    /*.traceback-frame.active .traceback-context:before {*/
+    /*    @apply block w-0 h-full absolute left-[80ch] top-0 border-r border-r-red-100*/
+    /*        ;*/
+    /*    z-index: -1;*/
+    /*    content: "";*/
+    /*}*/
 
     .traceback-context-raising {
         @apply text-sm
@@ -375,7 +383,7 @@
 
     }
     .rowable.urls {
-
+        @apply lg:block;
     }
 
     .rowable > li {
@@ -418,10 +426,17 @@
         word-break: break-word;
     }
 
+    .rowable.urls > li {
+        @apply flex  items-center;
+    }
+    .rowable.urls > li > code:first-child {
+        @apply block truncate pr-4;
+        word-break: break-word;
+    }
 
     .rowable.urls > li > span {
         @apply
-        block max-w-full
+        flex max-w-full
         whitespace-nowrap text-right
         /*w-4 whitespace-nowrap text-right*/
         /*py-0 mx-4*/
@@ -430,13 +445,15 @@
         ;
     }
     .rowable.urls > li > code > span {
+        @apply truncate
         /*@apply py-2 px-4 inline-flex text-sm;*/
     }
     .rowable.urls .url-match {
         @apply
+            inline-flex
         bg-green-50 text-green-700
         py-0.5 px-1.5
-        -ml-1.5
+        -ml-1.5 mr-0.5
         border-green-100 border rounded
         ;
     }

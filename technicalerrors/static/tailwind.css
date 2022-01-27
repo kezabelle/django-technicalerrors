@@ -537,14 +537,22 @@ main {
     padding-right: 2rem;
   }
 }
+main > section {
+        /*@apply block;*/
+        /*@apply px-6;*/
+    }
 .tab-group {
   order: 2;
+  margin-bottom: 2rem;
   display: flex;
   max-width: 100vw;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 1rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 @media (min-width: 768px) {
 
@@ -559,8 +567,6 @@ main {
   border-bottom-width: 4px;
   --tw-border-opacity: 1;
   border-bottom-color: rgb(254 242 242 / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   padding-top: 1rem;
@@ -577,14 +583,12 @@ main {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
 }
-.tab:first-child {
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-}
-.tab:last-child {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
+/*.tab:first-child {*/
+/*  @apply rounded-l;*/
+/*}*/
+/*.tab:last-child {*/
+/*  @apply rounded-r;*/
+/*}*/
 .tab.active {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(248 113 113 / var(--tw-border-opacity));
@@ -746,10 +750,17 @@ main > p {
         min-width: 100%;
     }
 .traceback-frame.active .traceback-context {
+  position: relative;
   overflow-x: auto;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+/*.traceback-frame.active .traceback-context:before {*/
+/*    @apply block w-0 h-full absolute left-[80ch] top-0 border-r border-r-red-100*/
+/*        ;*/
+/*    z-index: -1;*/
+/*    content: "";*/
+/*}*/
 .traceback-context-raising {
   display: block;
   width: 100%;
@@ -850,9 +861,12 @@ main > p {
 .rowable.request {
 
     }
-.rowable.urls {
+@media (min-width: 1024px) {
 
-    }
+  .rowable.urls {
+    display: block;
+  }
+}
 .rowable > li {
   display: block;
   border-bottom-width: 1px;
@@ -929,17 +943,33 @@ main > p {
     .rowable > li > code:last-child {
         word-break: break-word;
     }
-.rowable.urls > li > span {
+.rowable.urls > li {
+  display: flex;
+  align-items: center;
+}
+.rowable.urls > li > code:first-child {
   display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1rem;
+        word-break: break-word;
+}
+.rowable.urls > li > span {
+  display: flex;
   max-width: 100%;
   white-space: nowrap;
   text-align: right;
 }
 .rowable.urls > li > code > span {
-        /*@apply py-2 px-4 inline-flex text-sm;*/
-    }
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .rowable.urls .url-match {
   margin-left: -0.375rem;
+  margin-right: 0.125rem;
+  display: inline-flex;
   border-radius: 0.25rem;
   border-width: 1px;
   --tw-border-opacity: 1;
