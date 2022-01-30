@@ -8,11 +8,13 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.urls import path, re_path, include
 from django.template.loader import select_template
-from django.template import Template
+from django.template import Template, Context
 
 HAS_JINJA = False
 HAS_PATTERNLIBRARY = False
 HAS_LIVERELOADISH = False
+HAS_SHOUTY_TEMPLATES = False
+
 try:
     import jinja2
     HAS_JINJA = True
@@ -48,6 +50,14 @@ try:
 
     EXTRA_INSTALLED_APPS += ("pattern_library.apps.PatternLibraryAppConfig",)
     HAS_PATTERNLIBRARY = True
+except ModuleNotFoundError:
+    pass
+
+try:
+    import shouty
+    # TODO: set this up and make sure the contexts are good.
+    # EXTRA_INSTALLED_APPS += ("shouty.Shout",)
+    HAS_SHOUTY_TEMPLATES = True
 except ModuleNotFoundError:
     pass
 
@@ -243,6 +253,31 @@ def demo500unicodedecode(request):
         "ascii"
     )
 
+from django.template.response import TemplateResponse
+
+def index(request):
+    class PatchedTemplate(Template):
+        def render(self, context, request=None):
+            return super().render(context=context)
+
+    return TemplateResponse(request, PatchedTemplate("""
+    <!DOCTYPE html><html lang="en"><body>
+    <ul>
+    <li><a href="{% url 'demo500' %}">Example 500</a>
+    <li><a href="{% url 'nested_appname:unicodes:demo500unicodedecode' %}">Example 500 #2 (string decoding)</a>
+    <li><a href="{% url 'nested_appname:unicodes:demo500unicodeencode' %}">Example 500 #3 (string encoding)</a>
+    <li><a href="{% url 'nested_appname:demo500templatesyntax' %}">Example 500 #3 (template syntax)</a>
+    <li><a href="{% url 'nested_appname:demo500templatemissing' %}">Example 500 #4 (template missing)</a>
+    <li><a href="{% url 'demo404' %}">Example 404</a>
+    <li><a href="{% url 'demo404' 'example' %}">Example 404 #2</a>
+    <li><a href="{% url 'demo404_ruined' %}">Example 404 #3</a>
+    <li><a href="/not_a_url">Example 404 #4</a>
+    </ul>
+    {{ something.goes.here }}
+    </body></html>
+    """), Context({'something': {'goes': {}}}))
+
+
 
 urlpatterns = [
     path("admin/docs/", include(admindocs_urls)),
@@ -296,6 +331,7 @@ urlpatterns = [
         ),
     ),
     path("500", demo500, name="demo500"),
+    path("", index, name="index"),
 ]
 if HAS_PATTERNLIBRARY:
     urlpatterns += [
