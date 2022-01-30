@@ -112,8 +112,11 @@
     }
 
     .masthead-error-subtitle {
-        @apply text-base text-red-500 font-normal;
-        @apply md:text-lg
+        @apply
+        text-base text-red-500 font-normal
+        md:text-lg
+        ;
+        word-break: break-word;
     }
 
     .masthead-location {
@@ -171,6 +174,10 @@
         @apply transition duration-500 text-red-500 border-b-red-400;
     }
 
+    .wrappable {
+        word-break: break-word;
+    }
+
     /*.urls-explanation {*/
     /*    @apply pb-4;*/
     /*}*/
@@ -222,7 +229,8 @@
     }
 
     .traceback-cause-chain {
-        @apply py-4 px-6 font-semibold bg-white text-red-500;
+        @apply py-4 px-4 font-semibold bg-white text-red-500;
+        word-break: break-word;
     }
 
     .traceback-frame {
@@ -243,7 +251,7 @@
         py-2 px-4
             border-b border-b-gray-200
         flex flex-row items-center text-sm
-        sticky top-0 ;
+        sticky top-0 z-50;
     }
 
     .traceback-frame.library .traceback-where {
