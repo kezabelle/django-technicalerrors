@@ -272,6 +272,7 @@ def index(request):
     <li><a href="{% url 'demo404' 'example' %}">Example 404 #2</a>
     <li><a href="{% url 'demo404_ruined' %}">Example 404 #3</a>
     <li><a href="/not_a_url">Example 404 #4</a>
+    <li><a href="/500/unicode/not_a_url">Example 404 #5</a>
     </ul>
     {{ something.goes.here }}
     </body></html>
