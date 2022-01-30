@@ -10,11 +10,12 @@
     <link href="/static/tailwind.css" rel="stylesheet" type="text/css" media="all"/>
     <script type="application/javascript" src="/static/init.js" defer async></script>
 </head>
-<body class="">
+<body class="debug-grid">
 
 <div class="tooltip2"></div>
 
 <header>
+<div class="guideline"><div class="guideline2"></div></div>
     <div class="masthead-details">
 
         <div class="masthead-request">
@@ -93,6 +94,7 @@
                 {% for pattern in urlpatterns %}
                     <li>
 <!--                        {{ pattern }}-->
+                        Regex
                         <code>{% for pat in pattern %}
                             {% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}
                             <span class="pattern url-match" aria-label="Regular expression match">{{ pat.pattern.regex.pattern }}</span>
@@ -101,9 +103,8 @@
                             {% endif %}
                         {% endfor %}
                         </code>
-                        <span>
-                        {% for pat in pattern %}{% if pat.app_name %}{{ pat.app_name }}:{% endif %}{% if pat.namespace %}{{ pat.namespace }}:{% endif %}{% if pat.name %}{{ pat.name }}{% endif %}{% endfor %}
-                        </span>
+                        {% for pat in pattern %}{% if pat.lookup_str %}
+                        <span>{{ pat.lookup_str }}</span>{% endif %}{% endfor %}
                     </li>
                 {% endfor %}
             </ol>
