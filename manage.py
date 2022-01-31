@@ -269,10 +269,11 @@ def index(request):
     <li><a href="{% url 'nested_appname:demo500templatesyntax' %}">Example 500 #3 (template syntax)</a>
     <li><a href="{% url 'nested_appname:demo500templatemissing' %}">Example 500 #4 (template missing)</a>
     <li><a href="{% url 'demo404' %}">Example 404</a>
-    <li><a href="{% url 'demo404' 'example' %}">Example 404 #2</a>
-    <li><a href="{% url 'demo404_ruined' %}">Example 404 #3</a>
-    <li><a href="/not_a_url">Example 404 #4</a>
-    <li><a href="/500/unicode/not_a_url">Example 404 #5</a>
+    <li><a href="{% url 'demo404_with_value_arg' '100' %}">Example 404 #2</a>
+    <li><a href="{% url 'demo404_with_any_args' 'example' %}">Example 404 #3</a>
+    <li><a href="{% url 'demo404_ruined' %}">Example 404 #4</a>
+    <li><a href="/not_a_url">Example 404 #5</a>
+    <li><a href="/500/unicode/not_a_url">Example 404 #6</a>
     </ul>
     {{ something.goes.here }}
     </body></html>
@@ -284,7 +285,8 @@ urlpatterns = [
     path("admin/docs/", include(admindocs_urls)),
     path("admin/", admin.site.urls),
     re_path("^404/" + '_'.join(['ruined']*30), demo404_with_long_message, name="demo404_ruined"),
-    re_path("^404/(.+)", demo404, name="demo404"),
+    path("404/<int:value>", demo404, name="demo404_with_value_arg"),
+    re_path("^404/(.+)", demo404, name="demo404_with_any_args"),
     path("404", demo404, name="demo404"),
     path(
         "500/",

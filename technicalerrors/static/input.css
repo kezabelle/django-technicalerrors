@@ -426,33 +426,33 @@
     .rowable.request {
 
     }
-    .rowable.urls {
-        @apply lg:block;
-    }
+    /*.rowable.urls {*/
+    /*    @apply lg:block;*/
+    /*}*/
 
-    .rowable.urls li {
-        @apply flex  items-center;
-    }
-    .rowable.urls li code {
-        @apply block truncate pr-4 w-full;
-        word-break: break-word;
-    }
-    .rowable.urls li > span {
-        @apply
-        flex max-w-full
-        whitespace-nowrap text-right
-        mx-4
-        px-2 py-1 leading-none bg-gray-100 rounded
-        /*w-4 whitespace-nowrap text-right*/
-        /*py-0 mx-4*/
-        /*!*lg:py-2 lg:px-4 *!*/
-        /*lg:mx-0 lg:table-cell*/
-        ;
-    }
-    .rowable.urls li code span {
-        @apply inline-flex truncate
-        /*@apply py-2 px-4 inline-flex text-sm;*/
-    }
+    /*.rowable.urls li {*/
+    /*    @apply flex  items-center;*/
+    /*}*/
+    /*.rowable.urls li code {*/
+    /*    @apply block truncate pr-4 w-full;*/
+    /*    word-break: break-word;*/
+    /*}*/
+    /*.rowable.urls li > span {*/
+    /*    @apply*/
+    /*    flex max-w-full*/
+    /*    whitespace-nowrap text-right*/
+    /*    mx-4*/
+    /*    px-2 py-1 leading-none bg-gray-100 rounded*/
+    /*    !*w-4 whitespace-nowrap text-right*!*/
+    /*    !*py-0 mx-4*!*/
+    /*    !*!*lg:py-2 lg:px-4 *!*!*/
+    /*    !*lg:mx-0 lg:table-cell*!*/
+    /*    ;*/
+    /*}*/
+    /*.rowable.urls li code span {*/
+    /*    @apply inline-flex truncate*/
+    /*    !*@apply py-2 px-4 inline-flex text-sm;*!*/
+    /*}*/
     .rowable.urls .url-match {
         @apply
             inline-flex

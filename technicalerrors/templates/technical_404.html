@@ -93,18 +93,56 @@
                     <ol class="rowable urls">
                 {% for pattern in urlpatterns %}
                     <li>
-<!--                        {{ pattern }}-->
-                        Regex
-                        <code>{% for pat in pattern %}
-                            {% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}
+                        <ul class="rowable">
+                            <li>
+                                <code>Regex</code>
+                                <pre>{% for pat in pattern %}{% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}
                             <span class="pattern url-match" aria-label="Regular expression match">{{ pat.pattern.regex.pattern }}</span>
                             {% else %}
                             <span class="pattern">{{ pat.pattern.regex.pattern }}</span>
                             {% endif %}
-                        {% endfor %}
-                        </code>
-                        {% for pat in pattern %}{% if pat.lookup_str %}
-                        <span>{{ pat.lookup_str }}</span>{% endif %}{% endfor %}
+                                {% endfor %}</pre>
+                            </li>
+<!--                            <li><code>URLConf</code>-->
+<!--                                <pre>{% for pat in pattern %}{% if pat.url_patterns %}<span>{{ pat.url_patterns }}</span>{% endif %}{% endfor %}</pre>-->
+<!--                            </li>-->
+                            {% for pat in pattern %}
+                            {% if pat.lookup_str %}
+                            <li><code>View</code>
+                                <pre>{{ pat.lookup_str }}</pre>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            <li><code>Name</code>
+                                <pre>{% for pat in pattern %}{% if pat.app_name %}{{ pat.app_name }}:{% endif %}{% if pat.namespace != pat.app_name %}{{ pat.namespace}}:{% endif %}{% if pat.name %}{{ pat.name }}{% endif %}{% endfor %}</pre>
+                            </li>
+<!--                            <li><code>Args</code>-->
+<!--                                <pre>{% for pat in pattern %}{{ pat.pattern.converters }}{% if pat.default_args %}{{ pat.default_args }}{% endif %}{% endfor %}</pre>-->
+<!--                            </li>-->
+                        </ul>
+<!--                        {{ pattern }}-->
+<!--                        Regex-->
+<!--                        <br>-->
+<!--                        <code>{% for pat in pattern %}-->
+
+<!--                        {{pat}}-->
+<!--                        <br>-->
+<!--                        3{{pat.urlconf_name}}4-->
+<!--                        <br>-->
+<!--                        d{{pat.callback}}c-->
+<!--                        <br>-->
+<!--                        a{{pat.namespace}}b-->
+<!--                            <br>-->
+<!--                        a{{pat.app_name}}b-->
+<!--                            {% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}-->
+<!--                            <span class="pattern url-match" aria-label="Regular expression match">{{ pat.pattern.regex.pattern }}</span>-->
+<!--                            {% else %}-->
+<!--                            <span class="pattern">{{ pat.pattern.regex.pattern }}</span>-->
+<!--                            {% endif %}-->
+<!--                        {% endfor %}-->
+<!--                        </code>-->
+<!--                        {% for pat in pattern %}{% if pat.lookup_str %}-->
+<!--                        <span>{{ pat.lookup_str }}</span>{% endif %}{% endfor %}-->
                     </li>
                 {% endfor %}
             </ol>

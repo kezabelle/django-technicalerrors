@@ -1023,47 +1023,32 @@ main > p {
 .rowable.request {
 
     }
-@media (min-width: 1024px) {
-
-  .rowable.urls {
-    display: block;
-  }
-}
-.rowable.urls li {
-  display: flex;
-  align-items: center;
-}
-.rowable.urls li code {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-right: 1rem;
-        word-break: break-word;
-}
-.rowable.urls li > span {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  display: flex;
-  max-width: 100%;
-  white-space: nowrap;
-  border-radius: 0.25rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  text-align: right;
-  line-height: 1;
-}
-.rowable.urls li code span {
-  display: inline-flex;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+/*.rowable.urls {*/
+/*    @apply lg:block;*/
+/*}*/
+/*.rowable.urls li {*/
+/*    @apply flex  items-center;*/
+/*}*/
+/*.rowable.urls li code {*/
+/*    @apply block truncate pr-4 w-full;*/
+/*    word-break: break-word;*/
+/*}*/
+/*.rowable.urls li > span {*/
+/*    @apply*/
+/*    flex max-w-full*/
+/*    whitespace-nowrap text-right*/
+/*    mx-4*/
+/*    px-2 py-1 leading-none bg-gray-100 rounded*/
+/*    !*w-4 whitespace-nowrap text-right*!*/
+/*    !*py-0 mx-4*!*/
+/*    !*!*lg:py-2 lg:px-4 *!*!*/
+/*    !*lg:mx-0 lg:table-cell*!*/
+/*    ;*/
+/*}*/
+/*.rowable.urls li code span {*/
+/*    @apply inline-flex truncate*/
+/*    !*@apply py-2 px-4 inline-flex text-sm;*!*/
+/*}*/
 .rowable.urls .url-match {
   margin-left: -0.375rem;
   margin-right: 0.125rem;
