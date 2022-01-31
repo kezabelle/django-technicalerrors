@@ -78,20 +78,34 @@
                 None of the patterns matched <code>{{ request.path_info }}</code>, so a <code>Resolver404</code> was raised.
             </p>
             {% endif %}
-        {% if urlpatterns %}
-            <ol class="traceback">
-                <li class="traceback-frame user active">
-                    <div class="traceback-where">
-                        <span class="traceback-file">
-                            Using the URLconf
+
+            Using the URLconf
             {% if urlconf != root_urlconf %}
             <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
             {% else %}
             <code>{{ root_urlconf }}</code>{% endif %}
+
+        {% if urlpatterns %}
+            <ol class="traceback">
+                <li class="traceback-frame user active">
+                    {% for pattern in urlpatterns %}
+                    <div class="traceback-where">
+                        <span class="traceback-file">
+                            Pattern <code>{{ forloop.counter }}</code> via
+                            {% if urlconf != root_urlconf %}
+            <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
+            {% else %}
+            <code>{{ root_urlconf }}</code>{% endif %}
                         </span>
+                        {% for pat in pattern %}
+                        {% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}
+                        <span class="traceback-function">
+                            Partial match
+                        </span>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                     <ol class="rowable urls">
-                {% for pattern in urlpatterns %}
                     <li>
                         <ul class="rowable">
                             <li>
