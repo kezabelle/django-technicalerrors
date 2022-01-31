@@ -70,10 +70,13 @@
         https://shadows.brumm.af/
         https://www.joshwcomeau.com/css/designing-shadows/
         */
-        box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.035),
-        0px 0px 8.8px rgba(0, 0, 0, 0.05),
-        0px 0px 21.1px rgba(0, 0, 0, 0.065),
-        0px 0px 70px rgba(0, 0, 0, 0.1);
+        box-shadow:
+          0px 0px 0.087rem rgba(0, 0, 0, 0.035),
+          0px 0px 0.250rem rgba(0, 0, 0, 0.05),
+          0px 0px 0.600rem rgba(0, 0, 0, 0.065),
+          0px 0px 2rem rgba(0, 0, 0, 0.1)
+        ;
+
     }
 
     .masthead-request {
@@ -149,17 +152,24 @@
 
     .tab-group {
         @apply
+            py-4
         px-4 md:px-8
             mb-8
          bg-red-50
-        flex-row flex-wrap justify-center flex max-w-[100vw]
+            border-b border-b-red-100
+        flex-row flex-wrap flex max-w-[100vw]
         order-2
         ;
     }
 
     .tab {
-        @apply uppercase text-sm grow cursor-pointer text-center px-1 py-4 border-b-4 border-b-red-50 font-semibold;
-        @apply hover:border-b-red-200 hover:text-red-400;
+        @apply uppercase rounded text-sm grow cursor-pointer text-center px-1 py-2 font-semibold mx-1
+            /*bg-red-50*/
+        border-red-50
+        /*border*/
+        hover:bg-red-100 hover:text-red-500
+        /*hover:border-red-500*/
+        ;
     }
 
     /*.tab:first-child {*/
@@ -171,7 +181,13 @@
     /*}*/
 
     .tab.active {
-        @apply transition duration-500 text-red-500 border-b-red-400;
+        @apply text-red-50
+        bg-red-400
+            /*shadow*/
+            /*pt-3*/
+            /*pb-4*/
+        ;
+        /*transition: padding ease-out 0.2s;*/
     }
 
     .wrappable {

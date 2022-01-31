@@ -466,10 +466,12 @@ header {
         https://shadows.brumm.af/
         https://www.joshwcomeau.com/css/designing-shadows/
         */
-        box-shadow: 0px 0px 3.2px rgba(0, 0, 0, 0.035),
-        0px 0px 8.8px rgba(0, 0, 0, 0.05),
-        0px 0px 21.1px rgba(0, 0, 0, 0.065),
-        0px 0px 70px rgba(0, 0, 0, 0.1);
+        box-shadow:
+          0px 0px 0.087rem rgba(0, 0, 0, 0.035),
+          0px 0px 0.250rem rgba(0, 0, 0, 0.05),
+          0px 0px 0.600rem rgba(0, 0, 0, 0.065),
+          0px 0px 2rem rgba(0, 0, 0, 0.1)
+        ;
 }
 .masthead-request {
   display: flex;
@@ -635,9 +637,13 @@ main > section {
   max-width: 100vw;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(254 226 226 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: rgb(254 242 242 / var(--tw-bg-opacity));
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -649,15 +655,17 @@ main > section {
   }
 }
 .tab {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
   flex-grow: 1;
   cursor: pointer;
-  border-bottom-width: 4px;
+  border-radius: 0.25rem;
   --tw-border-opacity: 1;
-  border-bottom-color: rgb(254 242 242 / var(--tw-border-opacity));
+  border-color: rgb(254 242 242 / var(--tw-border-opacity));
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   text-align: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -665,10 +673,10 @@ main > section {
   text-transform: uppercase;
 }
 .tab:hover {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(254 202 202 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 /*.tab:first-child {*/
 /*  @apply rounded-l;*/
@@ -677,15 +685,11 @@ main > section {
 /*  @apply rounded-r;*/
 /*}*/
 .tab.active {
-  --tw-border-opacity: 1;
-  border-bottom-color: rgb(248 113 113 / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
-  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 500ms;
+  color: rgb(254 242 242 / var(--tw-text-opacity));
+        /*transition: padding ease-out 0.2s;*/
 }
 /*.urls-explanation {*/
 /*    @apply pb-4;*/
