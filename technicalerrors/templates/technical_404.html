@@ -15,7 +15,7 @@
 <div class="tooltip2"></div>
 
 <header>
-<div class="guideline"><div class="guideline2"></div></div>
+<!--<div class="guideline"><div class="guideline2"></div></div>-->
     <div class="masthead-details">
 
         <div class="masthead-request">
@@ -69,71 +69,59 @@
         <section id="urlpatterns">
             <p>Django tried these URL patterns, in this order</p>
 
-            {% if resolved %}
-            <p class="urls-explanation">
-                The last pattern matched <code>{{ request.path_info }}</code> but an <code>Http404</code> exception was raised.
-            </p>
-            {% else %}
-            <p class="urls-explanation">
-                None of the patterns matched <code>{{ request.path_info }}</code>, so a <code>Resolver404</code> was raised.
-            </p>
-            {% endif %}
-
             Using the URLconf
             {% if urlconf != root_urlconf %}
             <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
             {% else %}
-            <code>{{ root_urlconf }}</code>{% endif %}
+            <code>{{ root_urlconf }}</code>{% endif %}{% if urlpatterns %}, tried <strong>{{ urlpatterns|length }}</strong> route{{ urlpatterns|length|pluralize:"s" }}:{% endif %}
 
         {% if urlpatterns %}
             <ol class="traceback">
-                <li class="traceback-frame user active">
                     {% for pattern in urlpatterns %}
+                <li class="traceback-frame {% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}user{% else %}library{% endif %}">
                     <div class="traceback-where">
                         <span class="traceback-file">
-                            Pattern <code>{{ forloop.counter }}</code> via
-                            {% if urlconf != root_urlconf %}
-            <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>
-            {% else %}
-            <code>{{ root_urlconf }}</code>{% endif %}
+                            <code>{% for pat in pattern %}{% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}<span class="pattern url-match" aria-label="Regular expression match">{{ pat.pattern.regex.pattern }}</span>{% else %}<span class="pattern">{{ pat.pattern.regex.pattern }}</span>{% endif %}{% endfor %}</code>
+<!--                            Pattern <code>{{ forloop.counter }}</code>-->
+<!--                            {% if forloop.first %}via-->
+<!--                            {% if urlconf != root_urlconf %}-->
+<!--            <code>{{ urlconf }}</code> instead of <code>ROOT_URLCONF</code> <code>{{ root_urlconf }}</code>-->
+<!--            {% else %}-->
+<!--            <code>{{ root_urlconf }}</code>{% endif %}-->
+<!--                            {% endif %}-->
+<!--                            -->
                         </span>
-                        {% for pat in pattern %}
                         {% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}
                         <span class="traceback-function">
                             Partial match
                         </span>
                         {% endif %}
-                        {% endfor %}
                     </div>
                     <ol class="rowable urls">
-                    <li>
-                        <ul class="rowable">
-                            <li>
-                                <code>Regex</code>
-                                <pre>{% for pat in pattern %}{% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}
-                            <span class="pattern url-match" aria-label="Regular expression match">{{ pat.pattern.regex.pattern }}</span>
-                            {% else %}
-                            <span class="pattern">{{ pat.pattern.regex.pattern }}</span>
-                            {% endif %}
-                                {% endfor %}</pre>
-                            </li>
+<!--                            <li>-->
+<!--                                <code>Regex</code>-->
+<!--                                <pre>{% for pat in pattern %}{% if forloop.parentloop.last and resolved or pattern|length > 1 and not forloop.last %}<span class="pattern url-match" aria-label="Regular expression match">{{ pat.pattern.regex.pattern }}</span>{% else %}<span class="pattern">{{ pat.pattern.regex.pattern }}</span>{% endif %}{% endfor %}</pre>-->
+<!--                            </li>-->
 <!--                            <li><code>URLConf</code>-->
 <!--                                <pre>{% for pat in pattern %}{% if pat.url_patterns %}<span>{{ pat.url_patterns }}</span>{% endif %}{% endfor %}</pre>-->
 <!--                            </li>-->
                             {% for pat in pattern %}
-                            {% if pat.lookup_str %}
-                            <li><code>View</code>
+                                {% if pat.urlconf_module|force_escape|slice:"0:10" == "&lt;module" %}
+                                <li><code>Module</code><pre>{{ pat.urlconf_module|force_escape|slice:"10:-4" }}</pre></li>
+                                {% endif %}
+                                {% if pat.lookup_str %}
+                                <li><code>View</code>
                                 <pre>{{ pat.lookup_str }}</pre>
-                            </li>
-                            {% endif %}
+                                </li>
+                                {% endif %}
                             {% endfor %}
+
                             <li><code>Name</code>
-                                <pre>{% for pat in pattern %}{% if pat.app_name %}{{ pat.app_name }}:{% endif %}{% if pat.namespace != pat.app_name %}{{ pat.namespace}}:{% endif %}{% if pat.name %}{{ pat.name }}{% endif %}{% endfor %}</pre>
+                                <pre>{% for pat in pattern %}{% if pat.app_name %}{{ pat.app_name }}:{% endif %}{% if pat.namespace != pat.app_name %}{{ pat.namespace}}:{% endif %}{% if pat.name %}{{ pat.name }}{% elif forloop.last %}...{% endif %}{% endfor %}</pre>
                             </li>
 <!--                            <li><code>Args</code>-->
 <!--                                <pre>{% for pat in pattern %}{{ pat.pattern.converters }}{% if pat.default_args %}{{ pat.default_args }}{% endif %}{% endfor %}</pre>-->
 <!--                            </li>-->
-                        </ul>
 <!--                        {{ pattern }}-->
 <!--                        Regex-->
 <!--                        <br>-->
@@ -157,13 +145,23 @@
 <!--                        </code>-->
 <!--                        {% for pat in pattern %}{% if pat.lookup_str %}-->
 <!--                        <span>{{ pat.lookup_str }}</span>{% endif %}{% endfor %}-->
-                    </li>
-                {% endfor %}
-            </ol>
+                    </ol>
                 </li>
+                {% endfor %}
             </ol>
 
         {% endif %}
+
+
+            {% if resolved %}
+            <p class="urls-explanation">
+                The last pattern matched <code>{{ request.path_info }}</code> but an <code>Http404</code> exception was raised.
+            </p>
+            {% else %}
+            <p class="urls-explanation">
+                None of the patterns matched <code>{{ request.path_info }}</code>, so a <code>Resolver404</code> was raised.
+            </p>
+            {% endif %}
 
 
         <h6 class="related-settings">Related settings</h6>

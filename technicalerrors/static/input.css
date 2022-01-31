@@ -236,11 +236,15 @@
     .traceback-frame {
         @apply cursor-pointer
         border border-gray-200
+        mb-4
         ;
     }
-    .traceback-frame + .traceback-frame {
-        @apply border-t-0
+    [data-expandable] {
+        @apply hover:border-gray-400
     }
+    /*.traceback-frame + .traceback-frame {*/
+    /*    @apply border-t-0*/
+    /*}*/
 
     .traceback-frame.active {
         @apply cursor-auto;
@@ -430,13 +434,13 @@
     /*    @apply lg:block;*/
     /*}*/
 
-    /*.rowable.urls li {*/
-    /*    @apply flex  items-center;*/
-    /*}*/
-    /*.rowable.urls li code {*/
-    /*    @apply block truncate pr-4 w-full;*/
-    /*    word-break: break-word;*/
-    /*}*/
+    .rowable.urls li {
+        /*@apply border-0;*/
+    }
+    .rowable.urls li pre {
+        @apply truncate;
+        word-break: break-word;
+    }
     /*.rowable.urls li > span {*/
     /*    @apply*/
     /*    flex max-w-full*/
@@ -453,13 +457,34 @@
     /*    @apply inline-flex truncate*/
     /*    !*@apply py-2 px-4 inline-flex text-sm;*!*/
     /*}*/
-    .rowable.urls .url-match {
+    .pattern {
+        @apply
+        /*mr-4*/
+        whitespace-normal
+        ;
+    }
+    /*.url-match {*/
+    /*    @apply*/
+    /*        inline-flex*/
+    /*    bg-green-50 text-green-700*/
+    /*    py-0.5 px-1*/
+    /*    mr-1*/
+    /*    !*-ml-1.5 mr-0.5*!*/
+    /*    border-green-200 border rounded*/
+    /*    ;*/
+    /*}*/
+    .url-match {
         @apply
             inline-flex
-        bg-green-50 text-green-700
-        py-0.5 px-1.5
-        -ml-1.5 mr-0.5
-        border-green-200 border rounded
+        text-green-600
+        /*py-0.5*/
+        /*    border*/
+            /*border-green-50*/
+            bg-green-100
+            /*rounded*/
+        /*mr-1*/
+        /*-ml-1.5 mr-0.5*/
+        /*border-gray-200 border rounded*/
         ;
     }
 

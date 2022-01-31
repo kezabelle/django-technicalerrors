@@ -742,14 +742,19 @@ main > p {
         word-break: break-word;
 }
 .traceback-frame {
+  margin-bottom: 1rem;
   cursor: pointer;
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
-.traceback-frame + .traceback-frame {
-  border-top-width: 0px;
+[data-expandable]:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
+/*.traceback-frame + .traceback-frame {*/
+/*    @apply border-t-0*/
+/*}*/
 .traceback-frame.active {
   cursor: auto;
 }
@@ -1026,13 +1031,15 @@ main > p {
 /*.rowable.urls {*/
 /*    @apply lg:block;*/
 /*}*/
-/*.rowable.urls li {*/
-/*    @apply flex  items-center;*/
-/*}*/
-/*.rowable.urls li code {*/
-/*    @apply block truncate pr-4 w-full;*/
-/*    word-break: break-word;*/
-/*}*/
+.rowable.urls li {
+        /*@apply border-0;*/
+    }
+.rowable.urls li pre {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+        word-break: break-word;
+}
 /*.rowable.urls li > span {*/
 /*    @apply*/
 /*    flex max-w-full*/
@@ -1049,22 +1056,25 @@ main > p {
 /*    @apply inline-flex truncate*/
 /*    !*@apply py-2 px-4 inline-flex text-sm;*!*/
 /*}*/
-.rowable.urls .url-match {
-  margin-left: -0.375rem;
-  margin-right: 0.125rem;
+.pattern {
+  white-space: normal;
+}
+/*.url-match {*/
+/*    @apply*/
+/*        inline-flex*/
+/*    bg-green-50 text-green-700*/
+/*    py-0.5 px-1*/
+/*    mr-1*/
+/*    !*-ml-1.5 mr-0.5*!*/
+/*    border-green-200 border rounded*/
+/*    ;*/
+/*}*/
+.url-match {
   display: inline-flex;
-  border-radius: 0.25rem;
-  border-width: 1px;
-  --tw-border-opacity: 1;
-  border-color: rgb(187 247 208 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: rgb(240 253 244 / var(--tw-bg-opacity));
-  padding-top: 0.125rem;
-  padding-bottom: 0.125rem;
-  padding-left: 0.375rem;
-  padding-right: 0.375rem;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
-  color: rgb(21 128 61 / var(--tw-text-opacity));
+  color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 .tooltip2 {
   pointer-events: none;
