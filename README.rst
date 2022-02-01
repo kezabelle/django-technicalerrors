@@ -50,6 +50,7 @@ Goals
 - Maintain the same level of information the current debug pages have (because
   that's all the context data I have).
 - Responsive.
+- Dark mode support.
 - Clarity of information. If it's harder to see the information, well, job failed.
 - Accessible. Mostly because I don't know as much about modern a11y as I should.
 - Ideally, reader mode friendly. I'm not sure how achievable that is, but it'd

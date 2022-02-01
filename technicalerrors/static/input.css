@@ -10,7 +10,11 @@
     }
 
     body {
-        @apply overflow-y-scroll text-gray-500 bg-white flex flex-col;
+        @apply overflow-y-scroll
+        text-gray-500 dark:text-gray-300
+        flex flex-col
+        bg-white dark:bg-gray-800
+        ;
         max-width: 100vw;
         /*height: 100%;*/
         overscroll-behavior: none;
@@ -49,8 +53,10 @@
      }
 
     footer {
-        @apply py-2 px-8 sm:py-4 md:px-12
-        bg-red-700 text-white max-w-[100vw]
+        @apply
+        py-2 px-8 sm:py-4 md:px-12
+        bg-red-700 dark:bg-red-800
+        text-white max-w-[100vw]
         text-sm text-left md:text-base xl:text-center
         order-1
         ;
@@ -60,7 +66,11 @@
     }
 
     header {
-        @apply bg-red-400 p-4 md:p-8 order-2;
+        @apply
+        p-4 md:p-8
+        order-2
+        bg-red-400 dark:bg-red-900
+        ;
     }
 
     .masthead-details {
@@ -155,8 +165,8 @@
             py-4
         px-4 md:px-8
             mb-8
-         bg-red-50
-            border-b border-b-red-100
+         bg-red-50 dark:bg-gray-700
+        border-b border-b-red-100 dark:border-b-gray-600
         flex-row flex-wrap flex max-w-[100vw]
         order-2
         ;
