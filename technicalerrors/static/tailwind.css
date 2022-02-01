@@ -437,7 +437,7 @@ footer {
 
   footer {
     --tw-bg-opacity: 1;
-    background-color: rgb(22 78 99 / var(--tw-bg-opacity));
+    background-color: rgb(7 89 133 / var(--tw-bg-opacity));
   }
 }
 @media (min-width: 640px) {
@@ -478,13 +478,22 @@ header {
 
   header {
     --tw-bg-opacity: 1;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+    background-color: rgb(12 74 110 / var(--tw-bg-opacity));
   }
 }
 @media (min-width: 768px) {
 
   header {
     padding: 2rem;
+  }
+}
+@media (prefers-color-scheme: dark) {
+
+  @media (min-width: 768px) {
+
+    header {
+      padding-bottom: 0px;
+    }
   }
 }
 .masthead-details {
@@ -501,7 +510,7 @@ header {
 
   .masthead-details {
     --tw-border-opacity: 1;
-    border-color: rgb(75 85 99 / var(--tw-border-opacity));
+    border-color: rgb(3 105 161 / var(--tw-border-opacity));
   }
 
   .masthead-details {
@@ -540,7 +549,7 @@ header {
 
   .masthead-request {
     --tw-border-opacity: 1;
-    border-bottom-color: rgb(75 85 99 / var(--tw-border-opacity));
+    border-bottom-color: rgb(3 105 161 / var(--tw-border-opacity));
   }
 }
 @media (min-width: 768px) {
@@ -693,7 +702,7 @@ header {
 
   .masthead-server-info {
     --tw-border-opacity: 1;
-    border-top-color: rgb(75 85 99 / var(--tw-border-opacity));
+    border-top-color: rgb(3 105 161 / var(--tw-border-opacity));
   }
 
   .masthead-server-info {
@@ -745,12 +754,12 @@ main > section {
 
   .tab-group {
     --tw-border-opacity: 1;
-    border-bottom-color: rgb(75 85 99 / var(--tw-border-opacity));
+    border-bottom-color: rgb(3 105 161 / var(--tw-border-opacity));
   }
 
   .tab-group {
     --tw-bg-opacity: 1;
-    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+    background-color: rgb(12 74 110 / var(--tw-bg-opacity));
   }
 }
 @media (min-width: 768px) {
@@ -788,7 +797,7 @@ main > section {
 
   .tab:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+    background-color: rgb(7 89 133 / var(--tw-bg-opacity));
   }
 
   .tab:hover {
@@ -812,7 +821,7 @@ main > section {
 
   .tab.active {
     --tw-bg-opacity: 1;
-    background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+    background-color: rgb(3 105 161 / var(--tw-bg-opacity));
   }
 
   .tab.active {
@@ -1049,6 +1058,18 @@ main > p {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+@media (prefers-color-scheme: dark) {
+
+  .traceback-context-raising .specific {
+    --tw-bg-opacity: 1;
+    background-color: rgb(3 105 161 / var(--tw-bg-opacity));
+  }
+
+  .traceback-context-raising .specific {
+    --tw-text-opacity: 1;
+    color: rgb(224 242 254 / var(--tw-text-opacity));
+  }
+}
 .traceback-frame.library .traceback-context-raising {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
@@ -1057,11 +1078,25 @@ main > p {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
+@media (prefers-color-scheme: dark) {
+
+  .traceback-frame.user .traceback-context-raising {
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity));
+  }
+}
 .traceback-frame.active .traceback-context-raising {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  .traceback-frame.active .traceback-context-raising {
+    --tw-bg-opacity: 1;
+    background-color: rgb(12 74 110 / var(--tw-bg-opacity));
+  }
 }
 .traceback-locals {
   display: none;
@@ -1078,6 +1113,13 @@ main > p {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
+}
+@media (prefers-color-scheme: dark) {
+
+  .traceback-locals > h6 {
+    --tw-border-opacity: 1;
+    border-bottom-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
 }
 .traceback-locals > code {
   display: block;
@@ -1258,6 +1300,17 @@ main > p {
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  .url-match {
+    background-color: inherit;
+  }
+
+  .url-match {
+    --tw-text-opacity: 1;
+    color: rgb(56 189 248 / var(--tw-text-opacity));
+  }
 }
 .tooltip2 {
   pointer-events: none;
