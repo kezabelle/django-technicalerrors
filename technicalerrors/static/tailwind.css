@@ -302,7 +302,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   body {
     --tw-text-opacity: 1;
-    color: rgb(209 213 219 / var(--tw-text-opacity));
+    color: rgb(156 163 175 / var(--tw-text-opacity));
   }
 }
 
@@ -437,7 +437,7 @@ footer {
 
   footer {
     --tw-bg-opacity: 1;
-    background-color: rgb(153 27 27 / var(--tw-bg-opacity));
+    background-color: rgb(22 78 99 / var(--tw-bg-opacity));
   }
 }
 @media (min-width: 640px) {
@@ -478,7 +478,7 @@ header {
 
   header {
     --tw-bg-opacity: 1;
-    background-color: rgb(127 29 29 / var(--tw-bg-opacity));
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
   }
 }
 @media (min-width: 768px) {
@@ -492,6 +492,24 @@ header {
   border-radius: 0.25rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  .masthead-details {
+    border-width: 1px;
+  }
+
+  .masthead-details {
+    --tw-border-opacity: 1;
+    border-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
+
+  .masthead-details {
+    --tw-bg-opacity: 1;
+    background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  }
+}
+.masthead-details {
         /*
         https://shadows.brumm.af/
         https://www.joshwcomeau.com/css/designing-shadows/
@@ -502,7 +520,8 @@ header {
           0px 0px 0.600rem rgba(0, 0, 0, 0.065),
           0px 0px 2rem rgba(0, 0, 0, 0.1)
         ;
-}
+
+    }
 .masthead-request {
   display: flex;
   flex-direction: row;
@@ -516,6 +535,13 @@ header {
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+@media (prefers-color-scheme: dark) {
+
+  .masthead-request {
+    --tw-border-opacity: 1;
+    border-bottom-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
 }
 @media (min-width: 768px) {
 
@@ -541,6 +567,18 @@ header {
   line-height: 1;
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  .masthead-request-badge {
+    --tw-bg-opacity: 1;
+    background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+  }
+
+  .masthead-request-badge {
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity));
+  }
 }
 .masthead-request-url {
   overflow: hidden;
@@ -589,6 +627,13 @@ header {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
+@media (prefers-color-scheme: dark) {
+
+  .masthead-error-title {
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity));
+  }
+}
 @media (min-width: 768px) {
 
   .masthead-error-title {
@@ -602,6 +647,13 @@ header {
   font-weight: 400;
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  .masthead-error-subtitle {
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity));
+  }
 }
 @media (min-width: 768px) {
 
@@ -636,6 +688,18 @@ header {
   line-height: 1.25rem;
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  .masthead-server-info {
+    --tw-border-opacity: 1;
+    border-top-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
+
+  .masthead-server-info {
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity));
+  }
 }
 @media (min-width: 768px) {
 
@@ -720,6 +784,18 @@ main > section {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
+@media (prefers-color-scheme: dark) {
+
+  .tab:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+  }
+
+  .tab:hover {
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity));
+  }
+}
 /*.tab:first-child {*/
 /*  @apply rounded-l;*/
 /*}*/
@@ -731,8 +807,22 @@ main > section {
   background-color: rgb(248 113 113 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(254 242 242 / var(--tw-text-opacity));
-        /*transition: padding ease-out 0.2s;*/
 }
+@media (prefers-color-scheme: dark) {
+
+  .tab.active {
+    --tw-bg-opacity: 1;
+    background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+  }
+
+  .tab.active {
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity));
+  }
+}
+.tab.active {
+        /*transition: padding ease-out 0.2s;*/
+    }
 /*.urls-explanation {*/
 /*    @apply pb-4;*/
 /*}*/
@@ -794,9 +884,23 @@ main > p {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
+@media (prefers-color-scheme: dark) {
+
+  .traceback-frame {
+    --tw-border-opacity: 1;
+    border-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
+}
 [data-expandable]:hover {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  [data-expandable]:hover {
+    --tw-border-opacity: 1;
+    border-color: rgb(107 114 128 / var(--tw-border-opacity));
+  }
 }
 /*.traceback-frame + .traceback-frame {*/
 /*    @apply border-t-0*/
@@ -822,17 +926,43 @@ main > p {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+@media (prefers-color-scheme: dark) {
+
+  .traceback-where {
+    --tw-border-opacity: 1;
+    border-bottom-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
+}
 .traceback-frame.library .traceback-where {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
+@media (prefers-color-scheme: dark) {
+
+  .traceback-frame.library .traceback-where {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  }
+}
 .traceback-frame.user .traceback-where {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+@media (prefers-color-scheme: dark) {
+
+  .traceback-frame.user .traceback-where {
+    --tw-bg-opacity: 1;
+    background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+  }
+
+  .traceback-frame.user .traceback-where {
+    --tw-text-opacity: 1;
+    color: rgb(209 213 219 / var(--tw-text-opacity));
+  }
 }
 .traceback-file {
   flex-grow: 1;
@@ -999,6 +1129,13 @@ main > p {
   display: block;
   border-bottom-width: 1px;
   padding-bottom: 0.5rem;
+}
+@media (prefers-color-scheme: dark) {
+
+  .rowable li {
+    --tw-border-opacity: 1;
+    border-bottom-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
 }
 @media (min-width: 1024px) {
 

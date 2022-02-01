@@ -11,7 +11,7 @@
 
     body {
         @apply overflow-y-scroll
-        text-gray-500 dark:text-gray-300
+        text-gray-500 dark:text-gray-400
         flex flex-col
         bg-white dark:bg-gray-800
         ;
@@ -55,7 +55,7 @@
     footer {
         @apply
         py-2 px-8 sm:py-4 md:px-12
-        bg-red-700 dark:bg-red-800
+        bg-red-700 dark:bg-cyan-900
         text-white max-w-[100vw]
         text-sm text-left md:text-base xl:text-center
         order-1
@@ -69,12 +69,15 @@
         @apply
         p-4 md:p-8
         order-2
-        bg-red-400 dark:bg-red-900
+        bg-red-400 dark:bg-gray-900
         ;
     }
 
     .masthead-details {
-        @apply bg-white rounded w-full
+        @apply
+        bg-white dark:bg-gray-800
+        dark:border dark:border-gray-600
+        rounded w-full
         ;
         /*
         https://shadows.brumm.af/
@@ -94,11 +97,15 @@
             px-4
             py-2
             md:py-4
-        border-b flex flex-row items-start justify-start truncate;
+        border-b dark:border-b-gray-600
+        flex flex-row items-start justify-start truncate;
     }
 
     .masthead-request-badge {
-        @apply inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-sm text-gray-500 bg-gray-200 rounded;
+        @apply inline-flex items-center justify-center px-2 py-1 font-bold leading-none text-sm rounded
+        text-gray-500 dark:text-gray-400
+        bg-gray-200 dark:bg-gray-600
+        ;
     }
 
     .masthead-request-url {
@@ -120,13 +127,17 @@
     }
 
     .masthead-error-title {
-        @apply text-xl text-red-500 font-semibold;
-        @apply md:text-3xl;
+        @apply text-xl font-semibold
+        text-red-500 dark:text-gray-300
+
+        md:text-3xl
+        ;
     }
 
     .masthead-error-subtitle {
         @apply
-        text-base text-red-500 font-normal
+        text-base font-normal
+        text-red-500 dark:text-gray-300
         md:text-lg
         ;
         word-break: break-word;
@@ -141,7 +152,11 @@
 
     .masthead-server-info {
         @apply p-4
-        flex flex-col border-t w-full text-gray-500 text-sm
+        flex flex-col
+            w-full
+        border-t  dark:border-t-gray-600
+        text-gray-500 dark:text-gray-400
+        text-sm
         md:flex-row;
     }
 
@@ -178,6 +193,7 @@
         border-red-50
         /*border*/
         hover:bg-red-100 hover:text-red-500
+        hover:dark:bg-gray-600 hover:dark:text-gray-300
         /*hover:border-red-500*/
         ;
     }
@@ -191,8 +207,10 @@
     /*}*/
 
     .tab.active {
-        @apply text-red-50
+        @apply
+        text-red-50
         bg-red-400
+        dark:bg-gray-500 dark:text-gray-300
             /*shadow*/
             /*pt-3*/
             /*pb-4*/
@@ -262,11 +280,12 @@
     .traceback-frame {
         @apply cursor-pointer
         border border-gray-200
+        dark:border-gray-600
         mb-4
         ;
     }
     [data-expandable] {
-        @apply hover:border-gray-400
+        @apply hover:border-gray-400 hover:dark:border-gray-500
     }
     /*.traceback-frame + .traceback-frame {*/
     /*    @apply border-t-0*/
@@ -280,16 +299,21 @@
         @apply
         py-2 px-4
             border-b border-b-gray-200
+        dark:border-b-gray-600
         flex flex-row items-center text-sm
         sticky top-0 z-40;
     }
 
     .traceback-frame.library .traceback-where {
-        @apply bg-gray-50 text-gray-400;
+        @apply bg-gray-50 text-gray-400
+        dark:bg-gray-700
+        ;
     }
 
     .traceback-frame.user .traceback-where {
-        @apply bg-gray-100 text-gray-900;
+        @apply bg-gray-100 text-gray-900
+        dark:bg-gray-600 dark:text-gray-300
+        ;
     }
 
     .traceback-file {
@@ -419,6 +443,7 @@
         @apply
         block
         border-b
+        dark:border-b-gray-600
         pb-2
         lg:pb-0 lg:table-row
         /*hover:bg-yellow-50*/
